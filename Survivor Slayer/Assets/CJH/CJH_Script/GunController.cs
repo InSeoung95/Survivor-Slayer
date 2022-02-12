@@ -6,16 +6,21 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     [SerializeField] private Gun currentGun;
+    public GameObject bullet;
+    public Transform bulletPos;
 
-    public float currentFireRate = 0f;
+    public float currentFireRate;      //연사속도
 
     private AudioSource _audioSource;
 
-    private bool isReload = false;
-    private bool isFineSightMode = false;
-    private bool isSightTurn = false;
+    public bool isReload = false;
+    public bool isFineSightMode = false;
 
     [SerializeField] private Vector3 originPos;     //조준전 포지션
+
+    private RaycastHit hitinfo;
+    [SerializeField] private Camera thecam;
+    [SerializeField] private GameObject hit_effect_prefab;
 
     private void Start()
     {
@@ -63,15 +68,31 @@ public class GunController : MonoBehaviour
 
     private void Shoot()
     {
+        // 무기 탄창수 감소
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate;
+        
+        // 무기발사시 불꽃,효과음효과
         currentGun.muzzleFlash.Play();
         // PlaySE(currentGun.fireSound);
-        
+
+        // Hit();   //raycast 방식인데 bullet생성이 더 좋은거라 생각 나중에 삭제해서 통합
+        GameObject intantBullet = Instantiate(bullet, bulletPos.position, bulletPos.rotation);
+        Rigidbody bulletRigid = intantBullet.GetComponent<Rigidbody>();
+        bulletRigid.velocity = bulletPos.forward * 80;
+
         StopAllCoroutines();
         StartCoroutine(RetroActionCoroutine());
-        
-        Debug.Log("발사");
+    }
+
+    private void Hit()
+    {
+        if (Physics.Raycast(thecam.transform.position, thecam.transform.forward, out hitinfo))
+        {
+            var hiteffect = Instantiate(hit_effect_prefab, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
+            Destroy(hiteffect,2f);
+            Debug.Log(hitinfo);
+        }
     }
 
     private void TryReload()
@@ -141,6 +162,7 @@ public class GunController : MonoBehaviour
         }
     }
 
+    //정조준 활성화
     IEnumerator FineSightActivateCoroutine()
     {
         while (currentGun.transform.localPosition != currentGun.fineSightOriginPos)
@@ -151,6 +173,7 @@ public class GunController : MonoBehaviour
         }
     }
     
+    //정조준 비활성화
     IEnumerator FineSightDeactivateCoroutine()
     {
         while (currentGun.transform.localPosition != originPos)
@@ -161,6 +184,7 @@ public class GunController : MonoBehaviour
         }
     }
 
+    //반동 코루틴
     IEnumerator RetroActionCoroutine()
     {
         Vector3 recoilBack = new Vector3(originPos.x, originPos.y, currentGun.retroActionForce);

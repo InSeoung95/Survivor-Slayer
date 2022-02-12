@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     public float fireRate = 0.1f;  //연사속도
     public float reloadTime = 1f;
 
-    public float damage;
+    public float damage =10f; //테스트용 데미지 -> 수정해서 변하게
     public int reloadBulletCount ;       // 총알 재장전 갯수
     public int currentBulletCount = 30;      // 현재 탄창의 갯수
     private int maxBulletCount = 120;   // 플레이어의 최대 탄창갯수
