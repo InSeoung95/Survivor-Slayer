@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _myRigid;
 
     private bool isRun = false;
+    private bool isBorder = false; // 이동시 벽 충돌체크
     
     void Start()
     {
@@ -55,11 +56,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 _moveHorizontal = transform.right * _moveDirX;
         Vector3 _moveVertical = transform.forward * _moveDirZ;
-
-        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
-
-        // transform.position += _velocity * walkSpeed * Time.deltaTime;
-        _myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+        Vector3 _moveVector = (_moveHorizontal + _moveVertical).normalized;
+        Vector3 _velocity = _moveVector * applySpeed;
+        
+        isBorder = Physics.Raycast(transform.position, _moveVector, 1, LayerMask.GetMask("Wall"));
+        if (!isBorder)
+        {
+            // transform.position += _velocity * Time.deltaTime;
+            _myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+        }
     }
 
     private void CameraRotation()
