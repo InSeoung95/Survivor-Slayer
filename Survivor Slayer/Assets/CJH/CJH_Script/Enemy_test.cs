@@ -73,7 +73,7 @@ public class Enemy_test : MonoBehaviour
         {
             //attack test
             PlayerHealth testhealth = collision.gameObject.GetComponent<PlayerHealth>();
-            testhealth.health -= 1f;
+            testhealth.currenthealth -= 10f;
             attackDelay = 1f;
         }
     }
