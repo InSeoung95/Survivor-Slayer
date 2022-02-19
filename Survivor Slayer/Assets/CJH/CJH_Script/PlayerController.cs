@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
         Vector3 _moveVector = (_moveHorizontal + _moveVertical).normalized;
         Vector3 _velocity = _moveVector * applySpeed;
         
-        Debug.Log(_velocity);
         isBorder = Physics.Raycast(transform.position, _moveVector, 1, LayerMask.GetMask("Wall"));
         if (!isBorder)
         {

@@ -79,7 +79,6 @@ public class GunController : MonoBehaviour
         // Hit();   //raycast 방식인데 bullet생성이 더 좋은거라 생각 나중에 삭제해서 통합
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
 
         Physics.Raycast(thecam.transform.position, thecam.transform.forward, out hitinfo);
         bulletPos.LookAt(hitinfo.point);
