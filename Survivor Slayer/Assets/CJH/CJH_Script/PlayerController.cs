@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _myRigid;
 
     private bool isRun = false;
-    private bool isBorder = false; // ì´ë™ì‹œ ë²½ ì¶©ëŒì²´í¬
-    
+    private bool isBorder = false; //º¸´õ°¡ ÀÌµ¿½Ã º®Ãæµ¹Ã¼Å©ÇÏ´Â°Å
+
     void Start()
     {
         _myRigid = GetComponent<Rigidbody>();
