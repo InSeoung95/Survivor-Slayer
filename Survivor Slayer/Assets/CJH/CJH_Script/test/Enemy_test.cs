@@ -12,9 +12,8 @@ public class Enemy_test : MonoBehaviour
     public float attackDelay = 1f;
 
     private Rigidbody _rigid;
-    private BoxCollider _boxCollider;   // 좀비 몸체
-    private SphereCollider _sphereCollider; // 좀비 인식범위
-    private GameObject Target;
+    private BoxCollider _boxCollider;   // 좀비 공격범위
+    public GameObject Target;
 
     // 부위파괴 테스트용 왼팔 오른팔
     public GameObject leftArm;
@@ -26,7 +25,6 @@ public class Enemy_test : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
-        _sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Update()
@@ -42,9 +40,8 @@ public class Enemy_test : MonoBehaviour
         if (testMove)
         {
             Vector3 dir = Target.transform.position - transform.position;
+            dir.y = 0;
             dir.Normalize();
-            
-            Debug.Log(dir);
 
             // transform.position += dir * MoveSpeed * Time.deltaTime;
             _rigid.MovePosition(transform.position + (transform.forward * MoveSpeed * Time.deltaTime));
@@ -68,32 +65,24 @@ public class Enemy_test : MonoBehaviour
             currentHealth -= 1f;
             Destroy(collision.gameObject, 0.5f);
         }
-        
-        else if (collision.gameObject.tag == "Player" && attackDelay < 0)
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && attackDelay < 0)
         {
             //attack test
-            PlayerHealth testhealth = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerHealth testhealth = other.gameObject.GetComponent<PlayerHealth>();
             testhealth.currenthealth -= 10f;
+            attackDelay = 1f;
+        }
+        else if (other.gameObject.tag == "Base" && attackDelay < 0)
+        {
+            Base testBaseHealth = other.gameObject.GetComponent<Base>();
+            testBaseHealth.baseHealth -= 10f;
             attackDelay = 1f;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Target = other.gameObject;
-            testMove = true;
-            _sphereCollider.radius = 20f;  // 플레이어 인식 -> 플레이어 추적범위 : 플레이어가 추적범위(20f) 벗어나면 다시 인식(10f)으로
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            testMove = false;
-            _sphereCollider.radius = 10f;
-        }
-    }
+   
 }
