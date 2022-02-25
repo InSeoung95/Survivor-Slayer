@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _myRigid;
 
     private bool isRun = false;
-    private bool isBorder = false; //보더가 이동시 벽충돌체크하는거
+    private bool isBorder = false; // 보더가 이동시 벽충돌체크하는거
 
     void Start()
     {

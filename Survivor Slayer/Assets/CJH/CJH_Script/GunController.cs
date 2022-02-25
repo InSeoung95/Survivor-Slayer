@@ -56,7 +56,7 @@ public class GunController : MonoBehaviour
     {
         if (!isReload)
         {
-            if(currentGun.carryBulletCount > 0)
+            if(currentGun.currentBulletCount > 0)
                 Shoot();
             else
             {

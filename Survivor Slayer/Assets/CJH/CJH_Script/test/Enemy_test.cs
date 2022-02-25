@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy_test : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Enemy_test : MonoBehaviour
     private Rigidbody _rigid;
     private BoxCollider _boxCollider;   // 좀비 공격범위
     public GameObject Target;
+    public GameObject[] ItemPrefab;     // 힐팩, 탄약, 파워게이지, 초능력게이지
 
     // 부위파괴 테스트용 왼팔 오른팔
     public GameObject leftArm;
@@ -54,8 +56,40 @@ public class Enemy_test : MonoBehaviour
 
     private void Die()
     {
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
+        {
+            DropItem();
             Destroy(this.gameObject);
+        }
+    }
+
+    private void DropItem()
+    {
+        int healDrop = Random.Range(0, 100);    // 힐팩 드랍률 10%
+        int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률 20%
+        int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률 10%
+        int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률 20%
+        var dropPoint = Vector3.up * 3;
+        if (healDrop < 10)
+        {
+            var itemGo = Instantiate<GameObject>(this.ItemPrefab[0]);
+            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+        }
+        if (ammoDrop < 20)
+        {
+            var itemGo = Instantiate<GameObject>(this.ItemPrefab[1]);
+            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+        }
+        if (powerDrop < 10)
+        {
+            var itemGo = Instantiate<GameObject>(this.ItemPrefab[2]);
+            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+        }
+        if (psychoDrop < 20)
+        {
+            var itemGo = Instantiate<GameObject>(this.ItemPrefab[3]);
+            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -72,7 +106,7 @@ public class Enemy_test : MonoBehaviour
         if (other.gameObject.tag == "Player" && attackDelay < 0)
         {
             //attack test
-            PlayerHealth testhealth = other.gameObject.GetComponent<PlayerHealth>();
+            PlayerInfo testhealth = other.gameObject.GetComponent<PlayerInfo>();
             testhealth.currenthealth -= 10f;
             attackDelay = 1f;
         }
