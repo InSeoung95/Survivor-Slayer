@@ -43,7 +43,7 @@ public class PlayerItem : MonoBehaviour
                         _playerInfo.currentPsycho = _playerInfo.maxPsycho;
                     break;
             }
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }

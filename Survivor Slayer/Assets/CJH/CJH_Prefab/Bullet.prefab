@@ -182,3 +182,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb1b063048490a49a9721484a4097c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletTimer: 5

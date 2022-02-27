@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    private const int BULLET_SPEED = 80;
+    
     [SerializeField] private Gun currentGun;
     public GameObject bullet;
     public Transform bulletPos;
+    public ObjectManager _ObjectManager;
 
     public float currentFireRate;      //연사속도
 
@@ -82,10 +85,10 @@ public class GunController : MonoBehaviour
 
         Physics.Raycast(thecam.transform.position, thecam.transform.forward, out hitinfo);
         bulletPos.LookAt(hitinfo.point);
-
-        GameObject intantBullet = Instantiate(bullet, bulletPos.position, bulletPos.rotation);
+        
+        GameObject intantBullet = _ObjectManager.MakeObj("Bullet", bulletPos.position, bulletPos.rotation);
         Rigidbody bulletRigid = intantBullet.GetComponent<Rigidbody>();
-        bulletRigid.velocity = bulletPos.forward * 80;
+        bulletRigid.velocity = bulletPos.forward * BULLET_SPEED;
 
         // StopAllCoroutines();
         // StartCoroutine(RetroActionCoroutine());

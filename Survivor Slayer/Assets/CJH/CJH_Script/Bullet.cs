@@ -5,19 +5,35 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int bulletTimer = 5;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-            Destroy(gameObject, 2);
+            gameObject.transform.position = Vector3.zero;
+            gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Wall")
         {
-            Destroy(gameObject);
+            gameObject.transform.position = Vector3.zero;
+            gameObject.SetActive(false);
         }
         else if(collision.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
+            gameObject.transform.position = Vector3.zero;
+            gameObject.SetActive(false);
+            
         }
+    }
+    
+    private void OnEnable()
+    {
+        StartCoroutine(TimeOverDestroyBullet());
+    }
+
+    private IEnumerator TimeOverDestroyBullet()
+    {
+        yield return new WaitForSeconds(bulletTimer);
+        gameObject.SetActive(false);
     }
 }

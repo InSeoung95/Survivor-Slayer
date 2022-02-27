@@ -6,16 +6,20 @@ using Random = UnityEngine.Random;
 
 public class Enemy_test : MonoBehaviour
 {
-    public float maxhealth = 10f;
-    public float currentHealth = 10f;
+    private const float ENEMY_MAX_HEALTH = 10f;     //좀비 최대 체력
+    private const float ENEMY_MOVESPEED = 1.6f;     //좀비 이동속도
+    private const float ENEMY_ATTACK_DELAY = 1f;    //좀비 공격속도
 
-    public float MoveSpeed = 1.6f;
-    public float attackDelay = 1f;
+    public float maxhealth = ENEMY_MAX_HEALTH;
+    public float currentHealth = ENEMY_MAX_HEALTH;
+
+    public float MoveSpeed = ENEMY_MOVESPEED;
+    public float attackDelay = ENEMY_ATTACK_DELAY;
 
     private Rigidbody _rigid;
     private BoxCollider _boxCollider;   // 좀비 공격범위
-    public GameObject Target;
-    public GameObject[] ItemPrefab;     // 힐팩, 탄약, 파워게이지, 초능력게이지
+    public GameObject Target;           // 좀비가 이동할 타겟
+    public ObjectManager _ObjectManager;
 
     // 부위파괴 테스트용 왼팔 오른팔
     public GameObject leftArm;
@@ -59,7 +63,7 @@ public class Enemy_test : MonoBehaviour
         if (currentHealth <= 0)
         {
             DropItem();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -72,23 +76,23 @@ public class Enemy_test : MonoBehaviour
         var dropPoint = Vector3.up * 3;
         if (healDrop < 10)
         {
-            var itemGo = Instantiate<GameObject>(this.ItemPrefab[0]);
-            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemGo = _ObjectManager.MakeObj("Item_HealPack", itemposition, Quaternion.identity);
         }
         if (ammoDrop < 20)
         {
-            var itemGo = Instantiate<GameObject>(this.ItemPrefab[1]);
-            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemGo = _ObjectManager.MakeObj("Item_Ammo", itemposition, Quaternion.identity);
         }
         if (powerDrop < 10)
         {
-            var itemGo = Instantiate<GameObject>(this.ItemPrefab[2]);
-            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemGo = _ObjectManager.MakeObj("Item_PowerGage", itemposition, Quaternion.identity);
         }
         if (psychoDrop < 20)
         {
-            var itemGo = Instantiate<GameObject>(this.ItemPrefab[3]);
-            itemGo.transform.position = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemGo = _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
         }
     }
 
@@ -97,7 +101,6 @@ public class Enemy_test : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             currentHealth -= 1f;
-            Destroy(collision.gameObject, 0.5f);
         }
     }
 
