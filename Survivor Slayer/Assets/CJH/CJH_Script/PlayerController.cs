@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _myRigid;
 
     private bool isRun = false;
-    private bool isBorder = false; // 보더가 이동시 벽충돌체크하는거
+    private bool isBorder = false; // 보더가 이동시 벽충돌체크   true - 충돌, false - 미충돌
+    private RaycastHit hit;
 
     void Start()
     {
@@ -59,7 +60,12 @@ public class PlayerController : MonoBehaviour
         Vector3 _moveVector = (_moveHorizontal + _moveVertical).normalized;
         Vector3 _velocity = _moveVector * applySpeed;
         
-        isBorder = Physics.Raycast(transform.position, _moveVector, 1, LayerMask.GetMask("Wall"));
+        isBorder = Physics.Raycast(transform.position, _moveVector, out hit, 1);
+        Debug.DrawRay(transform.position, _moveVector * 1, Color.blue);
+        if(isBorder)
+            if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Base"))
+                isBorder = true;
+        
         if (!isBorder)
         {
             // transform.position += _velocity * Time.deltaTime;
