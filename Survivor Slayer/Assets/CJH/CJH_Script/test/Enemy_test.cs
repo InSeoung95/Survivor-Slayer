@@ -74,7 +74,7 @@ public class Enemy_test : MonoBehaviour
         int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률 10%
         int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률 20%
         var dropPoint = Vector3.up * 3;
-        if (healDrop < 10)
+        if (healDrop < 100)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
             var itemGo = _ObjectManager.MakeObj("Item_HealPack", itemposition, Quaternion.identity);

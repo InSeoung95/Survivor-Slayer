@@ -46,44 +46,44 @@ public class ObjectManager : MonoBehaviour
    {
       for (int index = 0; index < Enemy_Zombie.Length; index++)
       {
-         Enemy_Zombie[index] = Instantiate(Enemy_ZombiePrefab);
+         Enemy_Zombie[index] = Instantiate(Enemy_ZombiePrefab,transform);
          Enemy_Zombie[index].SetActive(false);
       }
       for (int index = 0; index < Enemy_ArmorZombie.Length; index++)
       {
-         Enemy_ArmorZombie[index] = Instantiate(Enemy_ArmorZombiePrefab);
+         Enemy_ArmorZombie[index] = Instantiate(Enemy_ArmorZombiePrefab,transform);
          Enemy_ArmorZombie[index].SetActive(false);
       }
       for (int index = 0; index < Enemy_Turret.Length; index++)
       {
-         Enemy_Turret[index] = Instantiate(Enemy_TurretPrefab);
+         Enemy_Turret[index] = Instantiate(Enemy_TurretPrefab,transform);
          Enemy_Turret[index].SetActive(false);
       }
 
 
       for (int index = 0; index < Bullet.Length; index++)
       {
-         Bullet[index] = Instantiate(BulletPrefab);
+         Bullet[index] = Instantiate(BulletPrefab,transform);
          Bullet[index].SetActive(false);
       }
       for (int index = 0; index < Item_HealPack.Length; index++)
       {
-         Item_HealPack[index] = Instantiate(Item_HealPackPrefab);
+         Item_HealPack[index] = Instantiate(Item_HealPackPrefab,transform);
          Item_HealPack[index].SetActive(false);
       }
       for (int index = 0; index < Item_Ammo.Length; index++)
       {
-         Item_Ammo[index] = Instantiate(Item_AmmoPrefab);
+         Item_Ammo[index] = Instantiate(Item_AmmoPrefab,transform);
          Item_Ammo[index].SetActive(false);
       }
       for (int index = 0; index < Item_PowerGage.Length; index++)
       {
-         Item_PowerGage[index] = Instantiate(Item_PowerGagePrefab);
+         Item_PowerGage[index] = Instantiate(Item_PowerGagePrefab,transform);
          Item_PowerGage[index].SetActive(false);
       }
       for (int index = 0; index < Item_Psycho.Length; index++)
       {
-         Item_Psycho[index] = Instantiate(Item_PsychoPrefab);
+         Item_Psycho[index] = Instantiate(Item_PsychoPrefab,transform);
          Item_Psycho[index].SetActive(false);
       }
 
