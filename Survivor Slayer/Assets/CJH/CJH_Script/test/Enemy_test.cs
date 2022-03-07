@@ -31,6 +31,7 @@ public class Enemy_test : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
+        _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
 
     private void Update()
@@ -63,6 +64,7 @@ public class Enemy_test : MonoBehaviour
         if (currentHealth <= 0)
         {
             DropItem();
+            currentHealth = ENEMY_MAX_HEALTH;
             gameObject.SetActive(false);
         }
     }
@@ -73,26 +75,26 @@ public class Enemy_test : MonoBehaviour
         int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률 20%
         int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률 10%
         int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률 20%
-        var dropPoint = Vector3.up * 3;
-        if (healDrop < 100)
+        var dropPoint = Vector3.up * 1;
+        if (healDrop < 10)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
-            var itemGo = _ObjectManager.MakeObj("Item_HealPack", itemposition, Quaternion.identity);
+            _ObjectManager.MakeObj("Item_HealPack", itemposition, Quaternion.identity);
         }
         if (ammoDrop < 20)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
-            var itemGo = _ObjectManager.MakeObj("Item_Ammo", itemposition, Quaternion.identity);
+            _ObjectManager.MakeObj("Item_Ammo", itemposition, Quaternion.identity);
         }
         if (powerDrop < 10)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
-            var itemGo = _ObjectManager.MakeObj("Item_PowerGage", itemposition, Quaternion.identity);
+            _ObjectManager.MakeObj("Item_PowerGage", itemposition, Quaternion.identity);
         }
         if (psychoDrop < 20)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
-            var itemGo = _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
+            _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
         }
     }
 
