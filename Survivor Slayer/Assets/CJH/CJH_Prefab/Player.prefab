@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3057684353050352304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.171, y: -0.345, z: 0.573}
-  m_LocalScale: {x: 1, y: 0.6, z: 2}
+  m_LocalPosition: {x: 0.171, y: -0.186, z: 0.729}
+  m_LocalScale: {x: 1, y: 0.4, z: 2}
   m_Children:
   - {fileID: 3307237265734535951}
   - {fileID: 3057684354043319171}
@@ -238,15 +238,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGun: {fileID: 3057684353050352306}
-  bullet: {fileID: 4562180098601834562, guid: 3554e953495d9774fb3396c139ffa7a1, type: 3}
   bulletPos: {fileID: 3057684354043319171}
   _ObjectManager: {fileID: 0}
   currentFireRate: 0
   isReload: 0
-  isFineSightMode: 0
   originPos: {x: 0.7, y: -0.4, z: 0.9}
   thecam: {fileID: 3057684354976962549}
-  hit_effect_prefab: {fileID: 684662197433655719, guid: 91c262e859b64714084d9ec21fb31708, type: 3}
 --- !u!114 &3057684354242104043
 MonoBehaviour:
   m_ObjectHideFlags: 0
