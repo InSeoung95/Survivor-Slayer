@@ -293,6 +293,24 @@ Transform:
   m_Father: {fileID: 679175645}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &16468486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5130969481992324683, guid: 434451c00f6bdb148bb83421502170d2, type: 3}
+  m_PrefabInstance: {fileID: 2056342275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &16468491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16468486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9b6f79962d2db4f9ef2d4499735b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 265259957}
 --- !u!1001 &19427012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24325,6 +24343,7 @@ GameObject:
   - component: {fileID: 1136063785}
   - component: {fileID: 1136063784}
   - component: {fileID: 1136063786}
+  - component: {fileID: 1136063787}
   m_Layer: 0
   m_Name: GamePath
   m_TagString: Untagged
@@ -24349,7 +24368,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   gridWorldSize: {x: 90, y: 90}
-  nodeRadius: 0.5
+  nodeRadius: 0.8
   Distance: 0
 --- !u!4 &1136063785
 Transform:
@@ -24379,6 +24398,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartPosition: {fileID: 2119416331}
   TargetPosition: {fileID: 265259957}
+--- !u!114 &1136063787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136063783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2144c7bd198f478488b8b68a49048097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1144313627
 GameObject:
   m_ObjectHideFlags: 0

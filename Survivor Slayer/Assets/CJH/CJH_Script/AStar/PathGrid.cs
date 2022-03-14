@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class PathGrid : MonoBehaviour
 {
-   public Transform startPositon;
    public LayerMask WallMask;
    public Vector2 gridWorldSize;
    public float nodeRadius;
    public float Distance;
 
-   Node[,] grid;
+   public Node[,] grid;
    public List<Node> FinalPath;
 
    private float nodeDiameter;
    private int gridSizeX, gridSizeY;
 
-   private void Start()
+   private void Awake()
    {
       nodeDiameter = nodeRadius * 2;
       gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -30,11 +29,12 @@ public class PathGrid : MonoBehaviour
       grid = new Node[gridSizeX, gridSizeY];
       Vector3 bottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 -
                            Vector3.forward * gridWorldSize.y / 2;
+      Vector3 worldPoint;
       for (int y = 0; y < gridSizeY; y++)
       {
          for (int x = 0; x < gridSizeX; x++)
          {
-            Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) +
+            worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) +
                                  Vector3.forward * (y * nodeDiameter + nodeRadius);
             bool Wall = !Physics.CheckSphere(worldPoint, nodeRadius, WallMask);
 
@@ -47,14 +47,13 @@ public class PathGrid : MonoBehaviour
    {
       float xPoint = (a_WorldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
       float yPoint = (a_WorldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
-
       xPoint = Mathf.Clamp01(xPoint);
       yPoint = Mathf.Clamp01(yPoint);
 
       int x = Mathf.RoundToInt((gridSizeX - 1) * xPoint);
       int y = Mathf.RoundToInt((gridSizeY - 1) * yPoint);
-
       return grid[x, y];
+      
    }
 
    public List<Node> GetNeighboringNodes(Node a_Node)
