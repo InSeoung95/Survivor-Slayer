@@ -36,7 +36,7 @@ public class Enemy_test : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        //Move();
         //Attack
         attackDelay -= Time.deltaTime;
         Die();

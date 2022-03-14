@@ -5,73 +5,122 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
+   private PathRequestManager _requestManager;
    private PathGrid _grid;
-   public Transform StartPosition;
-   public Transform TargetPosition;
 
    private void Awake()
    {
+      _requestManager = GetComponent<PathRequestManager>();
       _grid = GetComponent<PathGrid>();
    }
 
-   private void Update()
+   public void StartFindPath(Vector3 startPos, Vector3 targetPos)
    {
-      FindPath(StartPosition.position, TargetPosition.position);
+      StartCoroutine(FindPath(startPos, targetPos));
    }
 
-   void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
+   IEnumerator FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
    {
+      Vector3[] waypoints = new Vector3[0];
+      bool pathSuccess = false;
       Node StartNode = _grid.NodeFromWorldPosition(a_StartPos);
       Node TargetNode = _grid.NodeFromWorldPosition(a_TargetPos);
 
-      List<Node> OpenList = new List<Node>();
-      HashSet<Node> ClosedList = new HashSet<Node>();
 
-      OpenList.Add(StartNode);
-
-      while (OpenList.Count > 0)
+      if (StartNode.IsWall && TargetNode.IsWall)
       {
-         Node CurrentNode = OpenList[0];
-         for (int i = 1; i < OpenList.Count; i++)
+         List<Node> OpenList = new List<Node>();
+         HashSet<Node> ClosedList = new HashSet<Node>();
+         OpenList.Add(StartNode);
+
+         while (OpenList.Count > 0)
          {
-            if (OpenList[i].FCost < CurrentNode.FCost ||
-                OpenList[i].FCost == CurrentNode.FCost && OpenList[i].hCost < CurrentNode.hCost)
+            Node CurrentNode = OpenList[0];
+            for (int i = 1; i < OpenList.Count; i++)
             {
-               CurrentNode = OpenList[i];
-            }
-         }
-
-         OpenList.Remove(CurrentNode);
-         ClosedList.Add(CurrentNode);
-
-         if (CurrentNode == TargetNode)
-         {
-            GetFinalPath(StartNode, TargetNode);
-            return;
-         }
-
-         foreach (Node NeighborNode in _grid.GetNeighboringNodes(CurrentNode))
-         {
-            if (!NeighborNode.IsWall || ClosedList.Contains(NeighborNode))
-            {
-               continue;
-            }
-
-            int MoveCost = CurrentNode.gCost + GetManhattenDistance(CurrentNode, NeighborNode);
-            if (MoveCost < NeighborNode.gCost || !OpenList.Contains(NeighborNode))
-            {
-               NeighborNode.gCost = MoveCost;
-               NeighborNode.hCost = GetManhattenDistance(NeighborNode, TargetNode);
-               NeighborNode.Parent = CurrentNode;
-
-               if (!OpenList.Contains(NeighborNode))
+               if (OpenList[i].FCost < CurrentNode.FCost ||
+                   OpenList[i].FCost == CurrentNode.FCost && OpenList[i].hCost < CurrentNode.hCost)
                {
-                  OpenList.Add(NeighborNode);
+                  CurrentNode = OpenList[i];
                }
             }
+
+            OpenList.Remove(CurrentNode);
+            ClosedList.Add(CurrentNode);
+
+            // 탐색노드가 목표면 탐색종료
+            if (CurrentNode == TargetNode)
+            {
+               // GetFinalPath(StartNode, TargetNode);
+               pathSuccess = true;
+               break;
+            }
+
+            foreach (Node NeighborNode in _grid.GetNeighboringNodes(CurrentNode))
+            {
+               if (!NeighborNode.IsWall || ClosedList.Contains(NeighborNode))
+               {
+                  continue;
+               }
+
+               int MoveCost = CurrentNode.gCost + GetManhattenDistance(CurrentNode, NeighborNode);
+               if (MoveCost < NeighborNode.gCost || !OpenList.Contains(NeighborNode))
+               {
+                  NeighborNode.gCost = MoveCost;
+                  NeighborNode.hCost = GetManhattenDistance(NeighborNode, TargetNode);
+                  NeighborNode.Parent = CurrentNode;
+
+                  if (!OpenList.Contains(NeighborNode))
+                  {
+                     OpenList.Add(NeighborNode);
+                  }
+               }
+            }
+
+         }
+      }
+
+      yield return null;
+      if (pathSuccess)
+      {
+         waypoints = RetracePath(StartNode, TargetNode);
+      }
+      _requestManager.FinishedProcessingPath(waypoints, pathSuccess);
+   }
+
+   Vector3[] RetracePath(Node a_StartingNode, Node a_EndNode)
+   {
+      List<Node> FinalPath = new List<Node>();
+      Node CurrentNode = a_EndNode;
+
+      while (CurrentNode != a_StartingNode)
+      {
+         FinalPath.Add(CurrentNode);
+         CurrentNode = CurrentNode.Parent;
+      }
+
+      Vector3[] waypoints = SimplifyPath(FinalPath);
+      Array.Reverse(waypoints);
+      return waypoints;
+   }
+
+   Vector3[] SimplifyPath(List<Node> path)
+   {
+      List<Vector3> waypoints = new List<Vector3>();
+      Vector2 directionOld = Vector2.zero;
+
+      for (int i = 1; i < path.Count; i++)
+      {
+         Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
+         if (directionNew != directionOld)
+         {
+            waypoints.Add(path[i].Position);
          }
 
+         directionOld = directionNew;
       }
+
+      return waypoints.ToArray();
    }
 
    void GetFinalPath(Node a_StartingNode, Node a_EndNode)
@@ -93,6 +142,8 @@ public class PathFinding : MonoBehaviour
       int ix = Mathf.Abs(a_nodeA.gridX - a_nodeB.gridX);
       int iy = Mathf.Abs(a_nodeA.gridY - a_nodeB.gridY);
 
-      return ix + iy;
+      if (ix > iy)
+         return 14 * iy + 10 * (ix - iy);
+      return 14 * ix + 10 * (iy - ix);
    }
 }
