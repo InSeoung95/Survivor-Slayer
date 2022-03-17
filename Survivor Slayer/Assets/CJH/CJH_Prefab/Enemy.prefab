@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5130969481992324687}
   - component: {fileID: 5130969481992324686}
   - component: {fileID: 5130969481992324684}
+  - component: {fileID: 16468491}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5130969481992324683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.6, y: 0, z: 23.51}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 4665277255574860243}
   - {fileID: 5130969482341098570}
@@ -61,8 +62,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6723207, z: 0.8734784}
-  m_Center: {x: 0, y: 1.2946701, z: 0.31342506}
+  m_Size: {x: 1, y: 0.6723207, z: 1.5979472}
+  m_Center: {x: 0, y: 1.2946701, z: 1.1867805}
 --- !u!54 &5130969481992324686
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93,13 +94,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 10
   currentHealth: 10
-  MoveSpeed: 10
+  MoveSpeed: 3
   attackDelay: 1
   Target: {fileID: 0}
   _ObjectManager: {fileID: 0}
   leftArm: {fileID: 0}
   rightArm: {fileID: 0}
   testMove: 0
+--- !u!114 &16468491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5130969481992324683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9b6f79962d2db4f9ef2d4499735b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5130969482341098565
 GameObject:
   m_ObjectHideFlags: 0

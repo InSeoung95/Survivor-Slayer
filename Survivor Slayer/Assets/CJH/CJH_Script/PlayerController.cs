@@ -12,10 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float cameraRotationLimit;
     private float cameraRotationX = 0f;
 
-    [SerializeField]private Camera _mycamera;
+    [SerializeField] private Camera _mycamera;
     private Rigidbody _myRigid;
 
     private bool isRun = false;
+    private bool isMoving = false;
     private bool isBorder = false; // 보더가 이동시 벽충돌체크   true - 충돌, false - 미충돌
     private RaycastHit hit;
 
@@ -54,6 +55,10 @@ public class PlayerController : MonoBehaviour
     {
         float _moveDirX = Input.GetAxisRaw("Horizontal");
         float _moveDirZ = Input.GetAxisRaw("Vertical");
+        if (_moveDirX != 0 || _moveDirZ != 0)
+            isMoving = true;
+        else
+            isMoving = false;
 
         Vector3 _moveHorizontal = transform.right * _moveDirX;
         Vector3 _moveVertical = transform.forward * _moveDirZ;
@@ -68,9 +73,9 @@ public class PlayerController : MonoBehaviour
         
         if (!isBorder)
         {
-            // transform.position += _velocity * Time.deltaTime;
             _myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
         }
+
     }
 
     private void CameraRotation()

@@ -19,6 +19,7 @@ public class Enemy_test : MonoBehaviour
     private Rigidbody _rigid;
     private BoxCollider _boxCollider;   // 좀비 공격범위
     public GameObject Target;           // 좀비가 이동할 타겟
+    private PathUnit _pathUnit;
     public ObjectManager _ObjectManager;
 
     // 부위파괴 테스트용 왼팔 오른팔
@@ -32,11 +33,12 @@ public class Enemy_test : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        _pathUnit = GetComponent<PathUnit>();
     }
 
     private void Update()
     {
-        //Move();
+        Move();
         //Attack
         attackDelay -= Time.deltaTime;
         Die();
@@ -49,9 +51,8 @@ public class Enemy_test : MonoBehaviour
             Vector3 dir = Target.transform.position - transform.position;
             dir.y = 0;
             dir.Normalize();
-
-            // transform.position += dir * MoveSpeed * Time.deltaTime;
-            _rigid.MovePosition(transform.position + (transform.forward * MoveSpeed * Time.deltaTime));
+            
+            _pathUnit.Targetting(Target);
 
             Quaternion to = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
