@@ -24,7 +24,7 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        // _audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -72,7 +72,7 @@ public class GunController : MonoBehaviour
         
         // 무기발사시 불꽃,효과음효과
         currentGun.muzzleFlash.Play();
-        // PlaySE(currentGun.fireSound);
+        PlaySE(currentGun.fireSound);
 
         // Hit();   //raycast 방식인데 bullet생성이 더 좋은거라 생각 나중에 삭제해서 통합
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
@@ -103,7 +103,7 @@ public class GunController : MonoBehaviour
         {
             // currentGun.animation.Settrigger("Reload");   // 재장전 애니메이션 호출
             isReload = true;
-
+            PlaySE(currentGun.reloadSound);
             currentGun.carryBulletCount += currentGun.currentBulletCount; //남은 탄창 최대 탄창에 +
             currentGun.currentBulletCount = 0;
             

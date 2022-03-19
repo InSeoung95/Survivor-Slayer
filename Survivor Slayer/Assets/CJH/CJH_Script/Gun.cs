@@ -20,6 +20,7 @@ public class Gun : MonoBehaviour
     public Vector3 fineSightOriginPos;  //조준점 위치
     public ParticleSystem muzzleFlash;  // 총구 섬광
     public AudioClip fireSound; // 총기발사 소리
+    public AudioClip reloadSound;   //재장전 소리
 
     void Start()
     {

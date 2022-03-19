@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class PathUnit : MonoBehaviour
 {
-    public Transform target;
-    private float speed = 10f;
+    private float speed;
     private Vector3[] path;
     private int targetIndex;
 
     private void Start()
     {
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        speed = gameObject.GetComponent<Enemy_test>().MoveSpeed;        // 좀비가 가지는 이동 스피드값
+    }
+
+    public void Targetting(GameObject target)
+    {
+        PathRequestManager.RequestPath(transform.position, target.transform.position, OnPathFound);
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
