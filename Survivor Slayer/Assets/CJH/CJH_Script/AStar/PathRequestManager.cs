@@ -9,14 +9,14 @@ public class PathRequestManager : MonoBehaviour
     private Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();     //길찾기 요청을 순서에 맞춰 큐에 담기
     private PathRequest currentPathRequest; // 현재 처리할 길찾기
 
-    private static PathRequestManager instance;
+    private static PathRequestManager _instance;
     private PathFinding PathFinding;
 
     private bool isProcessingPath;
 
     private void Awake()
     {
-        instance = this;
+        _instance = this;
         PathFinding = GetComponent<PathFinding>();
     }
 
@@ -24,8 +24,8 @@ public class PathRequestManager : MonoBehaviour
     public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, UnityAction<Vector3[], bool> callback)
     {
         PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-        instance.pathRequestQueue.Enqueue(newRequest);
-        instance.TryProcessNext();
+        _instance.pathRequestQueue.Enqueue(newRequest);
+        _instance.TryProcessNext();
     }
     
     //큐 순서대로 길찾기 요청을 꺼내 Pathfinding 시작

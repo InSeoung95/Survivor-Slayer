@@ -51,7 +51,6 @@ public class PathFinding : MonoBehaviour
             // 탐색노드가 목표면 탐색종료
             if (CurrentNode == TargetNode)
             {
-               // GetFinalPath(StartNode, TargetNode);
                pathSuccess = true;
                break;
             }
@@ -84,10 +83,13 @@ public class PathFinding : MonoBehaviour
       if (pathSuccess)
       {
          waypoints = RetracePath(StartNode, TargetNode);
+         pathSuccess = waypoints.Length > 0;
       }
       _requestManager.FinishedProcessingPath(waypoints, pathSuccess);
    }
 
+   // 탐색 종료후 최종노드의 parentNode를 추적할 리스트에 담기
+   // 최종경로의 노드 WorldPosition을ㄹ 순차적으로 리턴
    Vector3[] RetracePath(Node a_StartingNode, Node a_EndNode)
    {
       List<Node> FinalPath = new List<Node>();

@@ -10,7 +10,7 @@ public class PathGrid : MonoBehaviour
    public float nodeRadius;
    public float Distance;
 
-   public Node[,] grid;
+   private Node[,] grid;
    public List<Node> FinalPath;
 
    private float nodeDiameter;
@@ -60,50 +60,17 @@ public class PathGrid : MonoBehaviour
    {
       List<Node> NeighboringNodes = new List<Node>();
 
-      int xCheck;
-      int yCheck;
-      
-      //right Side
-      xCheck = a_Node.gridX + 1;
-      yCheck = a_Node.gridY;
-      if (xCheck >= 0 && xCheck < gridSizeX)
+      for (int x = -1; x <= 1; x++)
       {
-         if (yCheck >= 0 && yCheck < gridSizeY)
+         for (int y = -1; y <=1; y++)
          {
-            NeighboringNodes.Add(grid[xCheck,yCheck]);
-         }
-      }
-      
-      //Left Side
-      xCheck = a_Node.gridX - 1;
-      yCheck = a_Node.gridY;
-      if (xCheck >= 0 && xCheck < gridSizeX)
-      {
-         if (yCheck >= 0 && yCheck < gridSizeY)
-         {
-            NeighboringNodes.Add(grid[xCheck,yCheck]);
-         }
-      }
-      
-      //Tom Side
-      xCheck = a_Node.gridX;
-      yCheck = a_Node.gridY + 1;
-      if (xCheck >= 0 && xCheck < gridSizeX)
-      {
-         if (yCheck >= 0 && yCheck < gridSizeY)
-         {
-            NeighboringNodes.Add(grid[xCheck,yCheck]);
-         }
-      }
-      
-      //Bottom Side
-      xCheck = a_Node.gridX;
-      yCheck = a_Node.gridY - 1;
-      if (xCheck >= 0 && xCheck < gridSizeX)
-      {
-         if (yCheck >= 0 && yCheck < gridSizeY)
-         {
-            NeighboringNodes.Add(grid[xCheck,yCheck]);
+            if (x == 0 && y == 0) continue;     // 자기자신이면 스킵
+
+            int checkX = a_Node.gridX + x;
+            int checkY = a_Node.gridY + y;
+            
+            if(checkX>=0 && checkX < gridSizeX && checkY>=0 && checkY <gridSizeY)
+               NeighboringNodes.Add(grid[checkX,checkY]);
          }
       }
 
@@ -119,7 +86,7 @@ public class PathGrid : MonoBehaviour
       {
          foreach (Node node in grid)
          {
-            Gizmos.color = (node.IsWall) ? Color.white :  Color.red;
+            Gizmos.color = (node.IsWall) ? Color.white : Color.red;
             if(FinalPath != null)
                if (FinalPath.Contains(node))
                   Gizmos.color = Color.black;

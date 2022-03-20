@@ -23,16 +23,23 @@ public class PathUnit : MonoBehaviour
     {
         if (pathSuccess)
         {
-            StopCoroutine("FollowPath");
             path = newPath;
             targetIndex = 0;
+            StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
         }
     }
 
     IEnumerator FollowPath()
     {
-        Vector3 currentWaypoint = path[0];
+        Vector3 currentWaypoint;
+        
+        if(path.Length <= 0)
+            yield break;
+        else
+        {
+            currentWaypoint = path[0];
+        }
         
         while(true)
         {
