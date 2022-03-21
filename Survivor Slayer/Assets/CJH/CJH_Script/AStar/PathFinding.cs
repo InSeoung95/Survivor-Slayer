@@ -25,27 +25,19 @@ public class PathFinding : MonoBehaviour
       bool pathSuccess = false;
       Node StartNode = _grid.NodeFromWorldPosition(a_StartPos);
       Node TargetNode = _grid.NodeFromWorldPosition(a_TargetPos);
-
-
-      if (StartNode.IsWall && TargetNode.IsWall)
+      
+      
+      
+      if (TargetNode.IsWall)
       {
-         List<Node> OpenList = new List<Node>();
+         Heap<Node> OpenList = new Heap<Node>(_grid.MaxSize);
          HashSet<Node> ClosedList = new HashSet<Node>();
          OpenList.Add(StartNode);
-
+         
          while (OpenList.Count > 0)
          {
-            Node CurrentNode = OpenList[0];
-            for (int i = 1; i < OpenList.Count; i++)
-            {
-               if (OpenList[i].FCost < CurrentNode.FCost ||
-                   OpenList[i].FCost == CurrentNode.FCost && OpenList[i].hCost < CurrentNode.hCost)
-               {
-                  CurrentNode = OpenList[i];
-               }
-            }
-
-            OpenList.Remove(CurrentNode);
+            Node CurrentNode = OpenList.RemoveFirst();
+           
             ClosedList.Add(CurrentNode);
 
             // 탐색노드가 목표면 탐색종료
@@ -72,6 +64,10 @@ public class PathFinding : MonoBehaviour
                   if (!OpenList.Contains(NeighborNode))
                   {
                      OpenList.Add(NeighborNode);
+                  }
+                  else
+                  {
+                     OpenList.UpdateItem(NeighborNode);
                   }
                }
             }
@@ -118,7 +114,6 @@ public class PathFinding : MonoBehaviour
          {
             waypoints.Add(path[i].Position);
          }
-
          directionOld = directionNew;
       }
 

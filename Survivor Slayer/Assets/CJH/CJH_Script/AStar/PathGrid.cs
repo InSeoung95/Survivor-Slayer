@@ -24,6 +24,14 @@ public class PathGrid : MonoBehaviour
       CreateGrid();
    }
 
+   public int MaxSize
+   {
+      get
+      {
+         return gridSizeX * gridSizeY;
+      }
+   }
+
    private void CreateGrid()
    {
       grid = new Node[gridSizeX, gridSizeY];
