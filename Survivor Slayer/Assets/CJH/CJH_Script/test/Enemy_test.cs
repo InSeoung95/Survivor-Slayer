@@ -6,9 +6,9 @@ using Random = UnityEngine.Random;
 
 public class Enemy_test : MonoBehaviour
 {
-    private const float ENEMY_MAX_HEALTH = 10f;     //좀비 최대 체력
-    private const float ENEMY_MOVESPEED = 1.6f;     //좀비 이동속도
-    private const float ENEMY_ATTACK_DELAY = 1f;    //좀비 공격속도
+    private const float ENEMY_MAX_HEALTH = 10f;     //醫鍮?理쒕? 泥대젰
+    private const float ENEMY_MOVESPEED = 1.6f;     //醫鍮??대룞?띾룄
+    private const float ENEMY_ATTACK_DELAY = 1f;    //醫鍮?怨듦꺽?띾룄
 
     public float maxhealth = ENEMY_MAX_HEALTH;
     public float currentHealth = ENEMY_MAX_HEALTH;
@@ -17,12 +17,12 @@ public class Enemy_test : MonoBehaviour
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
     private Rigidbody _rigid;
-    private BoxCollider _boxCollider;   // 좀비 공격범위
-    public GameObject Target;           // 좀비가 이동할 타겟
+    private BoxCollider _boxCollider;   // 醫鍮?怨듦꺽踰붿쐞
+    public GameObject Target;           // 醫鍮꾧? ?대룞???寃?
     private PathUnit _pathUnit;
     public ObjectManager _ObjectManager;
 
-    // 부위파괴 테스트용 왼팔 오른팔
+    // 遺?꾪뙆愿??뚯뒪?몄슜 ?쇳뙏 ?ㅻⅨ??
     public GameObject leftArm;
     public GameObject rightArm;
 
@@ -72,10 +72,10 @@ public class Enemy_test : MonoBehaviour
 
     private void DropItem()
     {
-        int healDrop = Random.Range(0, 100);    // 힐팩 드랍률 10%
-        int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률 20%
-        int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률 10%
-        int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률 20%
+        int healDrop = Random.Range(0, 100);    // ?먰뙥 ?쒕엻瑜?10%
+        int ammoDrop = Random.Range(0, 100);    // ?꾩빟 ?쒕엻瑜?20%
+        int powerDrop = Random.Range(0, 100);    // ?뚯썙寃뚯씠吏 ?쒕엻瑜?10%
+        int psychoDrop = Random.Range(0, 100);    // 珥덈뒫?κ쾶?댁? ?쒕엻瑜?20%
         var dropPoint = Vector3.up * 1;
         if (healDrop < 10)
         {
@@ -114,6 +114,11 @@ public class Enemy_test : MonoBehaviour
             //attack test
             PlayerInfo testhealth = other.gameObject.GetComponent<PlayerInfo>();
             testhealth.currenthealth -= 10f;
+            //인성 수정
+            testhealth.onDamaged= true; // 플레이어 공격 받는 상태 true;
+            HitManager hm = FindObjectOfType<HitManager>();
+            hm.Attacked();
+            //
             attackDelay = 1f;
         }
         else if (other.gameObject.tag == "Base" && attackDelay < 0)
