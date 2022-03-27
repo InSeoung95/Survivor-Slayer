@@ -23,6 +23,12 @@ public class Enemy_test_range : MonoBehaviour
             tester.testMove = true;
             _sphereCollider.radius = 20f;  // 플레이어 인식 -> 플레이어 추적범위 : 플레이어가 추적범위(20f) 벗어나면 다시 인식(10f)으로
         }
+
+        if (other.gameObject.tag == "ObstacleWall")
+        {
+            tester.Target = other.gameObject;
+            tester.testMove = true;
+        }
     }
 
     private void OnTriggerStay(Collider other)

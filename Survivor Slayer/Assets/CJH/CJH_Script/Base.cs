@@ -20,7 +20,6 @@ public class Base : MonoBehaviour
 
     private void Awake()
     {
-        test_mat.color = Color.white;
         StartCoroutine(BasePointTime());
     }
 
@@ -43,12 +42,14 @@ public class Base : MonoBehaviour
             baseTimer = 0;
             state = State.Player_Occupation;
             test_mat.color = Color.blue;
+            gameObject.layer = 7;       // wall로 변경되어 장애물 판정
         }
         else if (baseHealth <= 0)
         {
             baseHealth = 100;
             state = State.Enemy_Occupation;
             test_mat.color = Color.red;
+            gameObject.layer = 11;     // seeThrough로 레이어 변경되어 투시
         }
     }
 

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isRun = false;
     private bool isMoving = false;
-    private bool isBorder = false; // º¸´õ°¡ ÀÌµ¿½Ã º®Ãæµ¹Ã¼Å©   true - Ãæµ¹, false - ¹ÌÃæµ¹
+    private bool isBorder = false; // ì´ë™í•  ë²¡í„°ë¥¼ borderê°€ ê²€ì‚¬í•´ì„œ ì•ì— layerê°€ ìˆìœ¼ë©´ ëª»ì§€ë‚˜ê°€ê²Œ ì„¤ì •
     private RaycastHit hit;
 
     void Start()

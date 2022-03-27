@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Enemy_test : MonoBehaviour
 {
-    private const float ENEMY_MAX_HEALTH = 10f;     //醫鍮?理쒕? 泥대젰
-    private const float ENEMY_MOVESPEED = 1.6f;     //醫鍮??대룞?띾룄
-    private const float ENEMY_ATTACK_DELAY = 1f;    //醫鍮?怨듦꺽?띾룄
+    private const float ENEMY_MAX_HEALTH = 10f;     //좀비의 최대체력
+    private const float ENEMY_MOVESPEED = 1.6f;     //좀비의 이동속도
+    private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
+    private const float ENEMY_ATTACK_DELAY = 1f;    //좀비의 공격속도
 
     public float maxhealth = ENEMY_MAX_HEALTH;
     public float currentHealth = ENEMY_MAX_HEALTH;
@@ -17,23 +19,28 @@ public class Enemy_test : MonoBehaviour
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
     private Rigidbody _rigid;
-    private BoxCollider _boxCollider;   // 醫鍮?怨듦꺽踰붿쐞
-    public GameObject Target;           // 醫鍮꾧? ?대룞???寃?
-    private PathUnit _pathUnit;
+    private BoxCollider _boxCollider;   // 좀비의 공격범위
+    public GameObject Target;           // 좀비가 공격할 목표
+    
+    private PathUnit _pathUnit;         // A*길찾기 오류해결하면 navmesh지우고 이걸로 사용
+    private NavMeshAgent _nav;
     public ObjectManager _ObjectManager;
 
-    // 遺?꾪뙆愿??뚯뒪?몄슜 ?쇳뙏 ?ㅻⅨ??
+    // 부분파괴 테스트용 팔
     public GameObject leftArm;
     public GameObject rightArm;
 
     public bool testMove = false;
+    private Animator _anim;
 
     private void Start()
     {
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
-        _pathUnit = GetComponent<PathUnit>();
+        //_pathUnit = GetComponent<PathUnit>();
+        _nav = GetComponent<NavMeshAgent>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -51,9 +58,10 @@ public class Enemy_test : MonoBehaviour
             Vector3 dir = Target.transform.position - transform.position;
             dir.y = 0;
             dir.Normalize();
-            
-            _pathUnit.Targetting(Target);
 
+            _nav.SetDestination(Target.transform.position);
+            _anim.SetBool("isRun", testMove);
+            
             Quaternion to = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
 
@@ -72,10 +80,10 @@ public class Enemy_test : MonoBehaviour
 
     private void DropItem()
     {
-        int healDrop = Random.Range(0, 100);    // ?먰뙥 ?쒕엻瑜?10%
-        int ammoDrop = Random.Range(0, 100);    // ?꾩빟 ?쒕엻瑜?20%
-        int powerDrop = Random.Range(0, 100);    // ?뚯썙寃뚯씠吏 ?쒕엻瑜?10%
-        int psychoDrop = Random.Range(0, 100);    // 珥덈뒫?κ쾶?댁? ?쒕엻瑜?20%
+        int healDrop = Random.Range(0, 100);    // 힐팩 드랍률10%
+        int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률20%
+        int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률10%
+        int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률20%
         var dropPoint = Vector3.up * 1;
         if (healDrop < 10)
         {
@@ -113,7 +121,9 @@ public class Enemy_test : MonoBehaviour
         {
             //attack test
             PlayerInfo testhealth = other.gameObject.GetComponent<PlayerInfo>();
-            testhealth.currenthealth -= 10f;
+            testhealth.currenthealth -= ENEMY_ZOMBIE_DAMAGE;
+            _anim.SetBool("isAttack", true);
+            
             //인성 수정
             testhealth.onDamaged= true; // 플레이어 공격 받는 상태 true;
             HitManager hm = FindObjectOfType<HitManager>();
@@ -124,7 +134,13 @@ public class Enemy_test : MonoBehaviour
         else if (other.gameObject.tag == "Base" && attackDelay < 0)
         {
             Base testBaseHealth = other.gameObject.GetComponent<Base>();
-            testBaseHealth.baseHealth -= 10f;
+            testBaseHealth.baseHealth -= ENEMY_ZOMBIE_DAMAGE;
+            attackDelay = 1f;
+        }
+        else if (other.gameObject.tag == "ObstacleWall" && attackDelay < 0)
+        {
+            ObstacleWall testWallHealth = other.gameObject.GetComponent<ObstacleWall>();
+            testWallHealth.WallHealth -= ENEMY_ZOMBIE_DAMAGE;
             attackDelay = 1f;
         }
     }
