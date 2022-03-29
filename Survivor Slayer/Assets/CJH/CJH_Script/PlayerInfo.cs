@@ -13,12 +13,12 @@ public class PlayerInfo : MonoBehaviour
     public float maxPsycho = 100;
     public float currentPsycho = 0;
     
-    public float currentBasePoint = 0;      // ?ы솕???쒖젙?놁씠 怨꾩냽 ?볦뿬???ъ슜?섎뒗 ?먯썝
+    public float currentBasePoint = 0;      // ???????�젙??�씠 ?�꾩???�?��???????�뒗 ?�?��
         
     public Slider HPSlider;
     public Text HPText;
-    //인성 추가
-    public bool onDamaged = false; // 플레이어가 데미지 받는 상태인지
+    //?�성 추�?
+    public bool onDamaged = false; // ?�레?�어가 ?��?지 받는 ?�태?��?
     //
     private void Awake()
     {

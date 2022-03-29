@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
+using UnityEngine.VFX;
 
 public class Enemy_test : MonoBehaviour
 {
@@ -32,6 +33,14 @@ public class Enemy_test : MonoBehaviour
 
     public bool testMove = false;
     private Animator _anim;
+
+    // 인성 수정
+    public VisualEffect hitEffect;   // 좀비 피격 이펙트
+
+    public AudioClip deadSound;// 좀비 사망 사운드.
+
+    private AudioSource audioSource;
+    //
 
     private void Start()
     {
@@ -75,6 +84,9 @@ public class Enemy_test : MonoBehaviour
             DropItem();
             currentHealth = ENEMY_MAX_HEALTH;
             gameObject.SetActive(false);
+
+            //인성 추가
+            audioSource.PlayOneShot(deadSound);
         }
     }
 
@@ -112,6 +124,12 @@ public class Enemy_test : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             currentHealth -= 1f;
+            //인성 수정
+            hitEffect.transform.position = collision.transform.position;
+            Vector3 dir = transform.position-collision.transform.position;
+            hitEffect.transform.rotation = Quaternion.LookRotation(dir);
+            hitEffect.Play();
+            //
         }
     }
 
@@ -128,6 +146,7 @@ public class Enemy_test : MonoBehaviour
             testhealth.onDamaged= true; // 플레이어 공격 받는 상태 true;
             HitManager hm = FindObjectOfType<HitManager>();
             hm.Attacked();
+            
             //
             attackDelay = 1f;
         }

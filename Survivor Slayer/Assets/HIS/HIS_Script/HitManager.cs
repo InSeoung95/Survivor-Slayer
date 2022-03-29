@@ -7,7 +7,7 @@ public class HitManager : MonoBehaviour
 {
     //싱글톤 관리
     public static HitManager instance;
-    public GameObject AttackedImage;// 공격받을 때 뜨는 이미지.
+    public GameObject AttackedImage;//플레이어가 맞을 때 나오는 이미지
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class HitManager : MonoBehaviour
 
     public void Attacked()
     {
-        StartCoroutine("Flash");
+        StartCoroutine("Flash"); // 0.1초 동안 보이도록.
     }
 
     IEnumerator Flash()

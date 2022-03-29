@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 5130969481992324687}
   - component: {fileID: 5130969481992324686}
   - component: {fileID: 5130969481992324684}
-  - component: {fileID: 3742870429903658617}
-  - component: {fileID: 4611350954899011379}
+  - component: {fileID: 8433278648884991373}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -33,7 +32,7 @@ Transform:
   m_LocalPosition: {x: -3.6, y: 0, z: 23.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5441494300071339409}
+  - {fileID: 8737767481824164860}
   - {fileID: 5130969482341098570}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,26 +101,9 @@ MonoBehaviour:
   leftArm: {fileID: 0}
   rightArm: {fileID: 0}
   testMove: 0
---- !u!95 &3742870429903658617
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5130969481992324683}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3484f563dbb96904893486d9d8e46cb7, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4076b8a75c71ee64cb9bcde3df8cee57, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!195 &4611350954899011379
+  hitEffect: {fileID: 0}
+  deadSound: {fileID: 0}
+--- !u!195 &8433278648884991373
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,7 +199,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &5480506092984058490
+--- !u!1001 &9135675296960994327
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -286,8 +268,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c236a3c81fdb19b4588fcc5598d352e2, type: 3}
---- !u!4 &5441494300071339409 stripped
+--- !u!4 &8737767481824164860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c236a3c81fdb19b4588fcc5598d352e2, type: 3}
-  m_PrefabInstance: {fileID: 5480506092984058490}
+  m_PrefabInstance: {fileID: 9135675296960994327}
   m_PrefabAsset: {fileID: 0}

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemySpawn : MonoBehaviour
 {
-    private const float SPAWNTIME = 10f;    //소환 시간
-    private const int SPAWNNUMBER = 5;     //소환 횟수
+    private const float SPAWNTIME = 10f;    //?뚰솚 ?쒓컙
+    private const int SPAWNNUMBER = 5;     //?뚰솚 ?잛닔
     public ObjectManager _objectManager;
     private float SpawnTimer;
     private int SpawnNumber;
@@ -24,5 +25,6 @@ public class EnemySpawn : MonoBehaviour
     private void ZombieSpawn()
     {
         _objectManager.MakeObj("Enemy_Zombie", transform.position, transform.rotation);
+
     }
 }
