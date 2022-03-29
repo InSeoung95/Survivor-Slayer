@@ -12,12 +12,14 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         ad = GetComponent<AudioSource>();
+
+        MainBGM();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MainBGM();
+        
     }
 
     void MainBGM()

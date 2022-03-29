@@ -13497,6 +13497,30 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &939690207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5130969481992324683, guid: 434451c00f6bdb148bb83421502170d2, type: 3}
+  m_PrefabInstance: {fileID: 852601311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &939690208
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939690207}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3484f563dbb96904893486d9d8e46cb7, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4076b8a75c71ee64cb9bcde3df8cee57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &941257157
 GameObject:
   m_ObjectHideFlags: 0
