@@ -19,7 +19,6 @@ public class Base : MonoBehaviour
   
     public PlayerInfo _PlayerInfo;      // 거점 점령시 플레이어에게 재화를 넘겨줌
     private bool baseRun = false;       // 플레이어가 거점 점령시 재화를 얻기 시작하는 판정
-    //[SerializeField]private Material test_mat;      //단순테스트용 마테리얼;
     //인성 추가
     [SerializeField] private GameObject shield; // 플레이어 점령시 보이는 쉴드 효과
     [SerializeField] private GameObject field; // 적이 점령시 보이는 베이스 필드.
@@ -51,14 +50,16 @@ public class Base : MonoBehaviour
         {
             baseTimer = 0;
             state = State.Player_Occupation;
-            //test_mat.color = Color.blue;
+            gameObject.layer = 7;       // wall로 레이어 변경
+            shield.SetActive(true);
         }
         else if (baseHealth <= 0)
         {
             Debug.Log("Enemy 점령");
             baseHealth = 100;
             state = State.Enemy_Occupation;
-            //test_mat.color = Color.red;
+            gameObject.layer = 11;      // seethrough로 레이어 변경
+            shield.SetActive(false);
         }
     }
 

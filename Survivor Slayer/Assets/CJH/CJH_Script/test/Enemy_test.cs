@@ -15,7 +15,6 @@ public class Enemy_test : MonoBehaviour
 
     public float maxhealth = ENEMY_MAX_HEALTH;
     public float currentHealth = ENEMY_MAX_HEALTH;
-
     public float MoveSpeed = ENEMY_MOVESPEED;
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
@@ -23,7 +22,7 @@ public class Enemy_test : MonoBehaviour
     private BoxCollider _boxCollider;   // 좀비의 공격범위
     public GameObject Target;           // 좀비가 공격할 목표
     
-    private PathUnit _pathUnit;         // A*길찾기 오류해결하면 navmesh지우고 이걸로 사용
+    // private PathUnit _pathUnit;         // A*길찾기 오류해결하면 navmesh지우고 이걸로 사용
     private NavMeshAgent _nav;
     public ObjectManager _ObjectManager;
 
@@ -47,8 +46,8 @@ public class Enemy_test : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
-        //_pathUnit = GetComponent<PathUnit>();
-        _nav = GetComponent<NavMeshAgent>();
+        //_pathUnit = GetComponent<PathUnit>();          // a* 해결하면 교체
+        _nav = GetComponent<NavMeshAgent>();            // a* 해결하면 _navmesh지우고 a*로 교체
         _anim = GetComponentInChildren<Animator>();
     }
 
@@ -62,6 +61,24 @@ public class Enemy_test : MonoBehaviour
 
     private void Move()
     {
+        if (Target == null)
+        {
+            int search = 0;
+            while (search < 4)
+            {
+                int ran = Random.Range(0, 4);
+                if (_ObjectManager.EnemyTargetBase[ran].state != Base.State.Enemy_Occupation)
+                {
+                    Target = _ObjectManager.EnemyTargetBase[ran].gameObject;
+                    break;
+                }
+                search++;
+            }
+            if (search == 4)
+                Target = _ObjectManager.Player.gameObject;
+            testMove = true;
+        }
+        
         if (testMove)
         {
             Vector3 dir = Target.transform.position - transform.position;
@@ -83,6 +100,7 @@ public class Enemy_test : MonoBehaviour
         {
             DropItem();
             currentHealth = ENEMY_MAX_HEALTH;
+            Target = null;
             gameObject.SetActive(false);
 
             //인성 추가
@@ -140,29 +158,39 @@ public class Enemy_test : MonoBehaviour
             //attack test
             PlayerInfo testhealth = other.gameObject.GetComponent<PlayerInfo>();
             testhealth.currenthealth -= ENEMY_ZOMBIE_DAMAGE;
-            _anim.SetBool("isAttack", true);
-            
+
             //인성 수정
             testhealth.onDamaged= true; // 플레이어 공격 받는 상태 true;
             HitManager hm = FindObjectOfType<HitManager>();
             hm.Attacked();
-            
             //
+            
+            StartCoroutine(Attack());
             attackDelay = 1f;
         }
         else if (other.gameObject.tag == "Base" && attackDelay < 0)
         {
             Base testBaseHealth = other.gameObject.GetComponent<Base>();
             testBaseHealth.baseHealth -= ENEMY_ZOMBIE_DAMAGE;
+            
+            StartCoroutine(Attack());
             attackDelay = 1f;
         }
         else if (other.gameObject.tag == "ObstacleWall" && attackDelay < 0)
         {
             ObstacleWall testWallHealth = other.gameObject.GetComponent<ObstacleWall>();
             testWallHealth.WallHealth -= ENEMY_ZOMBIE_DAMAGE;
+            
+            StartCoroutine(Attack());
             attackDelay = 1f;
         }
     }
 
+    IEnumerator Attack()
+    {
+        _anim.SetBool("isAttack", true);
+        yield return new WaitForSeconds(1f);
+        _anim.SetBool("isAttack", false);
+    }
    
 }

@@ -28,6 +28,10 @@ public class ObjectManager : MonoBehaviour
    private GameObject[] Item_Psycho;
 
    public GameObject[] targetPool;
+
+   public Base[] EnemyTargetBase;
+   public Transform Player;
+   
    private void Awake()
    {
       Enemy_Zombie = new GameObject[MAX_ENEMY];

@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 2755040576373731581}
   - component: {fileID: 4545490731917520440}
   - component: {fileID: 6344906961432269933}
+  - component: {fileID: 9070796970707597317}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -326,11 +327,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   _PlayerInfo: {fileID: 0}
-  test_mat: {fileID: 2100000, guid: 5e4f09d2eb5cf224eb2d06d74556d5ba, type: 2}
   shield: {fileID: 3133214185613152726}
   field: {fileID: 2084162388}
   player_occu: {fileID: 2100000, guid: 5e4f09d2eb5cf224eb2d06d74556d5ba, type: 2}
   enemy_occu: {fileID: 2100000, guid: 2448f484379486a4cae6900910ba6b44, type: 2}
+--- !u!208 &9070796970707597317
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755040576373731580}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.58, y: 1.5, z: 0.58}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3133214185613152726
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8862613385007812661
 Transform:
   m_ObjectHideFlags: 0

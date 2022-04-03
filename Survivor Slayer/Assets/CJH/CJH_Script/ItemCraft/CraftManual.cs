@@ -22,7 +22,7 @@ public class CraftManual : MonoBehaviour
     private GameObject go_Preview;              // 미리보기 프리팹을 담을 변수
     private GameObject go_Prefab;               // 실제 생성될 프리팹을 담을 변수
     
-    [SerializeField]private Transform Player;   // 플레이어가 설치하므로 플레이어 위치를 받음
+    [SerializeField]private Transform Player;   // 플레이어가 설치하므로 플레이어인 카메라를 셋팅
 
     private RaycastHit hitInfo;
     [SerializeField] private LayerMask _layerMask;
