@@ -35,7 +35,11 @@ public class Base : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        {
+            Debug.Log("플레이어 점령 시작");
             baseTimer += Time.deltaTime;
+
+        }
     }
 
     private void Update()
@@ -52,6 +56,8 @@ public class Base : MonoBehaviour
             state = State.Player_Occupation;
             gameObject.layer = 7;       // wall로 레이어 변경
             shield.SetActive(true);
+            field.SetActive(false);
+            this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
         }
         else if (baseHealth <= 0)
         {
@@ -60,6 +66,8 @@ public class Base : MonoBehaviour
             state = State.Enemy_Occupation;
             gameObject.layer = 11;      // seethrough로 레이어 변경
             shield.SetActive(false);
+            field.SetActive(true);
+            this.gameObject.GetComponent<MeshRenderer>().material = enemy_occu;
         }
     }
 

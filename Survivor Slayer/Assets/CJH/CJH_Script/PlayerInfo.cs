@@ -17,8 +17,8 @@ public class PlayerInfo : MonoBehaviour
         
     public Slider HPSlider;
     public Text HPText;
-    //?몄꽦 異붽?
-    public bool onDamaged = false; // ?뚮젅?댁뼱媛 ?곕?吏 諛쏅뒗 ?곹깭?몄?
+    //인성 수정
+    public bool onDamaged = false; // 플레이어가 데미지 받는지
     //
     private void Awake()
     {
