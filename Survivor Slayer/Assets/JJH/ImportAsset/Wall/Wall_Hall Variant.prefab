@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Hall Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 074cc0588dd290e409b68900fc23953d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 074cc0588dd290e409b68900fc23953d, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         
         if (!isBorder)
         {
-            _myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+            _myRigid.MovePosition(_myRigid.position + _velocity * Time.deltaTime);
         }
 
     }

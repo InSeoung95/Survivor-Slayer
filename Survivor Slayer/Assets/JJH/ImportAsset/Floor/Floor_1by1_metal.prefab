@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d660861b0c1d01946b4483744f5c9af0, type: 3}
       propertyPath: m_Name
-      value: Foor_Plate_Big (14)
+      value: Floor_1by1_metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d660861b0c1d01946b4483744f5c9af0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d660861b0c1d01946b4483744f5c9af0, type: 3}
       propertyPath: m_RootOrder

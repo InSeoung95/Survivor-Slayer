@@ -105,6 +105,7 @@ public class Enemy_test : MonoBehaviour
 
             //인성 추가
             audioSource.PlayOneShot(deadSound);
+
         }
     }
 

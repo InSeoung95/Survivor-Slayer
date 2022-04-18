@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Base : MonoBehaviour
 {
@@ -26,19 +27,34 @@ public class Base : MonoBehaviour
     public Material player_occu; // 플레이어가 점령했을 때 메테리얼
     public Material enemy_occu;  // 적이 점령했을 때 메테리얼
 
+    public GameObject aplly_skin;// 점령에 따라 머테리얼 변경이 적용될 모델
+
+    public VisualEffect energy_effect;//베이스에 뜨는 에너지 이펙트
+
+    public BaseManager baseManager;
+
+   
     private void Awake()
     {
         //test_mat.color = Color.white;
-        StartCoroutine(BasePointTime());
+        StartCoroutine(BasePointTime()); // 4/118 인성 오류로 주석 처리
+        
     }
    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
         {
-            Debug.Log("플레이어 점령 시작");
+            //Debug.Log("플레이어 점령 시작");
             baseTimer += Time.deltaTime;
 
+            //인성 추가
+            UIManager.instance.BaseOccupationUI(baseTimer);
+            
+        }
+        else
+        {
+            //UIManager.instance.BaseOccu_UI.SetActive(false);
         }
     }
 
@@ -52,12 +68,21 @@ public class Base : MonoBehaviour
     {
         if (baseTimer > 15)
         {
+            Debug.Log("플레이어 점령.");
             baseTimer = 0;
             state = State.Player_Occupation;
+            Debug.Log("현재 상태"+state);
+            UIManager.instance.BaseOccu_UI.SetActive(false);// 인성 추가
             gameObject.layer = 7;       // wall로 레이어 변경
             shield.SetActive(true);
             field.SetActive(false);
-            this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
+            energy_effect.Play();
+            aplly_skin.GetComponent<MeshRenderer>().material = player_occu;
+            //this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
+            if(baseManager.Current_BaseLevel<3)
+            {
+                baseManager.Current_BaseLevel++;
+            }
         }
         else if (baseHealth <= 0)
         {
@@ -67,7 +92,14 @@ public class Base : MonoBehaviour
             gameObject.layer = 11;      // seethrough로 레이어 변경
             shield.SetActive(false);
             field.SetActive(true);
-            this.gameObject.GetComponent<MeshRenderer>().material = enemy_occu;
+            energy_effect.Stop();
+            aplly_skin.GetComponent<MeshRenderer>().material = enemy_occu;
+            //this.gameObject.GetComponent<MeshRenderer>().material = enemy_occu;
+            if (baseManager.Current_BaseLevel >0)
+            {
+                baseManager.Current_BaseLevel--;
+            }
+
         }
     }
 

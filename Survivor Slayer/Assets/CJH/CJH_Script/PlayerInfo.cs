@@ -14,6 +14,8 @@ public class PlayerInfo : MonoBehaviour
     public float currentPsycho = 0;
     
     public float currentBasePoint = 0;      // 플레이어가 가지고있는 거점재화
+    //인성 추가
+    public int revivalCount;// 부활 가능 횟수
         
     public Slider HPSlider;
     public Text HPText;

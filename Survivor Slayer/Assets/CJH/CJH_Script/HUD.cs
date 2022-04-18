@@ -5,23 +5,20 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+    /*
     [SerializeField] private GunController theGunController;
     [SerializeField] private Gun currentGun;
 
-    [SerializeField] private GameObject go_BulletHUD;   // HUD?�출, HUD비활?�화
+    [SerializeField] private GameObject go_BulletHUD;   // HUD?�출, HUD비활성화
 
     [SerializeField] private Text[] text_Bullet;
+     */
 
     // Update is called once per frame
     void Update()
     {
-        CheckBullet();
+        UIManager.instance.CheckBullet();
+        //CheckBullet();
     }
 
-    private void CheckBullet()
-    {
-        currentGun = theGunController.GetGun();
-        text_Bullet[0].text = currentGun.currentBulletCount.ToString();
-        text_Bullet[1].text = currentGun.carryBulletCount.ToString();
-    }
 }
