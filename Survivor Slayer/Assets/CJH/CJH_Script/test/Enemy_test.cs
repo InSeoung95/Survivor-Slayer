@@ -162,9 +162,8 @@ public class Enemy_test : MonoBehaviour
 
             //인성 수정
             testhealth.onDamaged= true; // 플레이어 공격 받는 상태 true;
-            HitManager hm = FindObjectOfType<HitManager>();
-            hm.Attacked();
-            //
+            
+            UIManager.instance.PlayerAttacked();
             
             StartCoroutine(Attack());
             attackDelay = 1f;

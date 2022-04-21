@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     {
         get
         {
-            if (m_instance==null)
+            if (m_instance == null)
             {
                 m_instance = FindObjectOfType<UIManager>();
             }
@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GunController theGunController;
     [SerializeField] private Gun currentGun;
 
-    [SerializeField] private GameObject go_BulletHUD; 
+    [SerializeField] private GameObject go_BulletHUD;
 
     [SerializeField] private Text[] text_Bullet;
 
@@ -33,10 +33,12 @@ public class UIManager : MonoBehaviour
     public GameObject gameOver_UI; // 게임 패배시 보이는 UI
     public Slider occu_slider;
     public Text occu_txt;
+    public GameObject PlayerAttackedImage; // 플레이어 맞을 때 뜨는 이미지.
 
     private void Awake()
     {
         //occu_slider = BaseOccu_UI.GetComponent<Slider>();
+        PlayerAttackedImage.SetActive(false);
     }
     public void CheckBullet()
     {
@@ -73,7 +75,19 @@ public class UIManager : MonoBehaviour
     {
         BaseOccu_UI.SetActive(true);
         occu_slider.value = occu_time / 15;
-        int percent = (int)(occu_slider.value*100);
-        occu_txt.text = percent.ToString()+" %";
+        int percent = (int)(occu_slider.value * 100);
+        occu_txt.text = percent.ToString() + " %";
+    }
+
+    public void PlayerAttacked()
+    {
+        StartCoroutine("Flash"); // 0.1초 동안 보이도록.
+    }
+
+    IEnumerator Flash()
+    {
+        PlayerAttackedImage.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        PlayerAttackedImage.SetActive(false);
     }
 }

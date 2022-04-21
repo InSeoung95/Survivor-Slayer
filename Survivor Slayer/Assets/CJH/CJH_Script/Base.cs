@@ -37,7 +37,7 @@ public class Base : MonoBehaviour
     private void Awake()
     {
         //test_mat.color = Color.white;
-        StartCoroutine(BasePointTime()); // 4/118 인성 오류로 주석 처리
+        StartCoroutine(BasePointTime());
         
     }
    
@@ -49,13 +49,20 @@ public class Base : MonoBehaviour
             baseTimer += Time.deltaTime;
 
             //인성 추가
-            UIManager.instance.BaseOccupationUI(baseTimer);
-            
+            UIManager.instance.BaseOccupationUI(baseTimer);            
         }
-        else
-        {
-            //UIManager.instance.BaseOccu_UI.SetActive(false);
-        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        //baseTimer -= Time.deltaTime;
+        //UIManager.instance.BaseOccupationUI(baseTimer);
+
+        StartCoroutine(BaseOccu_UI_Off());
+    }
+    IEnumerator BaseOccu_UI_Off() // 0.5초 뒤에 UI 종료.
+    {
+        yield return new WaitForSeconds(0.5f);
+        UIManager.instance.BaseOccu_UI.SetActive(false);
     }
 
     private void Update()

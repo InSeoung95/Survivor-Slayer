@@ -68,8 +68,12 @@ public class PlayerController : MonoBehaviour
         isBorder = Physics.Raycast(transform.position, _moveVector, out hit, 1);
         Debug.DrawRay(transform.position, _moveVector * 1, Color.blue);
         if(isBorder)
+        {
             if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Base"))
                 isBorder = true;
+            else
+                isBorder = false;
+        }
         
         if (!isBorder)
         {
