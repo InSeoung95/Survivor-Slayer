@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerWindowA Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1203554680606898, guid: 3aa541d38da2cd643aec89b050153446, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203554680606898, guid: 3aa541d38da2cd643aec89b050153446, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4282510243656646, guid: 3aa541d38da2cd643aec89b050153446, type: 3}
       propertyPath: m_RootOrder
       value: 0
