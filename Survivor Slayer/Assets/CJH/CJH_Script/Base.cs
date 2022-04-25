@@ -26,21 +26,26 @@ public class Base : MonoBehaviour
 
     public Material player_occu; // 플레이어가 점령했을 때 메테리얼
     public Material enemy_occu;  // 적이 점령했을 때 메테리얼
-
     public GameObject aplly_skin;// 점령에 따라 머테리얼 변경이 적용될 모델
-
     public VisualEffect energy_effect;//베이스에 뜨는 에너지 이펙트
-
     public BaseManager baseManager;
 
-   
+    [SerializeField] private string occupying_sound;// 플레이어가 거점 점령 중일 때 나는 사운드
+    [SerializeField] private string occupied_sound;// 플레이어가 거점 점령 완료 시 나는 사운드
+
+
     private void Awake()
     {
-        //test_mat.color = Color.white;
         StartCoroutine(BasePointTime());
         
     }
-   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+            SoundManager.instance.PlayEffectSound(occupying_sound, true);
+
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
@@ -49,20 +54,21 @@ public class Base : MonoBehaviour
             baseTimer += Time.deltaTime;
 
             //인성 추가
-            UIManager.instance.BaseOccupationUI(baseTimer);            
+            UIManager.instance.BaseOccupationUI(baseTimer);
+            
+          
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        //baseTimer -= Time.deltaTime;
-        //UIManager.instance.BaseOccupationUI(baseTimer);
-
+        SoundManager.instance.StopEffectSound(occupying_sound);
         StartCoroutine(BaseOccu_UI_Off());
     }
     IEnumerator BaseOccu_UI_Off() // 0.5초 뒤에 UI 종료.
     {
         yield return new WaitForSeconds(0.5f);
         UIManager.instance.BaseOccu_UI.SetActive(false);
+       
     }
 
     private void Update()
@@ -86,6 +92,9 @@ public class Base : MonoBehaviour
             energy_effect.Play();
             aplly_skin.GetComponent<MeshRenderer>().material = player_occu;
             //this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
+            SoundManager.instance.StopEffectSound(occupying_sound);
+            SoundManager.instance.PlayEffectSound(occupied_sound);
+
             if(baseManager.Current_BaseLevel<3)
             {
                 baseManager.Current_BaseLevel++;

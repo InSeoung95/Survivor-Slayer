@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    //싱글톤 관리
+    private static UIManager m_instance;
     public static UIManager instance
     {
         get
@@ -17,8 +19,6 @@ public class UIManager : MonoBehaviour
             return m_instance;
         }
     }
-
-    private static UIManager m_instance;
 
     [SerializeField] private GunController theGunController;
     [SerializeField] private Gun currentGun;
@@ -34,11 +34,25 @@ public class UIManager : MonoBehaviour
     public Slider occu_slider;
     public Text occu_txt;
     public GameObject PlayerAttackedImage; // 플레이어 맞을 때 뜨는 이미지.
-
+    public GameObject Map_panel;
+    private bool mapActive=false;
+    
     private void Awake()
     {
         //occu_slider = BaseOccu_UI.GetComponent<Slider>();
         PlayerAttackedImage.SetActive(false);
+        mapActive = false;
+        Map_panel.SetActive(true);
+        Map_panel.GetComponent<Canvas>().enabled = mapActive;
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            mapActive = !mapActive;
+            
+            Map_panel.GetComponent<Canvas>().enabled = mapActive;
+        }
     }
     public void CheckBullet()
     {
