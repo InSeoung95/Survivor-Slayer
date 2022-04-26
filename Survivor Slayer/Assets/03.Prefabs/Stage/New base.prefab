@@ -358,6 +358,8 @@ MonoBehaviour:
   aplly_skin: {fileID: 1701134428599138075}
   energy_effect: {fileID: 847839923}
   baseManager: {fileID: 0}
+  occupying_sound: occupying
+  occupied_sound: occupied
 --- !u!208 &2584620339213429458
 NavMeshObstacle:
   m_ObjectHideFlags: 0

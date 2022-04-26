@@ -22,6 +22,9 @@ public class Gun : MonoBehaviour
     public AudioClip fireSound; // 총기발사 소리
     public AudioClip reloadSound;   //재장전 소리
 
+    //인성 추가
+    private Animator playerAnim;
+
     void Start()
     {
         

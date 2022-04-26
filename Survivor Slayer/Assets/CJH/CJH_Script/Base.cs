@@ -43,7 +43,7 @@ public class Base : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
-            SoundManager.instance.PlayEffectSound(occupying_sound, true);
+            SoundManager.instance.PlayEffectSound(occupying_sound, true); //점령 중 사운드 루프 재생
 
     }
     private void OnTriggerStay(Collider other)
@@ -61,8 +61,12 @@ public class Base : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        SoundManager.instance.StopEffectSound(occupying_sound);
-        StartCoroutine(BaseOccu_UI_Off());
+        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        {
+            SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지.
+            StartCoroutine(BaseOccu_UI_Off());
+        }
+            
     }
     IEnumerator BaseOccu_UI_Off() // 0.5초 뒤에 UI 종료.
     {
@@ -92,8 +96,8 @@ public class Base : MonoBehaviour
             energy_effect.Play();
             aplly_skin.GetComponent<MeshRenderer>().material = player_occu;
             //this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
-            SoundManager.instance.StopEffectSound(occupying_sound);
-            SoundManager.instance.PlayEffectSound(occupied_sound);
+            SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지
+            SoundManager.instance.PlayEffectSound(occupied_sound); // 점령 완료 사운드 출력
 
             if(baseManager.Current_BaseLevel<3)
             {
