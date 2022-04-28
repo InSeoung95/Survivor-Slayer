@@ -32,6 +32,7 @@ public class Enemy_test : MonoBehaviour
     public GameObject rightArm;
 
     public bool testMove = false;
+    public bool isDeath = false;
     private Animator _anim;
 
     // 인성 수정
@@ -79,6 +80,9 @@ public class Enemy_test : MonoBehaviour
             }
             if (search == 4)
                 Target = _ObjectManager.Player.gameObject;
+
+            _nav.isStopped = false;
+            _nav.speed = MoveSpeed;
             testMove = true;
         }
         
@@ -101,14 +105,18 @@ public class Enemy_test : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            DropItem();
             currentHealth = ENEMY_MAX_HEALTH;
+            _nav.isStopped = true;
+            _nav.velocity = Vector3.zero;
+            testMove = false;
+            isDeath = true;
             Target = null;
-            
-            //인성 추가
-            audioSource.PlayOneShot(deadSound);
-            
-            gameObject.SetActive(false);
+        }
+
+        if (isDeath)
+        {
+            isDeath = false;
+            StartCoroutine("Death");
         }
     }
 
@@ -162,21 +170,24 @@ public class Enemy_test : MonoBehaviour
         {
             if (_player == null)
                 _player = other.gameObject.GetComponent<PlayerInfo>();
-            
-       
-            _player.onDamaged= true; // 플레이어 공격 받는 상태 true;
-            UIManager.instance.PlayerAttacked();
 
             StartCoroutine(Attack());
             attackDelay = ENEMY_ATTACK_DELAY * 1.5f;
         }
         else if (other.gameObject.tag == "Base" && attackDelay < 0)
         {
-            Base testBaseHealth = other.gameObject.GetComponent<Base>();
-            testBaseHealth.baseHealth -= ENEMY_ZOMBIE_DAMAGE;
-            
-            StartCoroutine(Attack());
-            attackDelay = ENEMY_ATTACK_DELAY;
+            Base testBaseHealth = other.gameObject.GetComponentInParent<Base>();
+            if (testBaseHealth.state != Base.State.Enemy_Occupation)
+            {
+                testBaseHealth.baseHealth -= ENEMY_ZOMBIE_DAMAGE;
+                StartCoroutine(Attack());
+                attackDelay = ENEMY_ATTACK_DELAY * 1.5f;
+            }
+            else if (Target == other.gameObject.transform.parent.gameObject)       
+            {
+                //Base 상태가 Enemy_occupation일때 목적지가 base와 같을경우
+                Target = null;
+            }
         }
         else if (other.gameObject.tag == "ObstacleWall" && attackDelay < 0)
         {
@@ -199,10 +210,24 @@ public class Enemy_test : MonoBehaviour
                 LayerMask.GetMask("Player")))
         {
             _player.currenthealth -= ENEMY_ZOMBIE_DAMAGE;
+            _player.onDamaged= true; // 플레이어 공격 받는 상태 true;
+            UIManager.instance.PlayerAttacked();
         }
         
         testMove = true;
         _anim.SetBool("isAttack", false);
+    }
+
+    IEnumerator Death()
+    {
+        _anim.SetBool("isDeath", true);
+        audioSource.PlayOneShot(deadSound);
+        yield return new WaitForSeconds(3f);
+        
+        DropItem();
+        _anim.SetBool("isDeath", false);
+        gameObject.SetActive(false);
+        
     }
    
 }
