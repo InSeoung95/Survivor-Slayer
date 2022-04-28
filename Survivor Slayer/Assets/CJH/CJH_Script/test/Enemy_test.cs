@@ -37,7 +37,7 @@ public class Enemy_test : MonoBehaviour
 
     // 인성 수정
     public VisualEffect hitEffect;   // 좀비 피격 이펙트
-    public ParticleSystem hitEffect2;// 피격 파티클 
+    public ParticleSystem hitEffect2;// 피격 피격 파티클 
     public AudioClip deadSound;// 좀비 사망 사운드.
 
     private AudioSource audioSource;
@@ -156,19 +156,17 @@ public class Enemy_test : MonoBehaviour
         {
             currentHealth -= 1f;
             //인성 수정
-            /*
-            hitEffect.transform.position = collision.transform.position;
-            Vector3 dir = transform.position-collision.transform.position;
-            hitEffect.transform.rotation = Quaternion.LookRotation(dir);
-            hitEffect.Play();
-           
-             */
+            
             ContactPoint contactPoint = collision.contacts[0];
             hitEffect2.transform.position = contactPoint.point;
-            Vector3 dir = transform.position - collision.transform.position;
-            hitEffect2.transform.rotation = Quaternion.LookRotation(contactPoint.point);
-            
+            hitEffect2.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
             hitEffect2.Play();
+
+            /*
+            hitEffect.transform.position = contactPoint.point;
+            hitEffect.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
+            hitEffect.Play();
+             */
             //
         }
     }

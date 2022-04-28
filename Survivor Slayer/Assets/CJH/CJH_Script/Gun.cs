@@ -23,11 +23,11 @@ public class Gun : MonoBehaviour
     public AudioClip reloadSound;   //재장전 소리
 
     //인성 추가
-    private Animator playerAnim;
+    public Animator gunAnim;
 
     void Start()
     {
-        
+        gunAnim=GetComponent<Animator>();
     }
 
    

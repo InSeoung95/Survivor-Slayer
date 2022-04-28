@@ -1,7 +1,8 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class GunController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GunController : MonoBehaviour
     //인성 추가
     private Animator playerAnim;
     private FlashLight flashLight;
+    private Crosshair crosshair;
    
 
     private void Start()
@@ -32,6 +34,7 @@ public class GunController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         playerAnim = GetComponent<Animator>();
         flashLight = GetComponentInChildren<FlashLight>();
+        crosshair = FindObjectOfType<Crosshair>();
     }
 
     void Update()
@@ -82,18 +85,26 @@ public class GunController : MonoBehaviour
         currentGun.muzzleFlash.Play();
         PlaySE(currentGun.fireSound);
         flashLight.Flash(); // 플래쉬 효과 추가
+        crosshair.FireOnCrosshair();// 총 발사 크로스헤어
+        currentGun.gunAnim.SetTrigger("isFire");
 
         // Hit();   //raycast 방식인데 bullet생성이 더 좋은거라 생각 나중에 삭제해서 통합
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        //인성 수정: // 레이 케스트에 랜덤값을 줘서 탄이 퍼지도록
+        Physics.Raycast(thecam.transform.position, thecam.transform.forward+
+            new Vector3(Random.Range(-crosshair.GetAccuracy()-currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        , Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        ,0)
+            ,out hitinfo);
+        Debug.DrawRay(thecam.transform.position, thecam.transform.forward * hitinfo.distance, Color.red);
 
-        Physics.Raycast(thecam.transform.position, thecam.transform.forward, out hitinfo);
         bulletPos.LookAt(hitinfo.point);
-        
+       
         GameObject intantBullet = _ObjectManager.MakeObj("Bullet", bulletPos.position, bulletPos.rotation);
         Rigidbody bulletRigid = intantBullet.GetComponent<Rigidbody>();
         bulletRigid.velocity = bulletPos.forward * BULLET_SPEED;
-
+        
         // StopAllCoroutines();
         // StartCoroutine(RetroActionCoroutine());
     }

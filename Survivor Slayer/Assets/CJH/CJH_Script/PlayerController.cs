@@ -19,11 +19,14 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isBorder = false; // 이동할 벡터를 border가 검사해서 앞에 layer가 있으면 못지나가게 설정
     private RaycastHit hit;
+    //인성 추가
+    private Crosshair crosshair;
 
     void Start()
     {
         _myRigid = GetComponent<Rigidbody>();
         applySpeed = walkSpeed;
+        crosshair = FindObjectOfType<Crosshair>();
     }
 
     
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
             isMoving = true;
         else
             isMoving = false;
+        //인성 추가
+        crosshair.MoveOnCrosshair(isMoving);
 
         Vector3 _moveHorizontal = transform.right * _moveDirX;
         Vector3 _moveVertical = transform.forward * _moveDirZ;
@@ -78,8 +83,9 @@ public class PlayerController : MonoBehaviour
         if (!isBorder)
         {
             _myRigid.MovePosition(_myRigid.position + _velocity * Time.deltaTime);
+            
         }
-
+        
     }
 
     private void CameraRotation()

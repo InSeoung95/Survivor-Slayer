@@ -327,6 +327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5130969481992324681}
     m_Modifications:
+    - target: {fileID: 290092555, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 290092556, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
       propertyPath: m_ResetSeedOnPlay
       value: 0
@@ -378,6 +382,10 @@ PrefabInstance:
     - target: {fileID: 2969501585864044487, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
       propertyPath: m_Name
       value: VFX_Blood
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969501585864044487, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}

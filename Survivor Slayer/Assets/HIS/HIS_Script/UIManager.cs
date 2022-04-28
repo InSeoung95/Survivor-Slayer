@@ -34,9 +34,10 @@ public class UIManager : MonoBehaviour
     public Slider occu_slider;
     public Text occu_txt;
     public GameObject PlayerAttackedImage; // 플레이어 맞을 때 뜨는 이미지.
-    public GameObject Map_panel;
+    public GameObject Map_panel; // 문 컨트롤 할 수 있는 패널.
     private bool mapActive=false;
     
+
     private void Awake()
     {
         //occu_slider = BaseOccu_UI.GetComponent<Slider>();
