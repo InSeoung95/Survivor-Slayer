@@ -101,6 +101,11 @@ public class Enemy_test : MonoBehaviour
         }
     }
 
+    public void HitBomb()
+    {
+        currentHealth -= 5;
+    }
+
     private void Die()
     {
         if (currentHealth <= 0)
