@@ -90,7 +90,7 @@ public class Base : MonoBehaviour
             state = State.Player_Occupation;
             Debug.Log("현재 상태"+state);
             UIManager.instance.BaseOccu_UI.SetActive(false);// 인성 추가
-            gameObject.layer = 7;       // wall로 레이어 변경
+            aplly_skin.layer = 7;       // wall로 레이어 변경// 인성 수정
             shield.SetActive(true);
             field.SetActive(false);
             energy_effect.Play();
@@ -109,7 +109,7 @@ public class Base : MonoBehaviour
             Debug.Log("Enemy 점령");
             baseHealth = 100;
             state = State.Enemy_Occupation;
-            gameObject.layer = 11;      // seethrough로 레이어 변경
+            aplly_skin.layer = 11;      // seethrough로 레이어 변경 // 인성 수정.
             shield.SetActive(false);
             field.SetActive(true);
             energy_effect.Stop();

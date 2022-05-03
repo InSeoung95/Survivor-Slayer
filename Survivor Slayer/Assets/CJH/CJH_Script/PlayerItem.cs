@@ -7,6 +7,8 @@ public class PlayerItem : MonoBehaviour
 {
     [SerializeField] private Gun currentGun;
     private PlayerInfo _playerInfo;
+    [SerializeField]
+    private string ItemGetSound; // 아이템 습득 사운드
     
     
     private void Start()
@@ -19,7 +21,11 @@ public class PlayerItem : MonoBehaviour
     {
         if (other.tag == "Item")
         {
+           
             Item item = other.GetComponent<Item>();
+            //인성 추가
+            SoundManager.instance.PlayEffectSound(ItemGetSound);
+
             switch (item.itemType)
             {
                 case Item.ItemType.Ammo :
@@ -43,6 +49,7 @@ public class PlayerItem : MonoBehaviour
                         _playerInfo.currentPsycho = _playerInfo.maxPsycho;
                     break;
             }
+           
             other.gameObject.SetActive(false);
         }
     }

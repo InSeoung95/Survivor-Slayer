@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     public ItemType itemType;
     public int value;
 
-    private const float ITEM_MOVE_MAX = 3f;     // 아이템 상하이동 최대값
+    private const float ITEM_MOVE_MAX = 1f;     // 아이템 상하이동 최대값
     private Vector3 UpMaxPos;
     private Vector3 DownMaxPos;
     private Vector3 Pos;
