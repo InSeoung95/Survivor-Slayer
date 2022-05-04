@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HIS/HIS_Test.unity
     guid: 6ece9a0dc0a83aa4dbfcb3ab1810bd1a
-  - enabled: 1
+  - enabled: 0
     path: Assets/HIS/GameStart.unity
     guid: 2e69b50cd751a0b44b0983a8d20de4bf
   m_configObjects: {}

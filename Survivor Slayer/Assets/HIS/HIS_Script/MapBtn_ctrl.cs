@@ -9,6 +9,7 @@ public class MapBtn_ctrl : MonoBehaviour
     public GameObject door;
     private Button button;
     private bool active;
+    public string click_sound;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class MapBtn_ctrl : MonoBehaviour
 
     public void ButtonClick()
     {
+        SoundManager.instance.PlayEffectSound(click_sound);
         door.GetComponent<Door_Ctrl>().Open();
         button.interactable = false;
         StartCoroutine(ButtonActive());

@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3057684353050352304}
   m_LocalRotation: {x: -0, y: -0.012800437, z: -0, w: 0.9999181}
-  m_LocalPosition: {x: 0.006, y: -0.148, z: 0.932}
+  m_LocalPosition: {x: 0.013, y: -0.148, z: 0.651}
   m_LocalScale: {x: 0.68646204, y: 0.43667373, z: 2.1833687}
   m_Children:
   - {fileID: 3057684354043319171}
@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3057684354043319168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.252, y: -0.31, z: 0.23}
+  m_LocalPosition: {x: 0.252, y: -0.31, z: 0.244}
   m_LocalScale: {x: 1, y: 1.6666665, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3057684353050352307}
@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGun: {fileID: 3057684353050352306}
+  ItemGetSound: 
 --- !u!82 &2039292411
 AudioSource:
   m_ObjectHideFlags: 0
@@ -544,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3057684355146390633}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.772}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3057684354976962548}
@@ -696,6 +697,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 43c69a83267955a4b9763da4d4e0d4f1, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 43c69a83267955a4b9763da4d4e0d4f1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43c69a83267955a4b9763da4d4e0d4f1, type: 3}
