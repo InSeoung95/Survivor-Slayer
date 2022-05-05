@@ -20,6 +20,7 @@ public class Enemy_test : MonoBehaviour
 
     private Rigidbody _rigid;
     private BoxCollider _boxCollider;   // 좀비의 공격범위
+    private float _boxColliderSize;
     public GameObject Target;           // 좀비가 공격할 목표
     private PlayerInfo _player;         // 좀비가 가져올 플레이어 정보
     
@@ -32,6 +33,7 @@ public class Enemy_test : MonoBehaviour
     public GameObject rightArm;
 
     public bool testMove = false;
+    public bool chasePlayer = false;
     public bool isDeath = false;
     private Animator _anim;
 
@@ -47,6 +49,7 @@ public class Enemy_test : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
+        _boxColliderSize = _boxCollider.size.z + _boxCollider.center.z;     // 좀비 공격범위(위치+크기)
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
         audioSource = GetComponent<AudioSource>();
         
@@ -65,7 +68,7 @@ public class Enemy_test : MonoBehaviour
 
     private void Move()
     {
-        if (Target == null)
+        if (Target == null && !chasePlayer)
         {
             int search = 0;
             while (search < 4)
@@ -78,8 +81,12 @@ public class Enemy_test : MonoBehaviour
                 }
                 search++;
             }
+
             if (search == 4)
+            {
                 Target = _ObjectManager.Player.gameObject;
+                chasePlayer = true;
+            }
 
             _nav.isStopped = false;
             _nav.speed = MoveSpeed;
@@ -91,7 +98,7 @@ public class Enemy_test : MonoBehaviour
             Vector3 dir = Target.transform.position - transform.position;
             dir.y = 0;
             dir.Normalize();
-
+            
             _nav.SetDestination(Target.transform.position);
             _anim.SetBool("isRun", testMove);
             
@@ -115,7 +122,6 @@ public class Enemy_test : MonoBehaviour
             _nav.velocity = Vector3.zero;
             testMove = false;
             isDeath = true;
-            Target = null;
         }
 
         if (isDeath)
@@ -195,7 +201,7 @@ public class Enemy_test : MonoBehaviour
                 StartCoroutine(Attack());
                 attackDelay = ENEMY_ATTACK_DELAY * 1.5f;
             }
-            else if (Target == other.gameObject.transform.parent.gameObject)       
+            else if (Target == other.gameObject.transform.parent.gameObject && !chasePlayer)       
             {
                 //Base 상태가 Enemy_occupation일때 목적지가 base와 같을경우
                 Target = null;
@@ -214,11 +220,13 @@ public class Enemy_test : MonoBehaviour
     IEnumerator Attack()
     {
         testMove = false;
+        _nav.isStopped = true;
+        _nav.velocity = Vector3.zero;
         _anim.SetBool("isAttack", true);
         yield return new WaitForSeconds(ENEMY_ATTACK_DELAY);
 
         RaycastHit _hit;
-        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, 2f,
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, _boxColliderSize,
                 LayerMask.GetMask("Player")))
         {
             _player.currenthealth -= ENEMY_ZOMBIE_DAMAGE;
@@ -227,6 +235,7 @@ public class Enemy_test : MonoBehaviour
         }
         
         testMove = true;
+        _nav.isStopped = false;
         _anim.SetBool("isAttack", false);
     }
 
@@ -238,6 +247,9 @@ public class Enemy_test : MonoBehaviour
         
         DropItem();
         _anim.SetBool("isDeath", false);
+        
+        chasePlayer = false;
+        Target = null;
         gameObject.SetActive(false);
         
     }

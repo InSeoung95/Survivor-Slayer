@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &464552
 Transform:
@@ -80,7 +80,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e7280697ebb11a7429fff43396523803, type: 3}
 --- !u!205 &20526090
@@ -800,7 +800,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e7280697ebb11a7429fff43396523803, type: 3}
 --- !u!205 &20502510
@@ -964,6 +964,10 @@ PrefabInstance:
     - target: {fileID: 4195573026673038475, guid: 56b8bb47a3facd147a06d21ae35188b6, type: 3}
       propertyPath: m_Name
       value: floor_6 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195573026673038475, guid: 56b8bb47a3facd147a06d21ae35188b6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56b8bb47a3facd147a06d21ae35188b6, type: 3}

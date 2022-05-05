@@ -8,7 +8,6 @@ public class Enemy_test_range : MonoBehaviour
     private SphereCollider _sphereCollider;       // 좀비 공격범위 인식
     private Enemy_test tester;
     private Base _base;                           // 좀비가 인식한 거점의 상태확인
-    private bool FollowPlayer;
 
     void Start()
     {
@@ -21,9 +20,9 @@ public class Enemy_test_range : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FollowPlayer = true;
             tester.Target = other.gameObject;
             tester.testMove = true;
+            tester.chasePlayer = true;
             _sphereCollider.radius = 20f;  // 플레이어 인식 -> 플레이어 추적범위 : 플레이어가 추적범위(20f) 벗어나면 다시 인식(10f)으로
         }
 
@@ -43,17 +42,13 @@ public class Enemy_test_range : MonoBehaviour
                 _base = other.gameObject.GetComponentInParent<Base>();
             if (_base != null)
             {
-                if (_base.state != Base.State.Enemy_Occupation)
+                if (!tester.chasePlayer)
                 {
-                    if (!FollowPlayer)
+                    if (_base.state != Base.State.Enemy_Occupation)
                     {
                         tester.Target = other.gameObject.transform.parent.gameObject;
                         tester.testMove = true;
                     }
-                }
-                else
-                {
-                    tester.Target = null;
                 }
             }
         }
@@ -63,8 +58,8 @@ public class Enemy_test_range : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FollowPlayer = false;
             tester.testMove = false;
+            tester.chasePlayer = false;
             tester.Target = null;
             _sphereCollider.radius = 10f;
         }
