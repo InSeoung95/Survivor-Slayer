@@ -101,10 +101,15 @@ MonoBehaviour:
   MoveSpeed: 3
   attackDelay: 1
   Target: {fileID: 0}
+  _materials:
+  - {fileID: -8662524793913630059, guid: 06e9405bb5dfbfc4ab33fb3956d485a3, type: 3}
+  - {fileID: 2100000, guid: 3bb81b1a17c7ae94884f2cdd043a0461, type: 2}
+  - {fileID: 2100000, guid: 73ec0a34c26b0ac44bbad29dce4f97ce, type: 2}
   _ObjectManager: {fileID: 0}
   leftArm: {fileID: 0}
   rightArm: {fileID: 0}
   testMove: 0
+  chasePlayer: 0
   isDeath: 0
   hitEffect: {fileID: 1509732074775923019}
   hitEffect2: {fileID: 6486309953790117192}

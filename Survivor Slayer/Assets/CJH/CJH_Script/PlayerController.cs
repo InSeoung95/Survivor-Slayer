@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         Vector3 _velocity = _moveVector * applySpeed;
         
         isBorder = Physics.Raycast(transform.position, _moveVector, out hit, 1);
-        Debug.DrawRay(transform.position, _moveVector * 1, Color.blue);
+        Debug.DrawRay(transform.position + new Vector3(0,0.1f,0) , _moveVector * 1, Color.blue);
         if(isBorder)
         {
             if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Base"))

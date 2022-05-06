@@ -27,6 +27,7 @@ public class ObjectManager : MonoBehaviour
    private GameObject[] Item_PowerGage;
    private GameObject[] Item_Psycho;
 
+   [SerializeField] private Transform FirstPos;
    public GameObject[] targetPool;
 
    public Base[] EnemyTargetBase;
@@ -50,17 +51,17 @@ public class ObjectManager : MonoBehaviour
    {
       for (int index = 0; index < Enemy_Zombie.Length; index++)
       {
-         Enemy_Zombie[index] = Instantiate(Enemy_ZombiePrefab,transform);
+         Enemy_Zombie[index] = Instantiate(Enemy_ZombiePrefab,FirstPos.position,transform.rotation,transform);
          Enemy_Zombie[index].SetActive(false);
       }
       for (int index = 0; index < Enemy_ArmorZombie.Length; index++)
       {
-         Enemy_ArmorZombie[index] = Instantiate(Enemy_ArmorZombiePrefab,transform);
+         Enemy_ArmorZombie[index] = Instantiate(Enemy_ArmorZombiePrefab,FirstPos.position,transform.rotation,transform);
          Enemy_ArmorZombie[index].SetActive(false);
       }
       for (int index = 0; index < Enemy_Turret.Length; index++)
       {
-         Enemy_Turret[index] = Instantiate(Enemy_TurretPrefab,transform);
+         Enemy_Turret[index] = Instantiate(Enemy_TurretPrefab,FirstPos.position,transform.rotation,transform);
          Enemy_Turret[index].SetActive(false);
       }
 

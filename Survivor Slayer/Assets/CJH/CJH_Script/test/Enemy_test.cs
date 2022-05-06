@@ -23,6 +23,9 @@ public class Enemy_test : MonoBehaviour
     private float _boxColliderSize;
     public GameObject Target;           // 좀비가 공격할 목표
     private PlayerInfo _player;         // 좀비가 가져올 플레이어 정보
+
+    [SerializeField]private Material[] _materials;      // 마테리얼 보관용
+    private Material[] _ZombieMaterial;                 // 좀비 마테리얼 확인용
     
     // private PathUnit _pathUnit;         // A*길찾기 오류해결하면 navmesh지우고 이걸로 사용
     private NavMeshAgent _nav;
@@ -47,6 +50,19 @@ public class Enemy_test : MonoBehaviour
 
     private void Start()
     {
+        _ZombieMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+        var i = Random.Range(0, 100);
+        if (i < 50)
+        {
+            _ZombieMaterial[0] = _materials[1];     // 투명화로 교체
+            GetComponentInChildren<SkinnedMeshRenderer>().materials = _ZombieMaterial;
+        }
+        else
+        {
+            _ZombieMaterial[0] = _materials[0];     // 원본으로 교체
+            GetComponentInChildren<SkinnedMeshRenderer>().materials = _ZombieMaterial;
+        }
+        
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _boxColliderSize = _boxCollider.size.z + _boxCollider.center.z;     // 좀비 공격범위(위치+크기)

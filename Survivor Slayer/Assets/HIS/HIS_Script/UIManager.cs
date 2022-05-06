@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
         //occu_slider = BaseOccu_UI.GetComponent<Slider>();
         PlayerAttackedImage.SetActive(false);
         mapActive = false;
+        Cursor.visible = false;
         Map_panel.SetActive(true);
         Map_panel.GetComponent<Canvas>().enabled = mapActive;
     }
@@ -51,7 +52,7 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             mapActive = !mapActive;
-            
+            Cursor.visible = !Cursor.visible;
             Map_panel.GetComponent<Canvas>().enabled = mapActive;
         }
     }

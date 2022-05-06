@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7651415851474747030, guid: 8c38a0e504d76c949a1a02589bdf6858, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8255252737918041516, guid: 8c38a0e504d76c949a1a02589bdf6858, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -134,8 +138,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 3.9999998, z: 0.6800003}
-  m_Center: {x: 0, y: 1.9999999, z: -0.24058533}
+  m_Size: {x: 4, y: 4.2, z: 0.6800003}
+  m_Center: {x: 0, y: 1.9, z: -0.24058533}
 --- !u!65 &5480616302515875201
 BoxCollider:
   m_ObjectHideFlags: 0
