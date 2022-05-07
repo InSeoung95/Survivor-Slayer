@@ -18,6 +18,7 @@ public class BaseManager : MonoBehaviour
 
 
     [Header("라이트 관리")]
+    public GameObject Directional_Light;
     public GameObject[] Dynamic_LightGroup; // 동적 라이트 오브젝트 그룹
     [SerializeField]
     private List<Light> lights = new List<Light>();// 관리할 라이트들 리스트
@@ -67,6 +68,20 @@ public class BaseManager : MonoBehaviour
         LightUpdate();
         PostProcessingUpdate();
         EffectUpdate();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightBracket)&&Current_BaseLevel<3)
+        {
+            Current_BaseLevel++;
+            Debug.Log("Base LV UP: " + Current_BaseLevel);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftBracket)&&Current_BaseLevel>0)
+        {
+            Current_BaseLevel--;
+            Debug.Log("Base LV Down: " + Current_BaseLevel);
+        }
+            
     }
 
     public void LightUpdate() // 라이트 변수들 업데이트

@@ -9,6 +9,9 @@ public class Enemy_test_range : MonoBehaviour
     private Enemy_test tester;
     private Base _base;                           // 좀비가 인식한 거점의 상태확인
 
+    [SerializeField]
+    private float Enemy_Range = 40;
+
     void Start()
     {
         _sphereCollider = GetComponent<SphereCollider>();
@@ -23,7 +26,7 @@ public class Enemy_test_range : MonoBehaviour
             tester.Target = other.gameObject;
             tester.testMove = true;
             tester.chasePlayer = true;
-            _sphereCollider.radius = 20f;  // 플레이어 인식 -> 플레이어 추적범위 : 플레이어가 추적범위(20f) 벗어나면 다시 인식(10f)으로
+            _sphereCollider.radius = Enemy_Range;  // 플레이어 인식 -> 플레이어 추적범위 : 플레이어가 추적범위(20f) 벗어나면 다시 인식(10f)으로
         }
 
         if (other.gameObject.tag == "ObstacleWall")
@@ -61,7 +64,7 @@ public class Enemy_test_range : MonoBehaviour
             tester.testMove = false;
             tester.chasePlayer = false;
             tester.Target = null;
-            _sphereCollider.radius = 10f;
+            _sphereCollider.radius = Enemy_Range/2;
         }
 
         // 거점에서 나갈때 거점확인변수를 제거

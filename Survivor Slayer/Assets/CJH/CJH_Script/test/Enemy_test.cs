@@ -46,6 +46,7 @@ public class Enemy_test : MonoBehaviour
     public AudioClip deadSound;// 좀비 사망 사운드.
 
     private AudioSource audioSource;
+    private EnemySpawn enemySpawn;
     //
 
     private void Start()
@@ -72,6 +73,9 @@ public class Enemy_test : MonoBehaviour
         //_pathUnit = GetComponent<PathUnit>();          // a* 해결하면 교체
         _nav = GetComponent<NavMeshAgent>();            // a* 해결하면 _navmesh지우고 a*로 교체
         _anim = GetComponentInChildren<Animator>();
+
+        //인성 추가
+        enemySpawn = FindObjectOfType<EnemySpawn>();
     }
 
     private void Update()
@@ -138,6 +142,7 @@ public class Enemy_test : MonoBehaviour
             _nav.velocity = Vector3.zero;
             testMove = false;
             isDeath = true;
+            UIManager.instance.CurrentEnemyNum--;
         }
 
         if (isDeath)
@@ -151,30 +156,33 @@ public class Enemy_test : MonoBehaviour
     {
         int healDrop = Random.Range(0, 100);    // 힐팩 드랍률10%
         int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률20%
-        int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률10%
-        int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률20%
+        //int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률10%
+        //int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률20%
         var dropPoint = Vector3.up * 1;
+        //var dropPoint = new Vector3(Random.Range(-1, 1),1, 0);
         
-        if (healDrop < 10)
+        if (healDrop < 100)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
             _ObjectManager.MakeObj("Item_HealPack", itemposition, Quaternion.identity);
         }
-        if (ammoDrop < 20)
+        if (ammoDrop < 100)
         {
-            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint + Vector3.right;
             _ObjectManager.MakeObj("Item_Ammo", itemposition, Quaternion.identity);
         }
-        if (powerDrop < 10)
+        /*
+        if (powerDrop < 100)
         {
-            var itemposition = this.gameObject.transform.position + dropPoint;
+            var itemposition = this.gameObject.transform.position + dropPoint - Vector3.right;
             _ObjectManager.MakeObj("Item_PowerGage", itemposition, Quaternion.identity);
         }
-        if (psychoDrop < 20)
+        if (psychoDrop < 0)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
             _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
         }
+         */
     }
 
     private void OnCollisionEnter(Collision collision)

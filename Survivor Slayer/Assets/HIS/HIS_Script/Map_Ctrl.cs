@@ -10,13 +10,21 @@ public class Map_Ctrl : MonoBehaviour
     [SerializeField]
     private List<Button> doorCtrl_btns;
 
+    public bool isPause=false;
+
     //public GameObject door;
     //private Button button;
     private bool active;
+
+    public GameObject ClearImage;
 
     private void Awake()
     {
         doorCtrl_btns.AddRange(this.GetComponentsInChildren<Button>());
     }
-
+    public void GameClear()
+    {
+        Time.timeScale = 0.0f;
+        ClearImage.SetActive(true);
+    }
 }

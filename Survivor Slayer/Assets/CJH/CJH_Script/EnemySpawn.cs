@@ -22,9 +22,7 @@ public class EnemySpawn : MonoBehaviour
     public ObjectManager _objectManager;
     private float SpawnTimer;
     private int SpawnNumber;        // 라운드당 소환된 적들
-
-    //인성 추가
-    public int current_EnemyNum=0; //현재 존재하는 적 수.
+   
 
     private void Start()
     {
@@ -37,7 +35,7 @@ public class EnemySpawn : MonoBehaviour
 
         //인성 추가
         UIManager.instance.UpdateRound(_stage.Round);
-        UIManager.instance.UpdateLeftEnemy(current_EnemyNum);
+      
     }
 
     void Update()
@@ -59,8 +57,9 @@ public class EnemySpawn : MonoBehaviour
                 {
                     _objectManager.MakeObj("Enemy_Zombie", SpawnPoint[i].position, SpawnPoint[i].rotation);
                     SpawnNumber++;
+
                     //인성 추가
-                    current_EnemyNum = SpawnNumber;
+                    UIManager.instance.UpdateRound(_stage.Round);
                 }
                 if (SpawnNumber>=_stage.AllEnemy)
                 {
@@ -70,6 +69,7 @@ public class EnemySpawn : MonoBehaviour
                     _stage.ArmorZombie = 10;
                     _stage.tower = 5;
                 }
+                UIManager.instance.CurrentEnemyNum += SpawnPoint.Length;
                 break;
             case 2:
                 for (int i = 0; i < SpawnPoint.Length; i++)
@@ -85,8 +85,8 @@ public class EnemySpawn : MonoBehaviour
             case 5:
                 break;
         }
-        // 인성 추가
-        UIManager.instance.UpdateRound(_stage.Round);
-        UIManager.instance.UpdateLeftEnemy(current_EnemyNum);
+        
+
     }
+    
 }

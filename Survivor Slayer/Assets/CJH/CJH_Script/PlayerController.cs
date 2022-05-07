@@ -90,18 +90,27 @@ public class PlayerController : MonoBehaviour
 
     private void CameraRotation()
     {
-        float _xRotation = Input.GetAxisRaw("Mouse Y");
-        float _cameraRotationX = _xRotation * lookSensitivity;
-        cameraRotationX -= _cameraRotationX;
-        cameraRotationX = Mathf.Clamp(cameraRotationX, -cameraRotationLimit, cameraRotationLimit);
+       
+        if(!UIManager.instance.mapActive) //인성 추가
+        {
+            float _xRotation = Input.GetAxisRaw("Mouse Y");
+            float _cameraRotationX = _xRotation * lookSensitivity;
+            cameraRotationX -= _cameraRotationX;
+            cameraRotationX = Mathf.Clamp(cameraRotationX, -cameraRotationLimit, cameraRotationLimit);
 
-        _mycamera.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
+            _mycamera.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
+        }
+       
     }
 
     private void CaracterRotation()
     {
-        float _yRotation = Input.GetAxisRaw("Mouse X");
-        Vector3 _characterRatationY = new Vector3(0, _yRotation, 0) * lookSensitivity;
-        _myRigid.MoveRotation(_myRigid.rotation * Quaternion.Euler(_characterRatationY));
+        if(!UIManager.instance.mapActive)// 인성 추가
+        {
+            float _yRotation = Input.GetAxisRaw("Mouse X");
+            Vector3 _characterRatationY = new Vector3(0, _yRotation, 0) * lookSensitivity;
+            _myRigid.MoveRotation(_myRigid.rotation * Quaternion.Euler(_characterRatationY));
+        }
+        
     }
 }

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 10
   currentHealth: 10
-  MoveSpeed: 3
+  MoveSpeed: 5
   attackDelay: 1
   Target: {fileID: 0}
   _materials:
@@ -295,7 +295,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5130969482341098571
 MonoBehaviour:
@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b6347813cc9134ba89a5151fa9ff73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemy_Range: 40
 --- !u!54 &5130969482341098569
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -455,6 +456,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4664651746372112047, guid: 06e9405bb5dfbfc4ab33fb3956d485a3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c0c8d5c06bc8859429773f08e9663871, type: 2}
     - target: {fileID: 919132149155446097, guid: 06e9405bb5dfbfc4ab33fb3956d485a3, type: 3}
       propertyPath: m_Name
       value: zombie

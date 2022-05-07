@@ -13,12 +13,16 @@ public class HUD : MonoBehaviour
 
     [SerializeField] private Text[] text_Bullet;
      */
-   
+
+    private void Start()
+    {
+        UIManager.instance.UpdateLeftEnemy(0);
+    }
     // Update is called once per frame
     void Update()
     {
         UIManager.instance.CheckBullet();
-       
+        UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
     }
 
 }

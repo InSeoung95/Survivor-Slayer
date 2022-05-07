@@ -37,7 +37,7 @@ public class Base : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(BasePointTime());
-        
+        energy_effect.Stop();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,7 +83,7 @@ public class Base : MonoBehaviour
 
     private void ChangeState()
     {
-        if (baseTimer > 15)
+        if (baseTimer > 5) // 
         {
             Debug.Log("플레이어 점령.");
             baseTimer = 0;
