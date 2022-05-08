@@ -15,7 +15,6 @@ public class Map_Ctrl : MonoBehaviour
     //public GameObject door;
     //private Button button;
     private bool active;
-
     public GameObject ClearImage;
 
     private void Awake()

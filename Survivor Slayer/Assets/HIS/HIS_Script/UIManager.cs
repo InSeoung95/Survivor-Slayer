@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateRound(int current_round)
     {
-        RoundNumber.text = "Round: " + current_round;
+        RoundNumber.text = "Stage: " + current_round;
     }
     public void UpdateLeftEnemy(int left_enemy)
     {

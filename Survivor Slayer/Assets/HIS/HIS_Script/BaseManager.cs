@@ -47,7 +47,9 @@ public class BaseManager : MonoBehaviour
         for (int i = 0; i < Dynamic_LightGroup.Length; ++i)
         {
             lights.AddRange(Dynamic_LightGroup[i].GetComponentsInChildren<Light>());
+        
         }
+        Directional_Light.SetActive(false); //디렉셔널 라이트 끄기
 
         if(Gv.profile.TryGet<Vignette>(out vignette))
         {
@@ -71,12 +73,12 @@ public class BaseManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightBracket)&&Current_BaseLevel<3)
+        if (Input.GetKeyDown(KeyCode.KeypadPlus)&&Current_BaseLevel<3)
         {
             Current_BaseLevel++;
             Debug.Log("Base LV UP: " + Current_BaseLevel);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftBracket)&&Current_BaseLevel>0)
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus)&&Current_BaseLevel>0)
         {
             Current_BaseLevel--;
             Debug.Log("Base LV Down: " + Current_BaseLevel);
@@ -89,18 +91,33 @@ public class BaseManager : MonoBehaviour
         switch (Current_BaseLevel)
         {
             case 0:
-                light_intencity = lv0_intencity;
+                {
+                    light_intencity = lv0_intencity;
+                }
+                
                 break;
             case 1:
-                light_intencity = lv1_intencity;
+                {
+                    light_intencity = lv1_intencity;
+                }
+               
                 break;
             case 2:
-                light_intencity = lv2_intencity;
+                {
+                    light_intencity = lv2_intencity;
+                }
                 break;
             case 3:
-                light_intencity = lv3_intencity;
+                {
+                    light_intencity = lv3_intencity;
+                }
                 break;
         }
+
+        if (Current_BaseLevel < 3)
+            Directional_Light.SetActive(false);
+        else
+            Directional_Light.SetActive(true);
 
         foreach (Light light in lights)
         {
@@ -138,7 +155,7 @@ public class BaseManager : MonoBehaviour
             case 3:
                 {
                     vignette.intensity.value = 0f;
-                    gRp.intensity = 1.5f;
+                    gRp.intensity = 1f;
                     break;
                    
                 }

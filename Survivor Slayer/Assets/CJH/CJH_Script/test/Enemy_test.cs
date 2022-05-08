@@ -8,7 +8,7 @@ using UnityEngine.VFX;
 
 public class Enemy_test : MonoBehaviour
 {
-    private const float ENEMY_MAX_HEALTH = 10f;     //좀비의 최대체력
+    private const float ENEMY_MAX_HEALTH = 3f;     //좀비의 최대체력
     private const float ENEMY_MOVESPEED = 1.6f;     //좀비의 이동속도
     private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
     private const float ENEMY_ATTACK_DELAY = 2f;    //좀비의 공격속도

@@ -31,7 +31,7 @@ public class EnemySpawn : MonoBehaviour
         _stage.Zombie = 40;
         _stage.ArmorZombie = 10;
         _stage.tower = 0;
-        _stage.AllEnemy = 50;       // 적은 총 50마리씩 나옴
+        _stage.AllEnemy = 30;       // 적은 총 50마리씩 나옴 // 인성 수정 30마리로.
 
         //인성 추가
         UIManager.instance.UpdateRound(_stage.Round);

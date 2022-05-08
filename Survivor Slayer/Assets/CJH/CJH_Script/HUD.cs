@@ -14,6 +14,9 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text[] text_Bullet;
      */
 
+    private bool GameStop = false;
+    public Text pause;
+
     private void Start()
     {
         UIManager.instance.UpdateLeftEnemy(0);
@@ -23,6 +26,22 @@ public class HUD : MonoBehaviour
     {
         UIManager.instance.CheckBullet();
         UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            GameStop = !GameStop;
+
+            if (GameStop)
+            {
+                Time.timeScale = 0;
+                pause.text = "Pause";
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                pause.text = "Playing";
+            }
+        }
     }
 
 }
