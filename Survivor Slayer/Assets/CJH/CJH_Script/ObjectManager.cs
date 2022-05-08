@@ -7,7 +7,7 @@ public class ObjectManager : MonoBehaviour
 {
    public const int MAX_ITEM_OBJECT = 50;
    public const int MAX_BULLET = 30;
-   public const int MAX_ENEMY = 50;
+   public const int MAX_ENEMY = 30; // 인성 수정
    
    public GameObject Enemy_ZombiePrefab;
    public GameObject Enemy_ArmorZombiePrefab;

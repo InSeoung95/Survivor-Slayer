@@ -14,8 +14,13 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text[] text_Bullet;
      */
 
+    //이것들 다 빌드 위해서 추후 삭제
     private bool GameStop = false;
+
     public Text pause;
+    public Text Goal;//
+    public BaseManager baseManager;
+
 
     private void Start()
     {
@@ -42,6 +47,7 @@ public class HUD : MonoBehaviour
                 pause.text = "Playing";
             }
         }
+        Goal.text = "현재 점령 수: " + baseManager.PlayerOcuupy;
     }
 
 }

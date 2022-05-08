@@ -72,12 +72,14 @@ public class EnemySpawn : MonoBehaviour
                 UIManager.instance.CurrentEnemyNum += SpawnPoint.Length;
                 break;
             case 2:
+                /*
                 for (int i = 0; i < SpawnPoint.Length; i++)
                 {
                     _objectManager.MakeObj("Enemy_Zombie", SpawnPoint[i].position, SpawnPoint[i].rotation);
                     SpawnNumber++;
                 }
                 break;
+                 */
             case 3:
                 break;
             case 4:

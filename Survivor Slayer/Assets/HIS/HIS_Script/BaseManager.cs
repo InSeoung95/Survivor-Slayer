@@ -40,6 +40,9 @@ public class BaseManager : MonoBehaviour
     public GameObject[] fog_group;
     private ParticleSystem[] fog_effect;
 
+    //빌드 위한 임시 코딩. 추후 삭제 및 수정
+    public int PlayerOcuupy; //플레이어가 점령한 거점 개수.
+    public GameObject Clear; // 클리어 활성화
 
     private void Awake()
     {
@@ -82,6 +85,11 @@ public class BaseManager : MonoBehaviour
         {
             Current_BaseLevel--;
             Debug.Log("Base LV Down: " + Current_BaseLevel);
+        }
+
+        if(PlayerOcuupy>=2)
+        {
+            Clear.SetActive(true);
         }
             
     }

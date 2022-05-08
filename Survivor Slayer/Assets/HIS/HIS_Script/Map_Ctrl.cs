@@ -25,5 +25,7 @@ public class Map_Ctrl : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         ClearImage.SetActive(true);
+
     }
+
 }

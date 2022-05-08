@@ -39,7 +39,8 @@ public class SoundManager : MonoBehaviour
     public Sound[] Effect_Sounds;
 
     [SerializeField]
-    private List<Sound> PlayingList=new List<Sound>(); // 현재 재생 중인 사운드 리스트
+    //private List<Sound> PlayingList=new List<Sound>(); // 현재 재생 중인 사운드 리스트
+    public Sound[] PlayList=new Sound[5];
     //private Sound[] PlayingES = new Sound[5];
 
     void Start()
@@ -49,6 +50,7 @@ public class SoundManager : MonoBehaviour
         {
             Audiosource_Effect[i]=gameObject.AddComponent<AudioSource>();
         }
+       
     }
 
     // Update is called once per frame
@@ -71,9 +73,10 @@ public class SoundManager : MonoBehaviour
                         Audiosource_Effect[j].loop = _loop;
                         Audiosource_Effect[j].Play();
                         //PlayingES[j] = Effect_Sounds[i];
-                        if(_loop&&PlayingList.Count<Audiosource_Effect.Length+1)// loop도는 사운드는 재생 중 사운드 리스트에 추가. 또 리스트의 범위는 Audiosource_Effect범위 초과 못한다.
-                            PlayingList.Insert(j, Effect_Sounds[i]); 
+                        //if(_loop&&PlayingList.Count<(Audiosource_Effect.Length+1))// loop도는 사운드는 재생 중 사운드 리스트에 추가. 또 리스트의 범위는 Audiosource_Effect범위 초과 못한다.
+                        //PlayingList.Insert(j, Effect_Sounds[i]); 
 
+                        PlayList[j] = Effect_Sounds[i];
                         return;
                     }
                 }
@@ -100,12 +103,12 @@ public class SoundManager : MonoBehaviour
     }
     public void StopEffectSound(string _name) //선택한 이펙트 사운드 중지
     {
-        for (int i = 0; i < PlayingList.Count; i++)
+        for (int i = 0; i < PlayList.Length; i++)
         {
-            if(PlayingList[i].name==_name)
+            if(PlayList[i].name==_name)
             {
                 Audiosource_Effect[i].Stop();
-                PlayingList.RemoveAt(i);
+                //PlayingList.RemoveAt(i);
                 return;
             }
         }

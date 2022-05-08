@@ -98,11 +98,16 @@ public class Base : MonoBehaviour
             //this.gameObject.GetComponent<MeshRenderer>().material = player_occu;
             SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지
             SoundManager.instance.PlayEffectSound(occupied_sound); // 점령 완료 사운드 출력
+            if (baseManager.PlayerOcuupy < 4)
+            {
+                baseManager.PlayerOcuupy++; // 빌드 위해서 일단 적은 것. 추후 수정 및 삭제. 플레이어 거점 점령 개수 카운트
+            }
 
-            if(baseManager.Current_BaseLevel<3)
+            if (baseManager.Current_BaseLevel<3)
             {
                 baseManager.Current_BaseLevel++;
             }
+
         }
         else if (baseHealth <= 0)
         {
@@ -115,6 +120,12 @@ public class Base : MonoBehaviour
             energy_effect.Stop();
             aplly_skin.GetComponent<MeshRenderer>().material = enemy_occu;
             //this.gameObject.GetComponent<MeshRenderer>().material = enemy_occu;
+
+            if(baseManager.PlayerOcuupy>0)
+            {
+                baseManager.PlayerOcuupy--; // 빌드 위해서 일단 적은 것. 추후 수정 및 삭제. 플레이어 거점 점령 개수 카운트
+            }
+           
             if (baseManager.Current_BaseLevel >0)
             {
                 baseManager.Current_BaseLevel--;
