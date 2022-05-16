@@ -27,7 +27,8 @@ public class GunController : MonoBehaviour
     private Animator playerAnim;
     private FlashLight flashLight;
     private Crosshair crosshair;
-   
+    private KillAni_Ctrl aniCtrl; // 확정킬 제어 변수
+
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class GunController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         flashLight = GetComponentInChildren<FlashLight>();
         crosshair = FindObjectOfType<Crosshair>();
+        aniCtrl = GetComponent<KillAni_Ctrl>();
     }
 
     void Update()
@@ -54,7 +56,7 @@ public class GunController : MonoBehaviour
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && currentFireRate <= 0 && !isReload&&!UIManager.instance.mapActive) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
+        if (Input.GetButton("Fire1") && currentFireRate <= 0 && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
         {
             if (currentGun.currentBulletCount > 0)
                 Fire();
