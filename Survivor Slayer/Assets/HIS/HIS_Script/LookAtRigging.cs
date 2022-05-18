@@ -5,6 +5,7 @@ using UnityEngine.Animations.Rigging;
 
 public class LookAtRigging : MonoBehaviour
 {
+    /*
     private Rig rig;
     private float targetWeight;
 
@@ -25,4 +26,5 @@ public class LookAtRigging : MonoBehaviour
     {
         rig.weight = Mathf.Lerp(rig.weight, targetWeight, Time.deltaTime * 10f);
     }
+     */
 }

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Electricity
+  m_Shader: {fileID: -6465566751694194690, guid: 742eae3328911e040acb22f2db73d7f1, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1eab8aca709e489e941fbba142564f77: 8.2
+    - Vector1_bdfbe4b82ee342e68cfa829b245a0153: 20.69
+    - Vector1_f2752caee42c4040acdbd64236970c16: 2
+    m_Colors:
+    - Color_32ff79831aac464182890b236a1f6ecd: {r: 759.10016, g: 0, b: 869.43396, a: 0}
+    - Vector2_35af1c60f1174b66bf6f9e8d228079fd: {r: 0.1, g: -0.5, b: 0, a: 0}
+    - Vector2_a73fb101448f4c52aa08f59d733d3061: {r: 0, g: 0.5, b: 0, a: 0}
+  m_BuildTextureStacks: []
