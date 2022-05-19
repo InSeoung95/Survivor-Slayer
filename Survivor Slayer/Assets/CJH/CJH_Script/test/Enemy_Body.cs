@@ -1,0 +1,59 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy_Body : MonoBehaviour
+{
+    public float _bodyHealth;                        // 부위별 최대체력
+    public float _bodyDamage;                       // 부위별(머리, 몸통, 팔다리) 데미지
+    public bool onDamaged;                          // 피격 판정
+    [SerializeField] private int DamageMaxCount;
+    public int DamageCount = 0;                    // n회 이상 피격시 부위파괴되는것 카운트
+    [SerializeField] private GameObject effect;     // 부위 파괴시 나타나는 이펙트
+    [SerializeField] private Transform effectTransform; //보이는 몸체의 위치와 위치의 position이 안맞아서 따로 찾기
+
+    [SerializeField] private GameObject _JacketBody;        // 좀비 갑옷파괴용(갑옷파괴시 몸통의 콜라이더를 active)
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            onDamaged = true;
+            collision.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            onDamaged = true;
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    public void DestroyCount()
+    {
+        if (DamageCount >= DamageMaxCount)
+        {
+            if (effect)
+            {
+                effect.gameObject.transform.position = effectTransform.position;
+                effect.gameObject.SetActive(true);
+                
+            }
+
+            DamageCount = 0;
+            gameObject.SetActive(false);
+
+            // 갑옷파괴시 몸통콜라이더 active하는것
+            if (_JacketBody != null)
+            {
+                Collider _collider = _JacketBody.GetComponent<Collider>();
+                _collider.enabled = true;
+            }
+        }
+    }
+    
+}

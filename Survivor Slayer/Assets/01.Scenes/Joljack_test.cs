@@ -9,13 +9,18 @@ public class Joljack_test : MonoBehaviour
     public GameObject button;
     public GameObject MapCanvas;
     public BaseManager _BaseManager;
+    public Gun _Gun;
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            
             button.SetActive(!button.active);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _Gun.carryBulletCount = 120;
         }
         
         if(Input.GetKeyDown(KeyCode.KeypadPlus))
