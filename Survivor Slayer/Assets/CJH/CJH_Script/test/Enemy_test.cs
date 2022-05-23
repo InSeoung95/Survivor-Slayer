@@ -8,13 +8,11 @@ using UnityEngine.VFX;
 
 public class Enemy_test : MonoBehaviour
 {
-    private const float ENEMY_MAX_HEALTH = 3f;     //좀비의 최대체력
     private const float ENEMY_MOVESPEED = 1.6f;     //좀비의 이동속도
     private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
     private const float ENEMY_ATTACK_DELAY = 2f;    //좀비의 공격속도
 
-    public float maxhealth = ENEMY_MAX_HEALTH;
-    public float currentHealth = ENEMY_MAX_HEALTH;
+    private Enemy_Dest _enemyDest;                  // 좀비 체력 및 부위별 체력관리, 팔/다리 제거인식
     public float MoveSpeed = ENEMY_MOVESPEED;
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
@@ -31,14 +29,11 @@ public class Enemy_test : MonoBehaviour
     private NavMeshAgent _nav;
     public ObjectManager _ObjectManager;
 
-    // 부분파괴 테스트용 팔
-    public GameObject leftArm;
-    public GameObject rightArm;
-
     public bool testMove = false;
     public bool chasePlayer = false;
     public bool isDeath = false;
     private Animator _anim;
+    private float animSpeed;                 // 좀비별 애니메이션 스피드
 
     // 인성 수정
     public VisualEffect hitEffect;   // 좀비 피격 이펙트
@@ -63,7 +58,8 @@ public class Enemy_test : MonoBehaviour
             _ZombieMaterial[0] = _materials[0];     // 원본으로 교체
             GetComponentInChildren<SkinnedMeshRenderer>().materials = _ZombieMaterial;
         }
-        
+
+        _enemyDest = GetComponent<Enemy_Dest>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _boxColliderSize = _boxCollider.size.z + _boxCollider.center.z;     // 좀비 공격범위(위치+크기)
@@ -73,7 +69,10 @@ public class Enemy_test : MonoBehaviour
         //_pathUnit = GetComponent<PathUnit>();          // a* 해결하면 교체
         _nav = GetComponent<NavMeshAgent>();            // a* 해결하면 _navmesh지우고 a*로 교체
         _anim = GetComponentInChildren<Animator>();
-
+        
+        animSpeed = Random.Range(10, 25+1) * 0.1f;
+        _anim.speed = animSpeed;
+        
         //인성 추가
         enemySpawn = FindObjectOfType<EnemySpawn>();
     }
@@ -120,24 +119,26 @@ public class Enemy_test : MonoBehaviour
             dir.Normalize();
             
             _nav.SetDestination(Target.transform.position);
+            if(_enemyDest.isLeg)
+                _anim.SetBool("isCrawl",true);
             _anim.SetBool("isRun", testMove);
             
             Quaternion to = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
-
+            
         }
     }
 
     public void HitBomb()
     {
-        currentHealth -= 5;
+        _enemyDest.currentHealth -=5;
     }
 
     private void Die()
     {
-        if (currentHealth <= 0)
+        if ( _enemyDest.currentHealth <= 0)
         {
-            currentHealth = ENEMY_MAX_HEALTH;
+            _enemyDest.currentHealth =  _enemyDest.maxhealth;
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
             testMove = false;
@@ -189,7 +190,6 @@ public class Enemy_test : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            currentHealth -= 1f;
             //인성 수정
             
             ContactPoint contactPoint = collision.contacts[0];
@@ -246,8 +246,16 @@ public class Enemy_test : MonoBehaviour
         testMove = false;
         _nav.isStopped = true;
         _nav.velocity = Vector3.zero;
-        _anim.SetBool("isAttack", true);
-        yield return new WaitForSeconds(ENEMY_ATTACK_DELAY);
+        if (_enemyDest.isArm)
+        {
+            _anim.SetBool("isHeadbutt", true);
+        }
+        else
+        {
+            _anim.SetBool("isAttack", true);
+        }
+
+        yield return new WaitForSeconds(ENEMY_ATTACK_DELAY / animSpeed);
 
         RaycastHit _hit;
         if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, _boxColliderSize,
@@ -260,14 +268,16 @@ public class Enemy_test : MonoBehaviour
         
         testMove = true;
         _nav.isStopped = false;
+        _anim.SetBool("isHeadbutt", false);
         _anim.SetBool("isAttack", false);
+       
     }
 
     IEnumerator Death()
     {
         _anim.SetBool("isDeath", true);
         audioSource.PlayOneShot(deadSound);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f / animSpeed);
         
         DropItem();
         _anim.SetBool("isDeath", false);
