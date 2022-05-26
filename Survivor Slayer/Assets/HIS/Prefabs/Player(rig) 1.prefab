@@ -10678,6 +10678,12 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 6640193825032510871, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
     value: {fileID: 8900443691659562735}
+  - key: {fileID: 2244581797325429837, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6305729638939495916, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8554728831922773218, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 880d3482d22a9f4448f753cf12de7f0a: {fileID: 8900443693046902580}
@@ -10693,7 +10699,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e3ec646ac69ed438c3ca33037f259f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaying: 0
+  mainCamera: {fileID: 0}
+  playerCam: {fileID: 0}
+  KillAniTimelines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2380302038504932640
 GameObject:
   m_ObjectHideFlags: 0

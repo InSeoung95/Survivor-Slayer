@@ -26,13 +26,13 @@ public class Bullet : MonoBehaviour
     
     private void OnEnable()
     {
-        _trailRenderer.enabled = true;
+        
         StartCoroutine(TimeOverDestroyBullet());
     }
 
     private void OnDisable()
     {
-        _trailRenderer.enabled = false;
+        
         gameObject.transform.position = Vector3.zero;
         StopCoroutine(TimeOverDestroyBullet());
     }

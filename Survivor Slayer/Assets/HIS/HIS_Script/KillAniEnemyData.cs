@@ -17,6 +17,7 @@ public class TargetInform
 public class KillAniEnemyData : MonoBehaviour
 {
     public TargetInform[] targetInforms = new TargetInform[6];
+    public ParticleSystem bloodEf;
 
     public enum KillAniType
     {

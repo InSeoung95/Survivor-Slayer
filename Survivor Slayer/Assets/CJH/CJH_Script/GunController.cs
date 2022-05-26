@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    private const int BULLET_SPEED = 80;        // 총알 탄속
+    private const int BULLET_SPEED = 30;        // 총알 탄속
     
     [SerializeField] private Gun currentGun;
     public Transform bulletPos;
