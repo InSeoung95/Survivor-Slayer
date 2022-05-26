@@ -13,11 +13,13 @@ public class Enemy_Dest : MonoBehaviour
 
     public bool isArm;
     public bool isLeg;
+    public bool isBurserk;
 
     private void OnEnable()
     {
         isArm = false;
         isLeg = false;
+        isBurserk = false;
         foreach (var Body in _body)
         {
             Body.gameObject.SetActive(true);
@@ -27,6 +29,7 @@ public class Enemy_Dest : MonoBehaviour
     void Update()
     {
         OnDamaged();
+        ChangeBurserk();
     }
 
     private void OnDamaged()
@@ -50,11 +53,24 @@ public class Enemy_Dest : MonoBehaviour
                         case Enemy_Body.BodyName.Leg :
                             isLeg = true;
                             break;
+                        case Enemy_Body.BodyName.Other :
+                            isBurserk = true;
+                            break;
                     }
                     
                     Body.DestroyCount();
                 }
+                
             }
+        }
+    }
+
+    private void ChangeBurserk()
+    {
+        if (isBurserk)
+        {
+            foreach (var Body in _body)
+                Body.GetBurserk();
         }
     }
 }

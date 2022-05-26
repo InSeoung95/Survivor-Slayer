@@ -25,6 +25,15 @@ public class Enemy_Body : MonoBehaviour
 
     [SerializeField] private GameObject _JacketBody;        // 좀비 갑옷파괴용(갑옷파괴시 몸통의 콜라이더를 active)
 
+    public SkinnedMeshRenderer _renderer;
+    [SerializeField] private Material[] ZombieMaterial;
+    [SerializeField] private Material[] BurserkMaterial;
+
+    private void Start()
+    {
+        _renderer = GetComponent<SkinnedMeshRenderer>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Bullet")
@@ -61,6 +70,11 @@ public class Enemy_Body : MonoBehaviour
             _collider.enabled = true;
         }
 
+    }
+
+    public void GetBurserk()
+    {
+        _renderer.materials = BurserkMaterial;
     }
 
 }
