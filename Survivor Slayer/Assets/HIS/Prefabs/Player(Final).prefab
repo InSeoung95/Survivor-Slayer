@@ -1250,6 +1250,8 @@ PlayableDirector:
     value: {fileID: 7358633507636028018}
   - key: {fileID: 2244581797325429837, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
     value: {fileID: 7358633507573262535}
+  - key: {fileID: 1755163961646373719, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 880d3482d22a9f4448f753cf12de7f0a: {fileID: 1656269001226780270}
@@ -1268,7 +1270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 5507917290538554493}
+  KillAniGroup: []
   playerCam: {fileID: 1656269001226780270}
+  LeftArm: {fileID: 0}
+  RightArm: {fileID: 0}
+  GunLeftHandle: {fileID: 0}
+  GunRightHandle: {fileID: 0}
   KillAniTimelines:
   - {fileID: 11400000, guid: b246ea9ca2dcf4e4585228c3b96d560d, type: 2}
   - {fileID: 0}

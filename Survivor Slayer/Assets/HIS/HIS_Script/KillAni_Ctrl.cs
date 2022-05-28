@@ -143,6 +143,7 @@ public class KillAni_Ctrl : MonoBehaviour
 
                     //playerCam.LookAt.position = Mathf.Lerp(playerCa, _enemyInform.targetInforms[0].CameraLookAt.position, Time.deltaTime);
                     //playableDirector.Play(KillAniTimelines[0]);
+                    //playerCam.LookAt.position = Vector3.Lerp(new Vector3(0,0,0), _enemyInform.targetInforms[0].CameraLookAt.position, Time.deltaTime * 1);
                     KillAniGroup[0].Play();
                     break;
                 }
