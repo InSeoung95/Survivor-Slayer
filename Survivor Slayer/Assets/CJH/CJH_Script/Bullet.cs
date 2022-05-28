@@ -6,10 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int bulletTimer = 5;
-    [SerializeField]private TrailRenderer _trailRenderer;
-
     
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")

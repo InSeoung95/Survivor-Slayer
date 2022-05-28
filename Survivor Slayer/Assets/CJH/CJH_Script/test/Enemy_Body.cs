@@ -20,6 +20,8 @@ public class Enemy_Body : MonoBehaviour
     public BodyName _BodyName;                      // 부위 인식용 태그
     public int DamageMaxCount;
     public int DamageCount = 0;                    // n회 이상 피격시 부위파괴되는것 카운트
+    
+    public ParticleSystem hitEffectBlood;               // 피격 피격 파티클 
     [SerializeField] private GameObject effect;     // 부위 파괴시 나타나는 이펙트
     [SerializeField] private Transform effectTransform; //보이는 몸체의 위치와 위치의 position이 안맞아서 따로 찾기
 
@@ -38,6 +40,11 @@ public class Enemy_Body : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
+            ContactPoint contactPoint = collision.contacts[0];
+            hitEffectBlood.transform.position = contactPoint.point;
+            hitEffectBlood.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
+            hitEffectBlood.Play();
+            
             onDamaged = true;
             collision.gameObject.SetActive(false);
         }
@@ -47,6 +54,11 @@ public class Enemy_Body : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
+
+            hitEffectBlood.transform.position = other.transform.position;
+            hitEffectBlood.transform.rotation = Quaternion.LookRotation(other.transform.up);
+            hitEffectBlood.Play();
+            
             onDamaged = true;
             other.gameObject.SetActive(false);
         }

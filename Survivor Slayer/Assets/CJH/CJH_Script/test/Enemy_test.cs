@@ -8,7 +8,7 @@ using UnityEngine.VFX;
 
 public class Enemy_test : MonoBehaviour
 {
-    private const float ENEMY_MOVESPEED = 1.6f;     //좀비의 이동속도
+    private const float ENEMY_MOVESPEED = 5f;     //좀비의 이동속도  1.6f = default
     private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
     private const float ENEMY_ATTACK_DELAY = 2f;    //좀비의 공격속도
 
@@ -22,9 +22,6 @@ public class Enemy_test : MonoBehaviour
     public GameObject Target;           // 좀비가 공격할 목표
     private PlayerInfo _player;         // 좀비가 가져올 플레이어 정보
 
-    [SerializeField]private Material[] _materials;      // 마테리얼 보관용
-    private Material[] _ZombieMaterial;                 // 좀비 마테리얼 확인용
-    
     // private PathUnit _pathUnit;         // A*길찾기 오류해결하면 navmesh지우고 이걸로 사용
     private NavMeshAgent _nav;
     public ObjectManager _ObjectManager;
@@ -37,7 +34,7 @@ public class Enemy_test : MonoBehaviour
 
     // 인성 수정
     public VisualEffect hitEffect;   // 좀비 피격 이펙트
-    public ParticleSystem hitEffect2;// 피격 피격 파티클 
+    public AudioClip BurserkSound;  // 광폭화 사운드
     public AudioClip deadSound;// 좀비 사망 사운드.
 
     private AudioSource audioSource;
@@ -46,19 +43,7 @@ public class Enemy_test : MonoBehaviour
 
     private void Start()
     {
-        _ZombieMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials;
-        var i = Random.Range(0, 100);
-        if (i < 50)
-        {
-            _ZombieMaterial[0] = _materials[1];     // 투명화로 교체
-            GetComponentInChildren<SkinnedMeshRenderer>().materials = _ZombieMaterial;
-        }
-        else
-        {
-            _ZombieMaterial[0] = _materials[0];     // 원본으로 교체
-            GetComponentInChildren<SkinnedMeshRenderer>().materials = _ZombieMaterial;
-        }
-
+        
         _enemyDest = GetComponent<Enemy_Dest>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
@@ -71,6 +56,7 @@ public class Enemy_test : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         
         animSpeed = Random.Range(10, 25+1) * 0.1f;
+        _anim.SetFloat("RunRatio", Random.Range(0,10+1));
         _anim.speed = animSpeed;
         
         //인성 추가
@@ -81,6 +67,7 @@ public class Enemy_test : MonoBehaviour
     {
         Move();
         //Attack
+        Burserk();
         attackDelay -= Time.deltaTime;
         Die();
     }
@@ -108,7 +95,7 @@ public class Enemy_test : MonoBehaviour
             }
 
             _nav.isStopped = false;
-            _nav.speed = MoveSpeed;
+            _nav.speed = MoveSpeed + (animSpeed * 0.2f);
             testMove = true;
         }
         
@@ -119,10 +106,16 @@ public class Enemy_test : MonoBehaviour
             dir.Normalize();
             
             _nav.SetDestination(Target.transform.position);
-            if(_enemyDest.isLeg)
-                _anim.SetBool("isCrawl",true);
+            if (_enemyDest.isLeg)
+            {
+                _anim.SetBool("isCrawl", true);
+                MoveSpeed *= 0.1f;
+                
+                _enemyDest.isLeg = false;
+            }
             _anim.SetBool("isRun", testMove);
             
+            _nav.speed = MoveSpeed + (animSpeed * 0.05f);
             Quaternion to = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
             
@@ -132,6 +125,18 @@ public class Enemy_test : MonoBehaviour
     public void HitBomb()
     {
         _enemyDest.currentHealth -=5;
+    }
+
+    private void Burserk()
+    {
+        if (_enemyDest.isBurserk)
+        {
+            MoveSpeed *= 1.5f;
+            _anim.speed += 0.5f;
+            audioSource.PlayOneShot(BurserkSound);
+            
+            _enemyDest.isBurserk = false;
+        }
     }
 
     private void Die()
@@ -192,17 +197,14 @@ public class Enemy_test : MonoBehaviour
         {
             //인성 수정
             
-            ContactPoint contactPoint = collision.contacts[0];
-            hitEffect2.transform.position = contactPoint.point;
-            hitEffect2.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
-            hitEffect2.Play();
+            
 
             /*
             hitEffect.transform.position = contactPoint.point;
             hitEffect.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
             hitEffect.Play();
              */
-            //
+            
         }
     }
 
