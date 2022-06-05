@@ -22,6 +22,9 @@ public class EnemySpawn : MonoBehaviour
     public ObjectManager _objectManager;
     private float SpawnTimer;
     private int SpawnNumber;        // 라운드당 소환된 적들
+
+    private float sinematicTime = 30f;
+    private bool sinematicTriger = false;
    
 
     private void Start()
@@ -41,7 +44,14 @@ public class EnemySpawn : MonoBehaviour
     void Update()
     {
         SpawnTimer += Time.deltaTime;
-        if (SpawnTimer > SPAWNTIME)
+
+        if (SpawnTimer > sinematicTime && !sinematicTriger)
+        {
+            sinematicTriger = true;
+            SpawnTimer = 0;
+        }
+        
+        if (SpawnTimer > SPAWNTIME && sinematicTriger)
         {
             SpawnTimer = 0;
             ZombieSpawn();
