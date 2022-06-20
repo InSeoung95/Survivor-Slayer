@@ -12,6 +12,7 @@ TagManager:
   - Item
   - ObstacleWall
   - KillAni
+  - Interaction
   layers:
   - Default
   - TransparentFX

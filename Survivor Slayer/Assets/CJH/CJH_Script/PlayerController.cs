@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 isBorder = false;
         }
 
-        if (!isBorder&&!aniCtrl.CheckIsPlaying()) // 조건 추가. 확정킬 재생 중일때 이동 X
+        if (!isBorder&&!aniCtrl.CheckIsPlaying()&&!UIManager.instance.OnInteract) // 조건 추가. 확정킬 재생 중일때 and 상호 작용 중 이동 X
         {
             _myRigid.MovePosition(_myRigid.position + _velocity * Time.deltaTime);
             
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     private void CameraRotation()
     {
        
-        if(!UIManager.instance.mapActive&&!aniCtrl.CheckIsPlaying()) //인성 추가
+        if(!UIManager.instance.OnInteract&&!aniCtrl.CheckIsPlaying()) //인성 추가
         {
             float _xRotation = Input.GetAxisRaw("Mouse Y");
             float _cameraRotationX = _xRotation * lookSensitivity;
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void CaracterRotation()
     {
-        if(!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying())// 인성 추가
+        if(!UIManager.instance.OnInteract&& !aniCtrl.CheckIsPlaying())// 인성 추가
         {
             float _yRotation = Input.GetAxisRaw("Mouse X");
             Vector3 _characterRatationY = new Vector3(0, _yRotation, 0) * lookSensitivity;

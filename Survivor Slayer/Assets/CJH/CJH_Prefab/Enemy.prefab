@@ -773,6 +773,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d5f5a3f78a8a033489a8f37cadfd5536, type: 2}
+    - target: {fileID: 102619987078012708, guid: f6662f1d290451e48a56d2f988858651, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13dbcc43bbd33fa41bdbf254c20f09c1, type: 2}
     - target: {fileID: 526997672155348535, guid: f6662f1d290451e48a56d2f988858651, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -829,6 +833,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: f6662f1d290451e48a56d2f988858651, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: f6662f1d290451e48a56d2f988858651, type: 3}
     - target: {fileID: 5866666021909216657, guid: f6662f1d290451e48a56d2f988858651, type: 3}
       propertyPath: m_Controller
       value: 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Text[] text_Bullet;
 
+    //[SerializeField] private TextMeshPro subtitleTxt; // 자막
+
     public Text RoundNumber; // 현재 진행 라운드
     public Text LeftEnemy;   // 남은 적 수
     public GameObject BaseOccu_UI; // 베이스 점령 시 보이는 UI
@@ -37,6 +40,8 @@ public class UIManager : MonoBehaviour
     public GameObject Map_panel; // 문 컨트롤 할 수 있는 패널.
     public bool mapActive=false;
     public int CurrentEnemyNum=0;// 현재 적수
+
+    public bool OnInteract = false; // 상호작용.
 
     private void Awake()
     {
