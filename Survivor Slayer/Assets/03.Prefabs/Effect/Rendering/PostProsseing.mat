@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PostProsseing
-  m_Shader: {fileID: -6465566751694194690, guid: 10e3008bbf247fd42afbb485eb2b2f56, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 7107830cd1a4f824f801c4211d378584, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -116,11 +116,15 @@ Material:
     - Vector1_0254cfd34cc4489d90fed5383e4aad55: 40
     - Vector1_1be288a39a764614808b820691342e2f: 0.5
     - Vector1_3f6774462668402f84c600950a00bd4c: 5
+    - Vector1_41fb11647a1c44ea88855695b5d5cbfc: 0.65
+    - Vector1_47582bff23b34a63a136bbf36556d848: 1
+    - Vector1_5668d32542cb4f74a313e590e69224f3: 2.34
     - Vector1_5e6b88a4946c4b368a6bb1e9cf99531c: 0.1
     - Vector1_5f34b226ba814d4391e7c894e0c59d59: 0.025
     - Vector1_72898d90f1004bbe8afaeb23ed201b14: 0.1
     - Vector1_756e9b5125ad4c1392dbb44f8218ce4c: 0.6
     - Vector1_85e20bf3191f435aaaf0b206c41ff992: 1
+    - Vector1_8c53915bec9a448f8801638b92b9230e: 1.54
     - Vector1_8f612adf83a9465cba2c12067ef208c6: 1
     - Vector1_a108713096924151b563b48a31e687a5: 8
     - Vector1_a13ccb62ec0c4fb49952e8e1572e59c3: 0.05
@@ -129,6 +133,7 @@ Material:
     - Vector1_c8f335b3802b4789bbd99aaf87939a51: 0.001
     - Vector1_d24db213e9d04680a8bf2fc858111df6: 500
     - Vector1_d8aa7adf70aa457ca7f57f5073ca08bb: 122
+    - Vector1_df5d3bdd1e6242a39e02f29a667d31f9: 8.05
     - Vector1_f0dc2cda596d4e5991c615f5907f4b9e: 0.1
     - _AlphaClip: 0
     - _Blend: 0
@@ -149,6 +154,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Screen_Intencity: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -159,6 +165,7 @@ Material:
     m_Colors:
     - Color_17a565242d464625a66642ccdf6ec2e7: {r: 0, g: 2.282491, b: 6.062866, a: 0}
     - Color_2dfb862762e44216aadaeef7bb68f89d: {r: 0.9245283, g: 0.1309569, b: 0.02093269, a: 0}
+    - Color_36fc656260e54430ba2b646198a00287: {r: 0, g: 0.98039216, b: 0.07747646, a: 0}
     - Color_621d9da149f24bfb8a6ab1a342a480fb: {r: 0, g: 1007.937, b: 979.8275, a: 0}
     - Color_7946208844894d08a6bddffc01ea07d2: {r: 4.753926, g: 0, b: 0.08935464, a: 0}
     - Color_887516edcb1842e99a784f841ec2d533: {r: 0.8867924, g: 0.1629791, b: 0.04517614, a: 0}
