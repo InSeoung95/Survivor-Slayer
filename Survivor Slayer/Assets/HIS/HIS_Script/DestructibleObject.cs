@@ -34,7 +34,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if(collision.gameObject.tag=="Bullet")
         {
-            Health -= gun.damage;
+            //Health -= gun.damage;
             Debug.Log("파괴중");
 
             if(Health<0)

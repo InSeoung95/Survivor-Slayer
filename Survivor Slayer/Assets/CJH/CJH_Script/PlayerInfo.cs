@@ -33,4 +33,9 @@ public class PlayerInfo : MonoBehaviour
         HPSlider.value = currenthealth;
         HPText.text = currenthealth.ToString();
     }
+
+    public void HitBomb(float Bombdamage)
+    {
+        currenthealth -= Bombdamage;
+    }
 }

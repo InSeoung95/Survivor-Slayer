@@ -51,8 +51,7 @@ public class Enemy_test : MonoBehaviour
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
         audioSource = GetComponent<AudioSource>();
         
-        //_pathUnit = GetComponent<PathUnit>();          // a* 해결하면 교체
-        _nav = GetComponent<NavMeshAgent>();            // a* 해결하면 _navmesh지우고 a*로 교체
+        _nav = GetComponent<NavMeshAgent>();         
         _anim = GetComponentInChildren<Animator>();
         
         animSpeed = Random.Range(10, 25+1) * 0.1f;
@@ -189,23 +188,6 @@ public class Enemy_test : MonoBehaviour
             _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
         }
          */
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            //인성 수정
-            
-            
-
-            /*
-            hitEffect.transform.position = contactPoint.point;
-            hitEffect.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
-            hitEffect.Play();
-             */
-            
-        }
     }
 
     private void OnTriggerStay(Collider other)

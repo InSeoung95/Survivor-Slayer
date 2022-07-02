@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletTimer: 5
-  _trailRenderer: {fileID: 0}
+  UpgradeRate: 0
 --- !u!1001 &7281409818725085238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,6 +126,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6226301396565834153, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6226301396565834155, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6226301396565834164, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}

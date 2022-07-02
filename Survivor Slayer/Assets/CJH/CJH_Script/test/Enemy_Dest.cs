@@ -38,13 +38,13 @@ public class Enemy_Dest : MonoBehaviour
         {
             if (Body.onDamaged)
             {
-                currentHealth -= Body._bodyDamage;
-                Body.DamageCount++;
+                currentHealth -= Body._bodyDamage * Body.BulletDamage;
+                Body._bodyHitPoint += Body._bodyDamage * Body.BulletDamage; 
                 Body.onDamaged = false;
 
-                if (Body.DamageCount >= Body.DamageMaxCount)
+                if(Body._bodyHitPoint >= Body._bodyMaxHealth)
                 {
-                    // 부위별 피격횟수가 MAX이상이면 실행되어 파괴된 부위이름을 받아 파괴된것 체크하고 activeFalse
+                    // 부위별 피격데미지가 부위별 최대체력 이상 이면 실행되어 파괴된 부위이름을 받아 파괴된것 체크하고 activeFalse
                     switch (Body._BodyName)
                     {
                         case Enemy_Body.BodyName.Arm :

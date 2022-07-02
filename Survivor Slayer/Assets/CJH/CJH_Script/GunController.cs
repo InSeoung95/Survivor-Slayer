@@ -2,17 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GunController : MonoBehaviour
 {
-    private const int BULLET_SPEED = 30;        // 총알 탄속
-    
     [SerializeField] private Gun currentGun;
     public Transform bulletPos;
     public ObjectManager _ObjectManager;
 
     public float currentFireRate;      //연사속도
+    public int PlasmaFireRate;         // 플라즈마 폭탄 발사 가능횟수
+    private float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
+    public float PlasmaPressTime;
+    public Slider PlasmaUI;
 
     private AudioSource _audioSource;
 
@@ -37,15 +40,56 @@ public class GunController : MonoBehaviour
         flashLight = GetComponentInChildren<FlashLight>();
         crosshair = FindObjectOfType<Crosshair>();
         aniCtrl = GetComponent<KillAni_Ctrl>();
+        
+        PlasmaUI.maxValue = PlasmaPressMaxTime;
+        PlasmaUI.value = PlasmaPressTime;
     }
 
     void Update()
     {
         GunFireRateCalc();
         TryFire();
+        TryBombFire();
         TryReload();
-
+        
     }
+
+    private void TryBombFire()
+    {
+        if (Input.GetButton("Fire2") && currentFireRate <= 0 && currentGun.upgradeRate[(int)UpgradeType.GunGage] > 0 &&
+            PlasmaFireRate > 0 && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
+        {
+            PlasmaPressTime += Time.deltaTime;
+            PlasmaUI.value = PlasmaPressTime;
+        }
+
+        if (Input.GetButtonUp("Fire2"))
+        {
+            if (PlasmaPressTime > PlasmaPressMaxTime)
+            {
+                PlasmaPressTime = 0;
+                PlasmaFireRate--;
+                PlasmaUI.value = PlasmaPressTime;
+                FirePlasmaBomb();
+            }
+        }
+    }
+
+    private void FirePlasmaBomb()
+    {
+        Vector3 v = thecam.transform.position - bulletPos.transform.position;
+        Physics.Raycast(thecam.transform.position, thecam.transform.forward, out hitinfo);
+        Debug.DrawRay(thecam.transform.position, thecam.transform.forward * hitinfo.distance, Color.red);
+
+        bulletPos.LookAt(hitinfo.point);
+
+        
+        GameObject intantBomb = Instantiate(currentGun.PlasmaBomb, bulletPos.position, bulletPos.rotation);
+        Rigidbody bulletRigid = intantBomb.GetComponent<Rigidbody>();
+        
+        bulletRigid.velocity = bulletPos.forward * 5;
+    }
+    
 
     private void GunFireRateCalc()
     {
@@ -105,15 +149,18 @@ public class GunController : MonoBehaviour
        
         GameObject intantBullet = _ObjectManager.MakeObj("Bullet", bulletPos.position, bulletPos.rotation);
         Rigidbody bulletRigid = intantBullet.GetComponent<Rigidbody>();
-        bulletRigid.velocity = bulletPos.forward * BULLET_SPEED;
-        
+        Bullet bulletDamaege = intantBullet.GetComponent<Bullet>();
+
+        bulletDamaege.UpgradeRate = currentGun.upgradeRate[0];
+        bulletRigid.velocity = bulletPos.forward * currentGun.BULLETSPEED[currentGun.upgradeRate[0]];
+
         // StopAllCoroutines();
         // StartCoroutine(RetroActionCoroutine());
     }
 
     private void TryReload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !isReload && currentGun.currentBulletCount < currentGun.reloadBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !isReload && currentGun.currentBulletCount < currentGun.reloadBulletCount[currentGun.upgradeRate[1]])
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -134,10 +181,10 @@ public class GunController : MonoBehaviour
             
             yield return new WaitForSeconds(currentGun.reloadTime);
 
-            if (currentGun.carryBulletCount >= currentGun.reloadBulletCount)
+            if (currentGun.carryBulletCount >= currentGun.reloadBulletCount[currentGun.upgradeRate[1]])
             {
-                currentGun.currentBulletCount = currentGun.reloadBulletCount;
-                currentGun.carryBulletCount -= currentGun.reloadBulletCount;
+                currentGun.currentBulletCount = currentGun.reloadBulletCount[currentGun.upgradeRate[1]];
+                currentGun.carryBulletCount -= currentGun.reloadBulletCount[currentGun.upgradeRate[1]];
             }
             else
             {

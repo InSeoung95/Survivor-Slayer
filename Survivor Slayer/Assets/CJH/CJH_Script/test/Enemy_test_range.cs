@@ -34,24 +34,16 @@ public class Enemy_test_range : MonoBehaviour
             tester.Target = other.gameObject;
             tester.testMove = true;
         }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //플레이어가 탈출했을때 근처에 거점 있으면 거점을 확인하기 위해서 stay로 계속 체크해놓기
         if (other.gameObject.tag == "Base")
         {
-            if(_base == null)
-                _base = other.gameObject.GetComponentInParent<Base>();
-            if (_base != null)
+            _base = other.gameObject.GetComponentInParent<Base>();
+            if (!tester.chasePlayer)
             {
-                if (!tester.chasePlayer)
+                if (_base.state != Base.State.Enemy_Occupation)
                 {
-                    if (_base.state != Base.State.Enemy_Occupation)
-                    {
-                        tester.Target = other.gameObject.transform.parent.gameObject;
-                        tester.testMove = true;
-                    }
+                    tester.Target = other.gameObject.transform.parent.gameObject;
+                    tester.testMove = true;
                 }
             }
         }
@@ -65,15 +57,6 @@ public class Enemy_test_range : MonoBehaviour
             tester.chasePlayer = false;
             tester.Target = null;
             _sphereCollider.radius = Enemy_Range/2;
-        }
-
-        // 거점에서 나갈때 거점확인변수를 제거
-        if (other.gameObject.tag == "Base")
-        {
-            if (_base != null)
-            {
-                _base = null;
-            }
         }
     }
 }

@@ -25,7 +25,6 @@ public class Bomb : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere (transform.position, BOMB_RANGE);
-
     }
 
     IEnumerator Explosion()

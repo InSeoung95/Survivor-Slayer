@@ -6,6 +6,10 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int bulletTimer = 5;
+    public int UpgradeRate;
+
+    public float[] Damage = { 10, 15, 20 };
+    private float[] Size = { 0.5f, 1.5f, 2.5f };
     
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,7 +27,7 @@ public class Bullet : MonoBehaviour
     
     private void OnEnable()
     {
-        
+        gameObject.transform.localScale = Vector3.one * Size[UpgradeRate];
         StartCoroutine(TimeOverDestroyBullet());
     }
 
