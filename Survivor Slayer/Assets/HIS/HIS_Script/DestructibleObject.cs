@@ -17,7 +17,8 @@ public class DestructibleObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Origin.SetActive(true);
+        Origin.SetActive(true);
+        Broken.SetActive(false);
         gun = FindObjectOfType<Gun>();
     }
 
@@ -34,7 +35,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if(collision.gameObject.tag=="Bullet")
         {
-            //Health -= gun.damage;
+            Health -= 10f;
             Debug.Log("파괴중");
 
             if(Health<0)
@@ -46,9 +47,9 @@ public class DestructibleObject : MonoBehaviour
 
     IEnumerator GoDestroy()
     {
-        //Origin.SetActive(false);
-        //Destroy(gameObject);
-        Instantiate(Broken, transform.position, transform.rotation);
+        Origin.SetActive(false);
+        Broken.SetActive(true);
+        //Instantiate(Broken, transform.position, transform.rotation);
 
         moveObject.brokenCount++;
         Debug.Log("broken count: " + moveObject.brokenCount);
@@ -59,6 +60,6 @@ public class DestructibleObject : MonoBehaviour
         }
          */
         yield return new WaitForSeconds(2f);
-        Destroy(Broken);
+        Destroy(gameObject);
     }
 }

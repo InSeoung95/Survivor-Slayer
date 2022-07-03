@@ -40,6 +40,10 @@ public class Enemy_Fog : MonoBehaviour
     private AudioSource audioSource;
     private EnemySpawn enemySpawn;
 
+    //인성 추가
+    public Material ScreenEffect; // 화면에 효과를 줄 머테리얼
+    public float ScreenEffctTime; // 화면 효과 지속 시간.
+
     private void Start()
     {
         _rigid = GetComponent<Rigidbody>();
@@ -145,10 +149,39 @@ public class Enemy_Fog : MonoBehaviour
         {
             hitObj.transform.GetComponent<PlayerInfo>().HitBomb(FogBombDamage);
         }
-        
-        Destroy(gameObject);
-    }
+        Debug.Log("포그 좀비 효과");
 
+        StartCoroutine(ScreenPollution());
+        
+       
+    }
+    IEnumerator ScreenPollution()
+    {
+        ScreenEffect.SetFloat("_Screen_Intencity", 0.7f);
+        /*
+        float currentTime = 0f;
+        float percent = 0;
+        //float screenIntencity = 0f;
+        float currentIntencity = 0.7f;
+
+        while (percent < 1)
+        {
+            currentTime += Time.deltaTime;
+            percent = currentTime / ScreenEffctTime;
+
+            currentIntencity = Mathf.Lerp(0, 0.7f, percent);
+
+            ScreenEffect.SetFloat("_Screen_Intencity", currentIntencity);
+            yield return null;
+        }
+         */
+        yield return new WaitForSeconds(ScreenEffctTime);
+        
+        ScreenEffect.SetFloat("_Screen_Intencity", 0);
+
+        Destroy(gameObject);
+
+    }
     private void FogTimeUpdate()
     {
         FogTimer += Time.deltaTime;

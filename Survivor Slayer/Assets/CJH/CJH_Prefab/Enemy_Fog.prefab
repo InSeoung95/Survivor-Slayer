@@ -81,11 +81,14 @@ MonoBehaviour:
   Target: {fileID: 0}
   _ObjectManager: {fileID: 0}
   Fog: {fileID: 0}
+  FogBombDamage: 10
   testMove: 0
   chasePlayer: 0
   isDeath: 0
   hitEffect: {fileID: 0}
   deadSound: {fileID: 8300000, guid: 22fd11196ba73014e8b330dfdcc38546, type: 3}
+  ScreenEffect: {fileID: 2100000, guid: 74202d2119d725641b4fb4505f1bd5db, type: 2}
+  ScreenEffctTime: 1
 --- !u!82 &1341317014410255279
 AudioSource:
   m_ObjectHideFlags: 0

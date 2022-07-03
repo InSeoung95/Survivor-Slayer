@@ -7,13 +7,15 @@ public class TriggerInteract : MonoBehaviour
 {
     public GameObject Interact_Object; //활성화할 오브젝트
     public GameObject Interact_UI; // 표시할 상호작용 UI
+    private bool ActiveInteract;
 
     //private bool isReach; // 거리가 닿는
 
+    
     // Update is called once per frame
     void Update()
     {
-        if(Interact_UI.activeInHierarchy&&Input.GetKeyDown(KeyCode.F))
+        if(ActiveInteract&&Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("상호작용 오브젝트 활성화");
             Interact_Object.SetActive(true);
@@ -26,6 +28,7 @@ public class TriggerInteract : MonoBehaviour
         if(other.tag=="Player")
         {
             Interact_UI.SetActive(true);
+            ActiveInteract = true;
         }
     }
 
@@ -34,6 +37,13 @@ public class TriggerInteract : MonoBehaviour
         if(other.tag=="Player")
         {
             Interact_UI.SetActive(false);
+            ActiveInteract = false;
+
+            if(Interact_Object.activeSelf)
+            {
+                Interact_Object.SetActive(false);
+            }
+            
         }
     }
 }

@@ -13,8 +13,17 @@ public class Keypad_Ctrl : MonoBehaviour
 
     private bool Correct; // 정답을 맞출 때 true
 
-    public Animator doorAnim;
-    
+    public InteractDoor Door;
+
+    public KeypadClue clue1;
+    public KeypadClue clue2;
+    public KeypadClue clue3;
+
+
+    private void Start()
+    {
+        Answer = clue1.answer + clue2.answer + clue3.answer;
+    }
 
     private void OnEnable() // 활성화 시 변수들 초기화
     {
@@ -77,7 +86,7 @@ public class Keypad_Ctrl : MonoBehaviour
             Debug.Log("정답임다");
             //정답 UI 사운드
             //InteractDoor.GetComponent<Animator>().SetBool("Open", true);
-            doorAnim.SetBool("Open", true);
+            Door.Activate = true;
             Exit();
         }
         else

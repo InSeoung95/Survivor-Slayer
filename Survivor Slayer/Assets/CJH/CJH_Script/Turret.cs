@@ -24,7 +24,11 @@ public class Turret : MonoBehaviour
         if (_onPlayerTrigger)
         {
             FireTime += Time.deltaTime;
-            gameObject.transform.LookAt(target);
+            var targetPos = new Vector3(target.position.x, transform.position.y, target.position.z);
+            gameObject.transform.LookAt(targetPos);
+            missileSpawn.transform.LookAt(target);
+           
+
             if (FireTime > missileTime)
             {
                 FireTime = 0;
