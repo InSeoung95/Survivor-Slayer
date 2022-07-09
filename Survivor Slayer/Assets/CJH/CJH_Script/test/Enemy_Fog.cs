@@ -190,8 +190,8 @@ public class Enemy_Fog : MonoBehaviour
         {
             if (FogTimer >= FogTime)
             {
-                Instantiate(Fog, gameObject.transform.position, gameObject.transform.rotation);
-                Destroy(Fog, 3f);
+                var fog =Instantiate(Fog, gameObject.transform.position, gameObject.transform.rotation);
+                Destroy(fog, 3f);
                 FogTimer = 0;
             }
         }

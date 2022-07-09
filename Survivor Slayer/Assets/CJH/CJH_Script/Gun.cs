@@ -40,24 +40,33 @@ public class Gun : MonoBehaviour
     {
         if (Type == UpgradeType.Damage)
         {
-            upgradeRate[0]++;
-            var GunMesh = _GunPart[0].gameObject.GetComponent<MeshRenderer>();
-            GunMesh.materials = _GunPartMaterials;
-            Debug.Log("총업그레이드 1");
+            if (upgradeRate[0] < 3)
+            {
+                upgradeRate[0]++;
+                var GunMesh = _GunPart[0].gameObject.GetComponent<MeshRenderer>();
+                GunMesh.materials = _GunPartMaterials;
+                Debug.Log("총업그레이드 1");
+            }
         }
         if (Type == UpgradeType.Bullet)
         {
-            upgradeRate[1]++;
-            var GunMesh = _GunPart[1].gameObject.GetComponent<MeshRenderer>();
-            GunMesh.materials = _GunPartMaterials;
-            Debug.Log("총업그레이드 2");
+            if (upgradeRate[1] < 3)
+            {
+                upgradeRate[1]++;
+                var GunMesh = _GunPart[1].gameObject.GetComponent<MeshRenderer>();
+                GunMesh.materials = _GunPartMaterials;
+                Debug.Log("총업그레이드 2");
+            }
         }
         if (Type == UpgradeType.GunGage)
         {
-            upgradeRate[2]++;
-            var GunMesh = _GunPart[2].gameObject.GetComponent<MeshRenderer>();
-            GunMesh.materials = _GunPartMaterials;
-            Debug.Log("총업그레이드 3");
+            if (upgradeRate[2] < 3)
+            {
+                upgradeRate[2]++;
+                var GunMesh = _GunPart[2].gameObject.GetComponent<MeshRenderer>();
+                GunMesh.materials = _GunPartMaterials;
+                Debug.Log("총업그레이드 3");
+            }
         }
         
 }
