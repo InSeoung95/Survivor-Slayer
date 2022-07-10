@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &410475970
 Transform:
@@ -111,7 +111,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8863126776819882092
 Transform:
@@ -254,6 +254,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39e6ec3bedf10b84eafcca3b7779c86f, type: 2}
+    - target: {fileID: -2595028790882130871, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -1583046400605355500, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: -71712596518377902, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -261,6 +269,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
       propertyPath: m_Name
       value: turret_model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14164e85ee43acd41b580100a686ab64, type: 3}

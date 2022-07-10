@@ -29,7 +29,7 @@ public class Keypad_Ctrl : MonoBehaviour
     {
        for(int i=0;i<InputedNum.Length;++i)
         {
-            InputedNum[i] = 0;
+            InputedNum[i] = -1;
         }
         CompareNum = "";
         NumDisplayTxt.text = "";
@@ -44,9 +44,9 @@ public class Keypad_Ctrl : MonoBehaviour
     {
         for(int i=0; i<InputedNum.Length;++i)
         {
-            if(InputedNum[i]==0)
+            if(InputedNum[i]==-1)
             {
-                InputedNum[i] += number;
+                InputedNum[i] = number;
                 NumDisplayTxt.text += number.ToString();
                 return;
             }
@@ -58,9 +58,9 @@ public class Keypad_Ctrl : MonoBehaviour
     {
         for(int i=InputedNum.Length-1;i>=0;--i)
         {
-            if(InputedNum[i]!=0)
+            if(InputedNum[i]!=-1)
             {
-                InputedNum[i] = 0;
+                InputedNum[i] = -1;
                 NumDisplayTxt.text = "";
                 for(int j=0;j<i;++j)
                 {

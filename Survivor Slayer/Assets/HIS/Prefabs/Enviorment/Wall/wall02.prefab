@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1138349901400205694
 Transform:
@@ -209,7 +209,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7031827238157121684
 Transform:
@@ -237,7 +237,7 @@ Light:
   m_Type: 3
   m_Shape: 0
   m_Color: {r: 0.015686274, g: 0.69308394, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.5
   m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
