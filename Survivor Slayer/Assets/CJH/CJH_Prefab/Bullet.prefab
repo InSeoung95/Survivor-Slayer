@@ -78,9 +78,9 @@ MonoBehaviour:
   bulletTimer: 5
   UpgradeRate: 0
   Damage:
-  - 10
-  - 15
-  - 20
+  - 1
+  - 1.5
+  - 2
   BulletMark: {fileID: 2546878287938342589, guid: 8b65a721c9a91a845bda925f1ca34425, type: 3}
 --- !u!1001 &7281409818725085238
 PrefabInstance:

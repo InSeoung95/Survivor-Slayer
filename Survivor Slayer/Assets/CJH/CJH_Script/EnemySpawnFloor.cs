@@ -11,7 +11,11 @@ public class EnemySpawnFloor : MonoBehaviour
     public Transform[] SpawnPoint;
     public ObjectManager _objectManager;
     private float Timer;
-    
+
+    private void Start()
+    {
+        _objectManager = FindObjectOfType<ObjectManager>();
+    }
 
     private void Update()
     {

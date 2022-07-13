@@ -40,6 +40,7 @@ public class GunController : MonoBehaviour
         flashLight = GetComponentInChildren<FlashLight>();
         crosshair = FindObjectOfType<Crosshair>();
         aniCtrl = GetComponent<KillAni_Ctrl>();
+        _ObjectManager = FindObjectOfType<ObjectManager>();
         
         PlasmaUI.maxValue = PlasmaPressMaxTime;
         PlasmaUI.value = PlasmaPressTime;

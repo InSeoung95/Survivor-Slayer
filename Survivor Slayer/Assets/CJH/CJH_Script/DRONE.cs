@@ -13,7 +13,7 @@ public class DRONE : MonoBehaviour
     private float itemTimer;
     [SerializeField] private float ITEMTIME = 60f;
 
-    [SerializeField] private GameObject UpgradeBox;
+    public GameObject UpgradeBox;
 
     private void Start()
     {
