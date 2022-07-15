@@ -151,11 +151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6226301396565834154, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.84060663
+      value: 200.78432
       objectReference: {fileID: 0}
     - target: {fileID: 6226301396565834154, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 3.2111173
+      value: 766.9961
       objectReference: {fileID: 0}
     - target: {fileID: 6226301396565834154, guid: c9f2830cf1983f64cbb2bd5779946f61, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x

@@ -7,6 +7,11 @@ public class BulletPlasmaBomb : MonoBehaviour
 {
     public int bulletTimer = 5;
     [SerializeField] private float BOMB_RANGE = 10;     // 폭탄 폭발범위
+
+    //인성 추가
+    public ParticleSystem Center;
+    public ParticleSystem Glow;
+    public ParticleSystem Energy;
     
     private void OnDrawGizmos()
     {
@@ -16,6 +21,8 @@ public class BulletPlasmaBomb : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("플라즈마 발사");
+        Center.Play();
         StartCoroutine(TimeOverDestroyBullet());
     }
 
@@ -37,6 +44,10 @@ public class BulletPlasmaBomb : MonoBehaviour
 
     IEnumerator Explosion()
     {
+        //인성 추가
+        Glow.Play();
+        Energy.Play();
+        //
         RaycastHit[] rayHits =
             Physics.SphereCastAll(transform.position, BOMB_RANGE, Vector3.up, 0f, LayerMask.GetMask("Enemy"));
 

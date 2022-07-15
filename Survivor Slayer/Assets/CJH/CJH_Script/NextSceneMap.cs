@@ -39,7 +39,9 @@ public class NextSceneMap : MonoBehaviour
         {
             SceneManager.LoadScene("Main_Stage2");
             NextTransForm=GameObject.Find("NEXTTRANSFORM");
-            _player.transform = NextTransForm.transform;
+
+            //인성 수정
+            //_player.transform = NextTransForm.transform; 오류가 있어서 주석 처리
             StartCoroutine(FadeOut());
         }
     }

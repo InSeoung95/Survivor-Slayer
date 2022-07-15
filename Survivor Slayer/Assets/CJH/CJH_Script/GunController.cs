@@ -85,7 +85,7 @@ public class GunController : MonoBehaviour
         bulletPos.LookAt(hitinfo.point);
 
         
-        GameObject intantBomb = Instantiate(currentGun.PlasmaBomb, bulletPos.position, bulletPos.rotation);
+        var intantBomb = Instantiate(currentGun.PlasmaBomb, bulletPos.position, bulletPos.rotation);
         Rigidbody bulletRigid = intantBomb.GetComponent<Rigidbody>();
         
         bulletRigid.velocity = bulletPos.forward * 5;
