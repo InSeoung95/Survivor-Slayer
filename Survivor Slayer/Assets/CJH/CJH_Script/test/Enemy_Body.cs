@@ -74,8 +74,13 @@ public class Enemy_Body : MonoBehaviour
     {
         if (effect)
         {
-            effect.gameObject.transform.position = effectTransform.position;
-            effect.gameObject.SetActive(true);
+            // effect.gameObject.transform.position = effectTransform.position;
+            // effect.gameObject.SetActive(true);
+            // 이펙트 on-off시 좀비 좌표에 종속되어 계속 이동해 생성해서 파괴하는걸로 수정
+            
+            var _Blood =Instantiate(effect, gameObject.transform.position, gameObject.transform.rotation);
+            _Blood.SetActive(true);
+            Destroy(_Blood, 3);
         }
 
         _bodyHitPoint = 0;

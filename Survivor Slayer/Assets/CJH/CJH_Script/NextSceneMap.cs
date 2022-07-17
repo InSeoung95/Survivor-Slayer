@@ -12,17 +12,23 @@ public class NextSceneMap : MonoBehaviour
     private bool Out;
     private GameObject NextTransForm;
     private GameObject _player;
-    private void OnCollisionEnter(Collision collision)
+    [SerializeField] private ObjectManager _objectManager;
+
+    [SerializeField] private AudioSource _audio;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            _player = collision.gameObject;
+            _player = other.gameObject;
+            _objectManager.stage = 2;
             _Image.gameObject.SetActive(true);
+            _audio.Play();
             StartCoroutine(FadeIn());
            
         }
     }
-    
+
     private IEnumerator FadeIn()
     {
         float fadeCount = 0;
@@ -38,10 +44,6 @@ public class NextSceneMap : MonoBehaviour
         if (IN)
         {
             SceneManager.LoadScene("Main_Stage2");
-            NextTransForm=GameObject.Find("NEXTTRANSFORM");
-
-            //인성 수정
-            //_player.transform = NextTransForm.transform; 오류가 있어서 주석 처리
             StartCoroutine(FadeOut());
         }
     }

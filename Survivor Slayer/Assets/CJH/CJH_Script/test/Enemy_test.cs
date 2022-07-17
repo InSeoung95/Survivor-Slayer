@@ -75,19 +75,28 @@ public class Enemy_test : MonoBehaviour
     {
         if (Target == null && !chasePlayer)
         {
-            int search = 0;
-            while (search < 4)
+            if (_ObjectManager.stage == 1)
             {
-                int ran = Random.Range(0, 4);
-                if (_ObjectManager.EnemyTargetBase[ran].state != Base.State.Enemy_Occupation)
+                int search = 0;
+                while (search < 4)
                 {
-                    Target = _ObjectManager.EnemyTargetBase[ran].gameObject;
-                    break;
-                }
-                search++;
-            }
+                    int ran = Random.Range(0, 4);
+                    if (_ObjectManager.EnemyTargetBase[ran].state != Base.State.Enemy_Occupation)
+                    {
+                        Target = _ObjectManager.EnemyTargetBase[ran].gameObject;
+                        break;
+                    }
 
-            if (search == 4)
+                    search++;
+                }
+
+                if (search == 4)
+                {
+                    Target = _ObjectManager.Player.gameObject;
+                    chasePlayer = true;
+                }
+            }
+            else
             {
                 Target = _ObjectManager.Player.gameObject;
                 chasePlayer = true;

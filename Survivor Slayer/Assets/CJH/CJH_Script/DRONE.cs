@@ -30,7 +30,8 @@ public class DRONE : MonoBehaviour
             InterateWaypointIndex();
             if (itemTimer > ITEMTIME)
             {
-                Instantiate(UpgradeBox, gameObject.transform.position + Vector3.up * 3, Quaternion.identity);
+                var box = Instantiate(UpgradeBox, gameObject.transform.position + Vector3.up * 3, Quaternion.identity);
+                box.gameObject.SetActive(true);
                 itemTimer = 0;
             }
         }

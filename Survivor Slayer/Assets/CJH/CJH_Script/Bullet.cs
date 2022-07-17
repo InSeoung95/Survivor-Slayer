@@ -17,13 +17,13 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            ShowEffect(collision);
+            ShowEffect(collision,true);
             gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Wall")
         {
-            ShowEffect(collision);
+            ShowEffect(collision,false);
             gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(false);
         }
@@ -48,13 +48,16 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void ShowEffect(Collision collision)
+    private void ShowEffect(Collision collision, bool ground)
     {
         ContactPoint contact = collision.contacts[0];
-        
         Quaternion rot = Quaternion.FromToRotation(-Vector3.forward, contact.normal);
 
-        var mark = Instantiate(BulletMark, contact.point, rot);
+        Vector3 vec = Vector3.zero;
+        if(ground)
+        vec = new Vector3(0, 0.005f, 0);
+
+        var mark = Instantiate(BulletMark, contact.point + vec, rot);
         Destroy(mark, 5f);
     }
 }

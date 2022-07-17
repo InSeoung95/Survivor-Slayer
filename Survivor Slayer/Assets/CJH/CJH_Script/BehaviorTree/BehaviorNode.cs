@@ -13,6 +13,7 @@ public abstract class BehaviorNode : ScriptableObject
 
     public BehaviorState state = BehaviorState.Running;
     public bool started = false;
+    public string guid;
 
     public BehaviorState Update()
     {
