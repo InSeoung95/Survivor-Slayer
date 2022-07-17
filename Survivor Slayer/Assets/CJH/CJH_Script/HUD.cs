@@ -47,7 +47,7 @@ public class HUD : MonoBehaviour
                 pause.text = "Playing";
             }
         }
-        Goal.text = "현재 점령 수: " + baseManager.PlayerOcuupy;
+        //Goal.text = "현재 점령 수: " + baseManager.PlayerOcuupy;
     }
 
 }

@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ec31e22851a84824cbcdf8304d2f4f73, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 239378781582670930, guid: 851486800d78b814aa823a4288dcda93, type: 3}
+      objectReference: {fileID: 2100000, guid: 487bf0cbb7d15f9479d011587093980b, type: 2}
     - target: {fileID: 919132149155446097, guid: ec31e22851a84824cbcdf8304d2f4f73, type: 3}
       propertyPath: m_Name
       value: door_left
@@ -226,7 +226,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 33c97575c5fe09b4793e3d3804146091, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 239378781582670930, guid: 851486800d78b814aa823a4288dcda93, type: 3}
+      objectReference: {fileID: 2100000, guid: 487bf0cbb7d15f9479d011587093980b, type: 2}
     - target: {fileID: 919132149155446097, guid: 33c97575c5fe09b4793e3d3804146091, type: 3}
       propertyPath: m_Name
       value: door_right

@@ -11,7 +11,7 @@ public class Keypad_Ctrl : MonoBehaviour
     private int[] InputedNum=new int[6]; // 씬에서 입력받을 숫자 배열. 6자리가 최대
     private string CompareNum; //정답과 비교할 숫자
 
-    private bool Correct; // 정답을 맞출 때 true
+    public bool Correct; // 정답을 맞출 때 true
 
     public InteractDoor Door;
 

@@ -8,6 +8,9 @@ public class Elevator_Ctrl : MonoBehaviour
     InteractDoor door;
     public GameObject Player;
 
+    public ParticleSystem[] explosions;// 엘리베이터로 탈출 시 재생될 이펙트들
+    public float BombDelay;// 폭발 이펙트 딜레이 시간
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,19 @@ public class Elevator_Ctrl : MonoBehaviour
         if(eleAnim.GetBool("Move"))
         {
             Player.transform.position = new Vector3(Player.transform.position.x, gameObject.transform.position.y, Player.transform.position.z);
+
+            StartCoroutine(Explosion());
+        }
+    }
+    IEnumerator Explosion() // 연쇄 폭발 코루틴
+    {
+        yield return new WaitForSeconds(2f);
+
+        foreach(var explosion in explosions)
+        {
+            explosion.Play();
+
+            yield return new WaitForSeconds(BombDelay);
         }
     }
 

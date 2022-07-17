@@ -9911,6 +9911,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2308423793151232429, guid: fc280d6ae14c74b4b88bbd3b8e0ed434, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2308423793151232429, guid: fc280d6ae14c74b4b88bbd3b8e0ed434, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2308423793151232431, guid: fc280d6ae14c74b4b88bbd3b8e0ed434, type: 3}
       propertyPath: m_Name
       value: Explosion
