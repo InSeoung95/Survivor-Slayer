@@ -21,7 +21,12 @@ public class PlayerInfo : MonoBehaviour
     public Text HPText;
     //인성 수정
     public bool onDamaged = false; // 플레이어가 데미지 받는지
+
+  
     //
+    [SerializeField] private GameObject _gameObject;
+    public GameObject GameObject => _gameObject;
+
     private void Awake()
     {
         HPSlider.maxValue = maxHealth;

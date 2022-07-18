@@ -10,7 +10,7 @@ public class Enemy_test : MonoBehaviour
 {
     private const float ENEMY_MOVESPEED = 5f;     //좀비의 이동속도  1.6f = default
     private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
-    private const float ENEMY_ATTACK_DELAY = 2f;    //좀비의 공격속도
+    private const float ENEMY_ATTACK_DELAY = 1.3f;    //좀비의 공격속도
 
     private Enemy_Dest _enemyDest;                  // 좀비 체력 및 부위별 체력관리, 팔/다리 제거인식
     public float MoveSpeed = ENEMY_MOVESPEED;
@@ -273,17 +273,18 @@ public class Enemy_test : MonoBehaviour
         _anim.SetBool("isDeath", true);
         audioSource.PlayOneShot(deadSound);
         
-        //인성 추가
+        yield return new WaitForSeconds(1.5f / animSpeed);
         foreach(var Body in Bodys) // 소멸효과
         {
             Body.material = Dissolve;
         }
-        yield return new WaitForSeconds(3f / animSpeed);
+        yield return new WaitForSeconds(1.5f / animSpeed);
+        
         DropItem();
         _anim.SetBool("isDeath", false);
-        
         chasePlayer = false;
         Target = null;
+        
         gameObject.SetActive(false);
         
     }

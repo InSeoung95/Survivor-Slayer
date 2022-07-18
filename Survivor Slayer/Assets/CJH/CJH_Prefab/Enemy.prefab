@@ -826,8 +826,11 @@ MonoBehaviour:
   effectTransform: {fileID: 0}
   _JacketBody: {fileID: 685315781143045131}
   _renderer: {fileID: 0}
-  ZombieMaterial: []
-  BurserkMaterial: []
+  ZombieMaterial:
+  - {fileID: 2100000, guid: 13dbcc43bbd33fa41bdbf254c20f09c1, type: 2}
+  BurserkMaterial:
+  - {fileID: 2100000, guid: 13dbcc43bbd33fa41bdbf254c20f09c1, type: 2}
+  - {fileID: 2100000, guid: e20ad3442af94c04dabaabbc714e9e1c, type: 2}
 --- !u!54 &4902750925991464779
 Rigidbody:
   m_ObjectHideFlags: 0

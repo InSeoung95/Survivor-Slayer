@@ -25,8 +25,10 @@ public class TriggerInteract : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.CompareTag("Player"))
         {
+            Interact_Object = GameObject.Find("HUD Canvas").transform.Find(" Keypad UI").gameObject;
+            Interact_UI = GameObject.Find("HUD Canvas").transform.Find("Interact Txt").gameObject;
             Interact_UI.SetActive(true);
             ActiveInteract = true;
         }
@@ -34,7 +36,7 @@ public class TriggerInteract : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.CompareTag("Player"))
         {
             Interact_UI.SetActive(false);
             ActiveInteract = false;

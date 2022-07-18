@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984ac9acc6510de4697e0cc88825cf35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tower: {fileID: 1227166541079035587}
   _missile: {fileID: 5283254458188192164, guid: 5ad3c6ab29ef26248a5bab05a30e1281, type: 3}
   missileSpawn: {fileID: 8863126777839693049}
 --- !u!1 &8863126777839693048
@@ -284,6 +285,11 @@ GameObject:
 --- !u!4 &8974160739632339772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
+  m_PrefabInstance: {fileID: 8863126776855379159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1227166541079035587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1583046400605355500, guid: 14164e85ee43acd41b580100a686ab64, type: 3}
   m_PrefabInstance: {fileID: 8863126776855379159}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &8863126776909259780

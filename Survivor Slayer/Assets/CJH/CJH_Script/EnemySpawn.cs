@@ -65,10 +65,16 @@ public class EnemySpawn : MonoBehaviour
             case 1:
                 for (int i = 0; i < SpawnPoint.Length; i++)
                 {
-                    _objectManager.MakeObj("Enemy_Zombie", SpawnPoint[i].position, SpawnPoint[i].rotation);
-                    SpawnNumber++;
+                if (i == 0)
+                {
                     _objectManager.MakeObj("Enemy_Fog", SpawnPoint[i].position, SpawnPoint[i].rotation);
                     SpawnNumber++;
+                    }
+                    else
+                    {
+                    _objectManager.MakeObj("Enemy_Zombie", SpawnPoint[i].position, SpawnPoint[i].rotation);
+                    SpawnNumber++;
+                    }
                     //인성 추가
                     UIManager.instance.UpdateRound(_stage.Round);
                 }

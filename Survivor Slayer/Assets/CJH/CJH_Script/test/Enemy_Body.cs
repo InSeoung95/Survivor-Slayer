@@ -31,9 +31,15 @@ public class Enemy_Body : MonoBehaviour
     [SerializeField] private Material[] ZombieMaterial;
     [SerializeField] private Material[] BurserkMaterial;
 
-    private void Start()
+    private void Awake()
     {
         _renderer = GetComponent<SkinnedMeshRenderer>();
+    }
+
+    private void OnEnable()
+    {
+        _renderer.materials = ZombieMaterial;
+        _bodyHitPoint = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
