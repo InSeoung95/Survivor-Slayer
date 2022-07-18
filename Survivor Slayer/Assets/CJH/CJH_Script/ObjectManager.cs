@@ -11,7 +11,7 @@ public class ObjectManager : MonoBehaviour
    public int stage;
    
    public GameObject Enemy_ZombiePrefab;
-   public GameObject Enemy_ArmorZombiePrefab;
+   public GameObject Enemy_FogZombiePrefab;
    public GameObject Enemy_TurretPrefab;
    public GameObject BulletPrefab;
    public GameObject Item_HealPackPrefab;
@@ -20,7 +20,7 @@ public class ObjectManager : MonoBehaviour
    public GameObject Item_PsychoPrefab;
    
    private GameObject[] Enemy_Zombie;
-   private GameObject[] Enemy_ArmorZombie;
+   private GameObject[] Enemy_FogZombie;
    private GameObject[] Enemy_Turret;
    private GameObject[] Bullet;
    private GameObject[] Item_HealPack;
@@ -37,7 +37,7 @@ public class ObjectManager : MonoBehaviour
    private void Awake()
    {
       Enemy_Zombie = new GameObject[MAX_ENEMY];
-      Enemy_ArmorZombie = new GameObject[MAX_ENEMY];
+      Enemy_FogZombie = new GameObject[MAX_ENEMY];
       Enemy_Turret = new GameObject[MAX_ENEMY];
       Bullet = new GameObject[MAX_BULLET];
       Item_HealPack = new GameObject[MAX_ITEM_OBJECT];
@@ -55,10 +55,10 @@ public class ObjectManager : MonoBehaviour
          Enemy_Zombie[index] = Instantiate(Enemy_ZombiePrefab,FirstPos.position,transform.rotation,transform);
          Enemy_Zombie[index].SetActive(false);
       }
-      for (int index = 0; index < Enemy_ArmorZombie.Length; index++)
+      for (int index = 0; index < Enemy_FogZombie.Length; index++)
       {
-         Enemy_ArmorZombie[index] = Instantiate(Enemy_ArmorZombiePrefab,FirstPos.position,transform.rotation,transform);
-         Enemy_ArmorZombie[index].SetActive(false);
+         Enemy_FogZombie[index] = Instantiate(Enemy_FogZombiePrefab,FirstPos.position,transform.rotation,transform);
+         Enemy_FogZombie[index].SetActive(false);
       }
       for (int index = 0; index < Enemy_Turret.Length; index++)
       {
@@ -102,8 +102,8 @@ public class ObjectManager : MonoBehaviour
          case "Enemy_Zombie" :
             targetPool = Enemy_Zombie;
             break;
-         case "Enemy_ArmorZombie" :
-            targetPool = Enemy_ArmorZombie;
+         case "Enemy_Fog" :
+            targetPool = Enemy_FogZombie;
             break;
          case "Enemy_Turret" :
             targetPool = Enemy_Turret;

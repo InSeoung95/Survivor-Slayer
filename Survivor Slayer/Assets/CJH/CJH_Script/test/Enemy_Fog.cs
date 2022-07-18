@@ -23,7 +23,7 @@ public class Enemy_Fog : MonoBehaviour
 
     [SerializeField] private float FogBombDamage = 10f;
     private float FogTimer;
-    private float FogTime = 10f;
+    public float FogTime = 10f;
     private float FogBombTimer;
     private float FogBombTime = 10f;
     private bool FogTrigger;
@@ -157,7 +157,7 @@ public class Enemy_Fog : MonoBehaviour
     }
     IEnumerator ScreenPollution()
     {
-        ScreenEffect.SetFloat("_Screen_Intencity", 0.7f);
+        ScreenEffect.SetFloat("_Screen_Intencity", 0.5f);
         /*
         float currentTime = 0f;
         float percent = 0;

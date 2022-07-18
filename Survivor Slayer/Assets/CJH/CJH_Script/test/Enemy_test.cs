@@ -39,6 +39,8 @@ public class Enemy_test : MonoBehaviour
 
     private AudioSource audioSource;
     private EnemySpawn enemySpawn;
+    public Material Dissolve;// 좀비 사망 시 소멸 효과.
+    public SkinnedMeshRenderer[] Bodys; // 소멸 효과 적용할 좀비 몸통들.
     //
 
     private void Start()
@@ -270,8 +272,13 @@ public class Enemy_test : MonoBehaviour
     {
         _anim.SetBool("isDeath", true);
         audioSource.PlayOneShot(deadSound);
-        yield return new WaitForSeconds(3f / animSpeed);
         
+        //인성 추가
+        foreach(var Body in Bodys) // 소멸효과
+        {
+            Body.material = Dissolve;
+        }
+        yield return new WaitForSeconds(3f / animSpeed);
         DropItem();
         _anim.SetBool("isDeath", false);
         

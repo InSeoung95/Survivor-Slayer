@@ -67,7 +67,8 @@ public class EnemySpawn : MonoBehaviour
                 {
                     _objectManager.MakeObj("Enemy_Zombie", SpawnPoint[i].position, SpawnPoint[i].rotation);
                     SpawnNumber++;
-
+                    _objectManager.MakeObj("Enemy_Fog", SpawnPoint[i].position, SpawnPoint[i].rotation);
+                    SpawnNumber++;
                     //인성 추가
                     UIManager.instance.UpdateRound(_stage.Round);
                 }

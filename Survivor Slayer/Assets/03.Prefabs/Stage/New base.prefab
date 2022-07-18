@@ -355,7 +355,7 @@ MonoBehaviour:
   shield: {fileID: 631520695}
   field: {fileID: 7571410142172348052}
   player_occu: {fileID: 2100000, guid: 10de6384af0c3b54e8166f9c3f936e88, type: 2}
-  enemy_occu: {fileID: 2100000, guid: 2448f484379486a4cae6900910ba6b44, type: 2}
+  enemy_occu: {fileID: 2100000, guid: 6300e9ab07f13e4448501e1152601d81, type: 2}
   aplly_skin: {fileID: 1701134428599138075}
   energy_effect: {fileID: 847839923}
   baseManager: {fileID: 0}

@@ -6,7 +6,8 @@ public class Elevator_Ctrl : MonoBehaviour
 {
     private Animator eleAnim; // 엘리베이터 애니메이터
     InteractDoor door;
-    public GameObject Player;
+    [SerializeField]
+    private GameObject Player;
 
     public ParticleSystem[] explosions;// 엘리베이터로 탈출 시 재생될 이펙트들
     public float BombDelay;// 폭발 이펙트 딜레이 시간
@@ -16,6 +17,7 @@ public class Elevator_Ctrl : MonoBehaviour
     {
         eleAnim = GetComponent<Animator>();
         door = GetComponentInChildren<InteractDoor>();
+        Player = GameObject.Find("Player");
     }
 
     private void Update()

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Keypad_Ctrl : MonoBehaviour
 {
-    public GameObject KeypadUI; // 활성화할 키패드 UI
+    [SerializeField]
+    private GameObject KeypadUI; // 활성화할 키패드 UI. 이전 씬에서 넘어온 캔버스 할당
     public Text NumDisplayTxt; 
     public string Answer; // 정답
     private int[] InputedNum=new int[6]; // 씬에서 입력받을 숫자 배열. 6자리가 최대
@@ -23,6 +24,7 @@ public class Keypad_Ctrl : MonoBehaviour
     private void Start()
     {
         Answer = clue1.answer + clue2.answer + clue3.answer;
+        KeypadUI = GameObject.Find(" Keypad UI");
     }
 
     private void OnEnable() // 활성화 시 변수들 초기화
