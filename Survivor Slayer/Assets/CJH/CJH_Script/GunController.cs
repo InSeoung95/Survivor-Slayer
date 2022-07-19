@@ -15,7 +15,8 @@ public class GunController : MonoBehaviour
     public int PlasmaFireRate;         // 플라즈마 폭탄 발사 가능횟수
     private float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
     public float PlasmaPressTime;
-    public Slider PlasmaUI;
+    //public Slider PlasmaUI;
+    public GameObject PlasmaUI;
 
     private AudioSource _audioSource;
 
@@ -41,9 +42,6 @@ public class GunController : MonoBehaviour
         crosshair = FindObjectOfType<Crosshair>();
         aniCtrl = GetComponent<KillAni_Ctrl>();
         _ObjectManager = FindObjectOfType<ObjectManager>();
-        
-        PlasmaUI.maxValue = PlasmaPressMaxTime;
-        PlasmaUI.value = PlasmaPressTime;
     }
 
     void Update()
@@ -61,7 +59,7 @@ public class GunController : MonoBehaviour
             PlasmaFireRate > 0 && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
         {
             PlasmaPressTime += Time.deltaTime;
-            PlasmaUI.value = PlasmaPressTime;
+            //PlasmaUI.value = PlasmaPressTime;
         }
 
         if (Input.GetButtonUp("Fire2"))
@@ -70,8 +68,14 @@ public class GunController : MonoBehaviour
             {
                 PlasmaPressTime = 0;
                 PlasmaFireRate--;
-                PlasmaUI.value = PlasmaPressTime;
-                FirePlasmaBomb();
+                //PlasmaUI.value = PlasmaPressTime;
+
+                //인성 수정
+                if(PlasmaFireRate>0)
+                {
+                    FirePlasmaBomb();
+                }
+               
             }
         }
     }
@@ -127,6 +131,7 @@ public class GunController : MonoBehaviour
         // 무기 탄창수 감소
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate;
+        UIManager.instance.UpPlasmaGage(1);// 총알 발사 시 플라즈마 포 게이지 상승.
         
         // 무기발사시 불꽃,효과음효과
         currentGun.muzzleFlash.Play();

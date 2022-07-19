@@ -28,8 +28,9 @@ public class Enemy_Body : MonoBehaviour
     [SerializeField] private GameObject _JacketBody;        // 좀비 갑옷파괴용(갑옷파괴시 몸통의 콜라이더를 active)
 
     public SkinnedMeshRenderer _renderer;
-    [SerializeField] private Material[] ZombieMaterial;
+    public Material[] ZombieMaterial;
     [SerializeField] private Material[] BurserkMaterial;
+    [SerializeField] private Material[] DefaultMaterial; // 좀비 기본 머테리얼.
 
     private void Awake()
     {
@@ -105,5 +106,8 @@ public class Enemy_Body : MonoBehaviour
     {
         _renderer.materials = BurserkMaterial;
     }
+    public void GetGroggyEffect()
+    {
 
+    }
 }

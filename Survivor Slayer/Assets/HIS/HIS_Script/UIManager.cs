@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     public int CurrentEnemyNum=0;// 현재 적수
 
     public bool OnInteract = false; // 상호작용.
+    public PlasmaBarCtrl PlasmaUI;
 
     private void Awake()
     {
@@ -112,5 +113,10 @@ public class UIManager : MonoBehaviour
         PlayerAttackedImage.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         PlayerAttackedImage.SetActive(false);
+    }
+
+    public void UpPlasmaGage(int num)
+    {
+        PlasmaUI.SetPlasmaGage(num);
     }
 }

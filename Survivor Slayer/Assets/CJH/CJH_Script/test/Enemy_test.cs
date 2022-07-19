@@ -40,8 +40,13 @@ public class Enemy_test : MonoBehaviour
     private AudioSource audioSource;
     private EnemySpawn enemySpawn;
     public Material Dissolve;// 좀비 사망 시 소멸 효과.
-    public SkinnedMeshRenderer[] Bodys; // 소멸 효과 적용할 좀비 몸통들.
-    //
+    public SkinnedMeshRenderer[] Bodys; // 이펙트 적용할 좀비 몸통들.
+    public Material GroggyEffect; // 좀비 그로기 상태 시 적용할 이펙트
+
+    public KillAniEnemyData killAniData;// 킬 애니 데이터
+    private Enemy_Body _Body;
+    private Material[] DefaultMaterial; // 기본 적용된 머테리얼.
+    
 
     private void Start()
     {
@@ -62,6 +67,14 @@ public class Enemy_test : MonoBehaviour
         
         //인성 추가
         enemySpawn = FindObjectOfType<EnemySpawn>();
+        killAniData = GetComponent<KillAniEnemyData>();
+        _Body = GetComponent<Enemy_Body>();
+        DefaultMaterial = new Material[Bodys.Length];
+        for(int i=0;i<DefaultMaterial.Length;++i)
+        {
+            DefaultMaterial[i] = Bodys[i].material;
+        }
+        
     }
 
     private void Update()
@@ -111,24 +124,40 @@ public class Enemy_test : MonoBehaviour
         
         if (testMove)
         {
-            Vector3 dir = Target.transform.position - transform.position;
-            dir.y = 0;
-            dir.Normalize();
             
-            _nav.SetDestination(Target.transform.position);
-            if (_enemyDest.isLeg)
+            //인성 추가
+            if(killAniData.isGroggy==true)
             {
-                _anim.SetBool("isCrawl", true);
-                MoveSpeed *= 0.1f;
-                
-                _enemyDest.isLeg = false;
+                OnGroggy();
+                _nav.speed = 0f;
             }
-            _anim.SetBool("isRun", testMove);
-            
-            _nav.speed = MoveSpeed + (animSpeed * 0.05f);
-            Quaternion to = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
-            
+            else
+            {
+                Vector3 dir = Target.transform.position - transform.position;
+                dir.y = 0;
+                dir.Normalize();
+
+
+                _nav.SetDestination(Target.transform.position);
+                if (_enemyDest.isLeg)
+                {
+                    _anim.SetBool("isCrawl", true);
+                    MoveSpeed *= 0.1f;
+                    //인성 추가
+                    //killAniData.isCrawl = true;
+
+                    _enemyDest.isLeg = false;
+                }
+                _anim.SetBool("isRun", testMove);
+
+                _nav.speed = MoveSpeed + (animSpeed * 0.05f);
+                Quaternion to = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
+
+            }
+
+
+
         }
     }
 
@@ -272,6 +301,8 @@ public class Enemy_test : MonoBehaviour
     {
         _anim.SetBool("isDeath", true);
         audioSource.PlayOneShot(deadSound);
+        //인성 추가
+        //UIManager.instance.UpPlasmaGage(1); // 한 마리 죽을 때마다 플라즈마 게이지 상승.
         
         yield return new WaitForSeconds(1.5f / animSpeed);
         foreach(var Body in Bodys) // 소멸효과
@@ -288,5 +319,24 @@ public class Enemy_test : MonoBehaviour
         gameObject.SetActive(false);
         
     }
-   
+   public void OnGroggy()
+    {
+        StartCoroutine(Groggy(killAniData));
+    }
+    IEnumerator Groggy(KillAniEnemyData _data)
+    {
+        _anim.speed = 0f; // 이게 일시정지인가?
+        Debug.Log("그로기 상태 On");
+        foreach(var body in Bodys)
+        {
+            body.material = GroggyEffect;
+        }
+        yield return new WaitForSeconds(_data.GroggyTime);//그로기 시작만큼 멈춤
+        _anim.speed = 1f; // 다시 애니메이션 시작.
+        killAniData.isGroggy = false;
+        for(int i=0;i<Bodys.Length;++i)
+        {
+            Bodys[i].material = DefaultMaterial[i];
+        }
+    }
 }
