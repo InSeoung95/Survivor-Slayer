@@ -38,8 +38,7 @@ public class PlayerController : MonoBehaviour
         Move();
         CameraRotation();
         CaracterRotation();
-
-        _myRigid.velocity = Vector3.zero;
+        
     }
     
     private void TryRun()

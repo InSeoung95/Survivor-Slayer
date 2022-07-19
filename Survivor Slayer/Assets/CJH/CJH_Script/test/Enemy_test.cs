@@ -38,6 +38,9 @@ public class Enemy_test : MonoBehaviour
     public AudioClip deadSound;// 좀비 사망 사운드.
 
     private AudioSource audioSource;
+    [SerializeField] private AudioClip[] ZombieHowling;     // 좀비가 울어댈 소리
+    private int howling;
+    
     private EnemySpawn enemySpawn;
     public Material Dissolve;// 좀비 사망 시 소멸 효과.
     public SkinnedMeshRenderer[] Bodys; // 이펙트 적용할 좀비 몸통들.
@@ -64,6 +67,11 @@ public class Enemy_test : MonoBehaviour
         animSpeed = Random.Range(10, 25+1) * 0.1f;
         _anim.SetFloat("RunRatio", Random.Range(0,10+1));
         _anim.speed = animSpeed;
+        
+        howling = Random.Range(0, 2 + 1);
+        audioSource.clip = ZombieHowling[howling];
+        audioSource.Play();
+        audioSource.loop = true;
         
         //인성 추가
         enemySpawn = FindObjectOfType<EnemySpawn>();
