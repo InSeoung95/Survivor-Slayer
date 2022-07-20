@@ -16,7 +16,8 @@ public class GunController : MonoBehaviour
     private float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
     public float PlasmaPressTime;
     //public Slider PlasmaUI;
-    public GameObject PlasmaUI;
+    //public GameObject PlasmaUI;
+    
 
     private AudioSource _audioSource;
 
@@ -60,6 +61,8 @@ public class GunController : MonoBehaviour
         {
             PlasmaPressTime += Time.deltaTime;
             //PlasmaUI.value = PlasmaPressTime;
+            Debug.Log("플라즈마 포 발사");
+            FirePlasmaBomb();
         }
 
         if (Input.GetButtonUp("Fire2"))
@@ -73,6 +76,7 @@ public class GunController : MonoBehaviour
                 //인성 수정
                 if(PlasmaFireRate>0)
                 {
+                    Debug.Log("플라즈마 포 발사");
                     FirePlasmaBomb();
                 }
                

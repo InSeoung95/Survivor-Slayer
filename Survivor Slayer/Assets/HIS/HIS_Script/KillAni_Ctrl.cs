@@ -8,6 +8,7 @@ using Cinemachine;
 public class KillAni_Ctrl : MonoBehaviour
 {
     private bool isPlaying=false; // 애니메이션이 재생 중인지.
+    public bool isEnemyFront;// 적이 정면을 보고 있는지. rotation.y값이 -90~90일때.
     [SerializeField]
     private Transform mainCamera; //메인 카메라 좌표.
     private ParticleSystem bloodEf;
@@ -21,8 +22,8 @@ public class KillAni_Ctrl : MonoBehaviour
     public CinemachineVirtualCamera playerCam; // 컨트롤 할 플레이어 가상 카메라
 
     public GameObject Player_Model; // 플레이어 캐릭터. 평소에 비활성화. 확정킬 재생 때 활성화.
-    public GameObject LeftArm;
-    public GameObject RightArm;
+    public Transform LeftArmIK;
+    public Transform RightArmIK;
 
     public Transform GunLeftHandle;
     public Transform GunRightHandle;
@@ -63,11 +64,20 @@ public class KillAni_Ctrl : MonoBehaviour
                 KillAniType aniType;
 
                 isPlaying = true; //애니메이션 재생 중으로 변경.
-                Player_Model.SetActive(true);
+                Player_Model.SetActive(true); // 플레이어 모델링 활성화.
                 //확정킬 애니 타입 체크
+                float enemyAngle;
+                enemyAngle = enemyInform.transform.eulerAngles.y;
+                Debug.Log("적 각도:"+enemyAngle);
+                if (enemyAngle < 90 && enemyAngle > -90)
+                    isEnemyFront = true;
+                else
+                    isEnemyFront = false;
+
                 bloodEf = enemyInform.bloodEf;
 
                 Vector3 dir = enemyInform.transform.position - transform.position;
+                Debug.Log("로컬 포지션:"+enemyInform.transform.TransformPoint(enemyInform.transform.position));
                 //Vector3 dir = other.transform.position - transform.position;
                 dir.y = 0f;
 
@@ -77,18 +87,75 @@ public class KillAni_Ctrl : MonoBehaviour
                 mainCamera.rotation = rot;
                 transform.rotation = rot;
 
+                //Debug.Log(rot.eulerAngles);
+
+                //float angle = rot.eulerAngles.y;
+
                 //float angle = Mathf.Atan2(enemyInform.transform.position.y - transform.position.y, enemyInform.transform.position.x - transform.position.x)*Mathf.Rad2Deg;
                 //float angle = Mathf.Atan2(enemyInform.transform.position.x - transform.position.x, enemyInform.transform.position.y - transform.position.y) * Mathf.Rad2Deg;
                 //float angle = Vector3.SignedAngle(Vector3.up,transform.position, enemyInform.transform.position);
                 //float angle = Mathf.Atan2(transform.position.z - enemyInform.transform.position.z, transform.position.x - enemyInform.transform.position.x)*Mathf.Rad2Deg;
 
+                //각도 구하기 첫번째 방법.
+               
+                
                 Transform enemyTransform = enemyInform.transform;
-                
-                float angle = Mathf.Atan2((enemyTransform.InverseTransformVector( enemyTransform.position).z - transform.position.z),
-                    (enemyTransform.InverseTransformVector(enemyTransform.position).x - transform.position.x)) * Mathf.Rad2Deg;
-                
-                
+                float angle = Mathf.Atan2(enemyTransform.position.z - transform.position.z,
+                    enemyTransform.position.x - transform.position.x) * Mathf.Rad2Deg; ;
 
+                if (!isEnemyFront)//적이 뒤돌아 있을 때 
+                    angle = -angle;
+                 
+                 
+                //누워있을 때는 적 z축을 y로.
+                
+                //Transform enemyTransform = other.transform;
+                
+                /*
+                float angle = Mathf.Atan2(enemyTransform.TransformVector( enemyTransform.position).z - transform.position.z,
+                    enemyTransform.TransformVector(enemyTransform.position).x - transform.position.x) * Mathf.Rad2Deg;
+                 */
+
+                //각도 구하기 2번째 방법ㅐ
+
+                //Vector3 player_dir = transform.forward;
+                //Vector3 enemy_dir = transform.InverseTransformVector(enemyInform.transform.forward); // 월드 좌표계 벡터를 로컬 좌표계 벡터로 변환.
+                //float angle = Vector3.Angle(enemy_dir, player_dir);
+                /*
+
+                Vector3 referenceForward = transform.forward;/*기준이 되는 reference 벡터
+                Vector3 referenceRight = Vector3.Cross(Vector3.up, referenceForward);
+                Vector3 newDirection = enemyInform.transform.forward;/*각도를 구하고자 하는 입력 Direction
+
+                float angle = Vector3.Angle(newDirection, referenceForward);
+                float sign = Mathf.Sign(Vector3.Dot(newDirection, referenceRight));
+                float finalAngle = sign * angle;
+                 */
+
+                //각도 3번째
+                /*
+                Vector3 Player = transform.position;
+                Vector3 enemy = enemyInform.transform.position;
+
+                Vector3 v = enemy - Player;
+
+                float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+                 */
+                //각도 4번째
+                /*
+                Vector3 player = transform.position;
+                Vector3 enemy = enemyInform.transform.position;
+
+                float angle=Quaternion.FromToRotation(Vector3.up,enemy-player).eulerAngles.z;
+                 */
+
+                //각도 5번째
+                /*
+                Vector3 enemyDir = enemyInform.transform.TransformVector(enemyInform.transform.forward);
+
+                float angle = Vector3.SignedAngle(Vector3.up, enemyDir, transform.forward);
+
+                 */
                 Debug.Log("anlge: " + angle);
                 //누워있을 때는 적 z축을 y로.
                 //Mathf.Atan2(enemyInform.transform.position.y - transform.position.z, enemyInform.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
@@ -151,11 +218,13 @@ public class KillAni_Ctrl : MonoBehaviour
                 {
                     playerCam.LookAt = _enemyInform.targetInforms[1].CameraLookAt;
 
-                    //RightArm = _enemyInform.targetInforms[1].RifhtArmTarget;
-                    //LeftArm = _enemyInform.targetInforms[1].LeftArmTarget;
+                    //RightArmIK = _enemyInform.targetInforms[1].RifhtArmTarget;
+                    //LeftArmIK = _enemyInform.targetInforms[1].LeftArmIKTarget;
 
-                    LeftArm.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].LeftArmTarget;
-                    RightArm.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].RifhtArmTarget;
+                    //LeftArmIK.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].LeftArmIKTarget;
+                    //RightArmIK.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].RifhtArmTarget;
+                    LeftArmIK = _enemyInform.targetInforms[1].LeftArmTarget;
+                    RightArmIK = _enemyInform.targetInforms[1].RifhtArmTarget;
 
                     //playableDirector.Play(KillAniTimelines[1]);
                     KillAniGroup[1].Play();
@@ -181,19 +250,24 @@ public class KillAni_Ctrl : MonoBehaviour
                 }
         }
         Debug.Log("확정킬 애내 재생");
-        StartCoroutine(playingTime());
+        StartCoroutine(playingTime(_enemyInform));
+        
     }
-    IEnumerator playingTime()
+    IEnumerator playingTime(KillAniEnemyData _enemyInform)
     {
         yield return new WaitForSeconds(1f);
-        isPlaying = false;
-        Player_Model.SetActive(false);
+        isPlaying = false; // 확정킬 애니 재생 중 false;
+        Player_Model.SetActive(false); // 플레이어 모델 다시 비활성화
+        _enemyInform.GetComponent<Enemy_test>().isDeath = true; // 적 죽이기.
+        _enemyInform.isGroggy = false;
         Debug.Log("is Playing: " + isPlaying);
 
         //각 변수들 초기화.
         playerCam.LookAt = null;
-        LeftArm.GetComponent<UpdateRigTarget>().target = GunLeftHandle;
-        RightArm.GetComponent<UpdateRigTarget>().target = GunRightHandle;
+        //LeftArmIK.GetComponent<UpdateRigTarget>().target = GunLeftHandle;
+        //RightArmIK.GetComponent<UpdateRigTarget>().target = GunRightHandle;
+        LeftArmIK = null;
+        RightArmIK = null;
         //playerCam.transform.rotation= Quaternion.Euler(mainCamera.transform.rotation.x,0,0);
         //mainCamera.transform.localRotation= Quaternion.Euler(mainCamera.transform.rotation.x, 0, 0);
         //mainCamera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));

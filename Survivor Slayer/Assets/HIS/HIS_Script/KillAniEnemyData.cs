@@ -21,6 +21,7 @@ public class KillAniEnemyData : MonoBehaviour
     public bool isCrawl; // 좀비가 누워있는 상태인지.
     public bool isGroggy; // 좀비가 그로기 상태인지.
     public float GroggyTime; // 그로기 지속 시간.
+    public bool Front;// 좀비가 정면을 보고 있는 상태인지.
     
 
     public enum KillAniType

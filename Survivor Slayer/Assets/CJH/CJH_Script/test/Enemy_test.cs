@@ -92,6 +92,7 @@ public class Enemy_test : MonoBehaviour
         Burserk();
         attackDelay -= Time.deltaTime;
         Die();
+        
     }
 
     private void Move()
