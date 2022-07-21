@@ -8,10 +8,15 @@ public class InteractDoor : MonoBehaviour
 
     private Animator DoorAnim;
 
+    private AudioSource ad;
+    public AudioClip DoorOpen;
+    public AudioClip DoorClose;
+
     // Start is called before the first frame update
     void Start()
     {
         DoorAnim = GetComponent<Animator>();
+        ad = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,6 +24,8 @@ public class InteractDoor : MonoBehaviour
         if(other.tag=="Player"&&Activate)
         {
             DoorAnim.SetBool("Open", true);
+            ad.clip = DoorOpen;
+            ad.Play();
         }
     }
 
@@ -27,7 +34,8 @@ public class InteractDoor : MonoBehaviour
         if(other.tag=="Player")
         {
             DoorAnim.SetBool("Open", false);
-            
+            ad.clip = DoorClose;
+            ad.Play();
         }
     }
 }

@@ -43,6 +43,9 @@ public class BaseManager : MonoBehaviour
     //빌드 위한 임시 코딩. 추후 삭제 및 수정
     public int PlayerOcuupy; //플레이어가 점령한 거점 개수.
     public GameObject Clear; // 클리어 활성화
+    public GameObject ActivateDoor; // 활성화시킬 문.
+    public GameObject LeftDoor;
+    public GameObject RightDoor;
 
     private void Awake()
     {
@@ -87,9 +90,13 @@ public class BaseManager : MonoBehaviour
             Debug.Log("Base LV Down: " + Current_BaseLevel);
         }
 
-        if(PlayerOcuupy>=2)
+        if(PlayerOcuupy>=2) // 플레이어가 거점 2개 이상 점령 시
         {
-            Clear.SetActive(true);
+            Debug.Log("스테이지 1 클리어!!");
+            //Clear.SetActive(true);
+            ActivateDoor.GetComponent<InteractDoor>().Activate = true;// 상호작용 가능하게 활성화.
+            LeftDoor.layer = 11;//SeeTrough 레이어로 변경.
+            RightDoor.layer = 11;
         }
             
     }
