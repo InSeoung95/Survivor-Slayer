@@ -58,8 +58,11 @@ public class Missile : MonoBehaviour
         {
             Body[i].SetActive(false);
         }
-        explosion.gameObject.SetActive(true);
-        Destroy(gameObject, 1.5f);
+
+        var explos = Instantiate(explosion, transform.position, transform.rotation);
+        explos.SetActive(true);
+        Destroy(explos, 1.5f);
+        Destroy(gameObject);
     }
     
 }

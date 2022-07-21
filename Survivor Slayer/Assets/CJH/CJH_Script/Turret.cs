@@ -10,7 +10,6 @@ public class Turret : MonoBehaviour
     private float missileTime = 5f;                      // 미사일 발사시간
 
     private float TurretHealth = 50;
-    [SerializeField] private GameObject _tower;         // 포탑 발사관 y축 회전용
     [SerializeField] private GameObject _missile;
     [SerializeField] private Transform missileSpawn;
     private Transform target;
@@ -26,9 +25,7 @@ public class Turret : MonoBehaviour
         {
             FireTime += Time.deltaTime;
             var targetPos = new Vector3(target.position.x, transform.position.y, target.position.z);
-            var towerPos = new Vector3(transform.position.x, transform.position.y, target.position.z);
             gameObject.transform.LookAt(targetPos);
-            _tower.gameObject.transform.LookAt(towerPos);
             missileSpawn.transform.LookAt(target);
            
 

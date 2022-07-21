@@ -6,6 +6,11 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour
 {
     public const float SPINSPEED = 1000f;       // 최대 회전속도
+    private bool vec;       // up : true, down : false
+    private Vector3 UpMaxPos;
+    private Vector3 DownMaxPos;
+    private Vector3 Pos;
+    Vector3 velo = Vector3.zero;
     
     // 보스의 회전과 이동을 담당할 오브젝트
     [SerializeField] private GameObject _BossBody;
@@ -35,8 +40,17 @@ public class BossEnemy : MonoBehaviour
     public bool test1;
     public bool test2;
 
+    private void Start()
+    {
+        Pos = transform.position;
+        UpMaxPos = Pos + new Vector3(0, 3, 0);
+        DownMaxPos = Pos + new Vector3(0, -3, 0);
+        vec = true;
+    }
+
     private void Update()
     {
+        UpDown();
         Spin();
 
         if (test1)
@@ -56,6 +70,22 @@ public class BossEnemy : MonoBehaviour
         }
     }
 
+    private void UpDown()
+    {
+        if (vec)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 0.9f);
+        }
+        else
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 0.9f);
+        }
+
+        if (transform.position.y >= UpMaxPos.y -1)
+            vec = false;
+        else if (transform.position.y <= DownMaxPos.y +1)
+            vec = true;
+    }
 
     private void Spin()
     {
