@@ -8,6 +8,7 @@ public class Turret : MonoBehaviour
     private bool _onPlayerTrigger;
     private float FireTime;
     private float missileTime = 5f;                      // 미사일 발사시간
+    public bool BossType;                               // 보스전만 따로 뺴서 프리팹 만들고 보스전-false, 일반-true로 사용
 
     private float TurretHealth = 50;
     [SerializeField] private GameObject _missile;
@@ -21,7 +22,7 @@ public class Turret : MonoBehaviour
     
     void Update()
     {
-        if (_onPlayerTrigger)
+        if (_onPlayerTrigger && BossType)
         {
             FireTime += Time.deltaTime;
             var targetPos = new Vector3(target.position.x, transform.position.y, target.position.z);

@@ -43,4 +43,9 @@ public class PlayerInfo : MonoBehaviour
     {
         currenthealth -= Bombdamage;
     }
+
+    public void OnDamage(float damage)
+    {
+        currenthealth -= damage;
+    }
 }

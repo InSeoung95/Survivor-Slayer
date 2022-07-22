@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPoint: {fileID: 0}
-  BulletSpd: 1
-  Size: 10
+  BulletSpd: 0.05
+  Size: 5
 --- !u!1001 &7281409818725085238
 PrefabInstance:
   m_ObjectHideFlags: 0

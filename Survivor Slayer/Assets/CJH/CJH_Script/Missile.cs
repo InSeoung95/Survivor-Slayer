@@ -37,32 +37,36 @@ public class Missile : MonoBehaviour
             transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!DestroyTrigger)
-        {
-            RaycastHit[] rayHits =
-                Physics.SphereCastAll(transform.position, MISSILE_RANGE, Vector3.up, 0f, LayerMask.GetMask("Player"));
-
-            foreach (RaycastHit hitObj in rayHits)
-            {
-                hitObj.transform.GetComponent<PlayerInfo>().HitBomb(MISSILE_DAMAGE);
-            }
-        }
-
-        DestroyTrigger = true;
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
-        for (int i = 0; i < Body.Length; i++)
-        {
-            Body[i].SetActive(false);
-        }
-
-        var explos = Instantiate(explosion, transform.position, transform.rotation);
-        explos.SetActive(true);
-        Destroy(explos, 1.5f);
-        Destroy(gameObject);
-    }
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ground") || other.CompareTag("Wall"))
+        {
+
+            if (!DestroyTrigger)
+            {
+                RaycastHit[] rayHits =
+                    Physics.SphereCastAll(transform.position, MISSILE_RANGE, Vector3.up, 0f,
+                        LayerMask.GetMask("Player"));
+
+                foreach (RaycastHit hitObj in rayHits)
+                {
+                    hitObj.transform.GetComponent<PlayerInfo>().HitBomb(MISSILE_DAMAGE);
+                }
+            }
+
+            DestroyTrigger = true;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            for (int i = 0; i < Body.Length; i++)
+            {
+                Body[i].SetActive(false);
+            }
+
+            var explos = Instantiate(explosion, transform.position, transform.rotation);
+            explos.SetActive(true);
+            Destroy(explos, 1.5f);
+            Destroy(gameObject);
+        }
+    }
 }

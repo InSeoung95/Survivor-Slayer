@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
 {
-    public const float SPINSPEED = 1000f;       // 최대 회전속도
+    public const float SPINSPEED = 1500f;       // 최대 회전속도
     private bool vec;       // up : true, down : false
     private Vector3 UpMaxPos;
     private Vector3 DownMaxPos;
@@ -14,18 +14,18 @@ public class BossEnemy : MonoBehaviour
     
     // 보스의 회전과 이동을 담당할 오브젝트
     [SerializeField] private GameObject _BossBody;
-    [SerializeField] private GameObject _BossChild1;
-    [SerializeField] private GameObject _BossChild2;
-    [SerializeField] private GameObject _BossChild3;
+    [SerializeField] private BossChild _BossChild1;
+    [SerializeField] private BossChild _BossChild2;
+    [SerializeField] private BossChild _BossChild3;
 
     [SerializeField] private Transform[] ChildTransform;        // 자식들이 공격패턴후에 원래 위치로 이동할 좌표
     [SerializeField] private Transform[] ChildAttackTransform;  // 공격패턴할 위치할당
-
-    // 개체별 스피드로 나눈것 테스트용이라 public이나 완성할때 private로 번경
-    public float BodySpinSpeed;
-    public float child1SpinSpeed;
-    public float child2SpinSpeed;
-    public float child3SpinSpeed;
+    [SerializeField] private Turret[] _turrets;
+    
+    private float BodySpinSpeed;
+    private float child1SpinSpeed;
+    private float child2SpinSpeed;
+    private float child3SpinSpeed;
 
     private float BodySpinSpeedMax = SPINSPEED;
     private float child1SpinSpeedMax = SPINSPEED;
@@ -43,8 +43,8 @@ public class BossEnemy : MonoBehaviour
     private void Start()
     {
         Pos = transform.position;
-        UpMaxPos = Pos + new Vector3(0, 3, 0);
-        DownMaxPos = Pos + new Vector3(0, -3, 0);
+        UpMaxPos = Pos + new Vector3(0, 2, 0);
+        DownMaxPos = Pos + new Vector3(0, -2, 0);
         vec = true;
     }
 
@@ -74,11 +74,11 @@ public class BossEnemy : MonoBehaviour
     {
         if (vec)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 0.9f);
+            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 1.5f);
         }
         else
         {
-            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 0.9f);
+            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 1.5f);
         }
 
         if (transform.position.y >= UpMaxPos.y -1)
@@ -164,6 +164,22 @@ public class BossEnemy : MonoBehaviour
                 SpinChild3 =  false;
                 child3SpinSpeed = 0;
                 break;
+        }
+    }
+
+    private void OnTurret()
+    {
+        foreach (var turret in _turrets)
+        {
+            turret.BossType = true;
+        }
+    }
+    
+    private void OffTurret()
+    {
+        foreach (var turret in _turrets)
+        {
+            turret.BossType = false;
         }
     }
 }

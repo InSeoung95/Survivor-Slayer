@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         Vector3 _moveVector = (_moveHorizontal + _moveVertical).normalized;
         Vector3 _velocity = _moveVector * applySpeed;
         
-        isBorder = Physics.Raycast(transform.position, _moveVector, out hit, 1);
+        isBorder = Physics.Raycast(transform.position, _moveVector, out hit, 2.5f);
         Debug.DrawRay(transform.position + new Vector3(0,0.1f,0) , _moveVector * 1, Color.blue);
         if(isBorder)
         {

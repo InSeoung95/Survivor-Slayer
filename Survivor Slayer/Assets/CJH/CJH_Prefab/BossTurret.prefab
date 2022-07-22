@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8863126776819882095}
   - component: {fileID: 8863126776819882094}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: BossTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984ac9acc6510de4697e0cc88825cf35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossType: 1
   _missile: {fileID: 5283254458188192164, guid: 5ad3c6ab29ef26248a5bab05a30e1281, type: 3}
   missileSpawn: {fileID: 8863126777839693049}
 --- !u!1 &8863126777839693048

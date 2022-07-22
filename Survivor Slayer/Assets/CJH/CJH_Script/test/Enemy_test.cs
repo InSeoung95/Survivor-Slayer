@@ -294,7 +294,7 @@ public class Enemy_test : MonoBehaviour
         if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, _boxColliderSize,
                 LayerMask.GetMask("Player")))
         {
-            _player.currenthealth -= ENEMY_ZOMBIE_DAMAGE;
+            _player.OnDamage(ENEMY_ZOMBIE_DAMAGE);
             _player.onDamaged= true; // 플레이어 공격 받는 상태 true;
             UIManager.instance.PlayerAttacked();
         }

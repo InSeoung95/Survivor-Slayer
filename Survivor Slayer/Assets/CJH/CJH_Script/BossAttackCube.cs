@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossAttackCube : MonoBehaviour
 {
-    [SerializeField] private Transform _toMove;
+    public Transform _toMove;
     public bool move;
     private PlayerInfo _player;
     private bool InPlayerAttack;
