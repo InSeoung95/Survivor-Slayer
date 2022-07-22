@@ -82,14 +82,17 @@ public class Enemy_Dest : MonoBehaviour
             }
         }
     }
+    /*
     IEnumerator Groggy()
     {
-        killAnidata.isGroggy = true; // 좀비 그로기 상태 bool 값 true
-        anim.speed = 0f; // 이게 일시정지인가?
-        Debug.Log("그로기 상태 On");
-        yield return new WaitForSeconds(killAnidata.GroggyTime);//그로기 시작만큼 멈춤
-        anim.speed = 1f; // 다시 애니메이션 시작.
+        //killAnidata.isGroggy = true; // 좀비 그로기 상태 bool 값 true
+        //anim.SetBool("RunGroggy", true); // 런그로기 애니메이션 true;
+        //anim.speed = 0f; // 이게 일시정지인가?
+        //Debug.Log("그로기 상태 On");
+        //yield return new WaitForSeconds(killAnidata.GroggyTime);//그로기 시작만큼 멈춤
+        //anim.speed = 1f; // 다시 애니메이션 시작.
     }
+     */
     private void ChangeBurserk()
     {
         if (isBurserk)

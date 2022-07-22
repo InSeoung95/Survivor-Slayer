@@ -12,6 +12,7 @@ public class TargetInform
     public Transform RifhtArmTarget;
     public Transform LeftLegTarget;
     public Transform RightLegTarget;
+    public Transform ExtraPoint; // 예외적으로 포인트 필요한경우.
 }
 //확정킬 애니메이션 재생에 필요한 적 정보 받기위한 스크립트
 public class KillAniEnemyData : MonoBehaviour

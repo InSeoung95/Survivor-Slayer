@@ -23,7 +23,7 @@ public class EnemySpawn : MonoBehaviour
     private float SpawnTimer;
     private int SpawnNumber;        // 라운드당 소환된 적들
 
-    private float sinematicTime = 30f;
+    private float sinematicTime = 0f; // 시네마틱 시간 동안 적들 스폰되지 않게 지연시간.
     private bool sinematicTriger = false;
    
 
@@ -34,7 +34,7 @@ public class EnemySpawn : MonoBehaviour
         _stage.Zombie = 40;
         _stage.ArmorZombie = 10;
         _stage.tower = 0;
-        _stage.AllEnemy = 30;       // 적은 총 50마리씩 나옴 // 인성 수정 30마리로.
+        _stage.AllEnemy = 20;       // 적은 총 50마리씩 나옴 // 인성 수정 30마리로. // 20마리로 수정.
 
         //인성 추가
         UIManager.instance.UpdateRound(_stage.Round);

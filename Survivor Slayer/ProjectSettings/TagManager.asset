@@ -13,6 +13,9 @@ TagManager:
   - ObstacleWall
   - KillAni
   - Interaction
+  - FrontKillAni
+  - BackKillAni
+  - CrawlKillAni
   layers:
   - Default
   - TransparentFX
