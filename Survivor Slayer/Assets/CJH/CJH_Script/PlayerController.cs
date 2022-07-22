@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _myRigid;
 
     private bool isRun = false;
-    private bool isMoving = false;
+    public bool isMoving = false;
     private bool isBorder = false; // 이동할 벡터를 border가 검사해서 앞에 layer가 있으면 못지나가게 설정
     private RaycastHit hit;
     //인성 추가

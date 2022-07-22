@@ -31,6 +31,7 @@ public class KillAni_Ctrl : MonoBehaviour
 
     public TimelineAsset[] KillAniTimelines=new TimelineAsset[6]; // 재생할 확정킬 애니메이션들.
 
+    public GameObject CybogModel;//플레이어 사이보그 모델링. 카메라가 이걸 가릴 것 같을 때 layer를 player로. 신체가 비추는 것이 필요할 땐 layer를 default로.
     public enum KillAniType //확정킬 애니메이션 종류
     {
         Stand_Front,
@@ -44,6 +45,7 @@ public class KillAni_Ctrl : MonoBehaviour
     void Start()
     {
         playableDirector = GetComponent<PlayableDirector>();
+        CybogModel.layer = 3; // player 레이어로.
     }
 
     
@@ -216,6 +218,7 @@ if (other.tag=="KillAni"&&!isPlaying)
         {
             case KillAniType.Stand_Front:
                 {
+                    CybogModel.layer = 3; // player 레이어로.
                     playerCam.LookAt = _enemyInform.targetInforms[0].CameraLookAt;
 
                     //카메라가 돌아가는 것 y,z축 고정해야 된다.
@@ -233,6 +236,7 @@ if (other.tag=="KillAni"&&!isPlaying)
                 }
             case KillAniType.Stand_Back:
                 {
+                    CybogModel.layer = 0; // default 레이어로.
                     playerCam.LookAt = _enemyInform.targetInforms[1].CameraLookAt;
 
                     //RightArmIK = _enemyInform.targetInforms[1].RifhtArmTarget;
@@ -260,7 +264,8 @@ if (other.tag=="KillAni"&&!isPlaying)
                     //playableDirector.Play(KillAniTimelines[1]);
                     KillAniGroup[1].Play();
                     Debug.Log("대가리 돌리기");
-                    _enemyInform.GetComponentInChildren<Animator>().SetTrigger("HeadRolling");
+                    //_enemyInform.GetComponentInChildren<Animator>().SetTrigger("HeadRolling");
+                    _enemyInform.GetComponentInChildren<PlayableDirector>().Play();
                     break;
                 }
             case KillAniType.Stnad_Side:
@@ -295,6 +300,7 @@ if (other.tag=="KillAni"&&!isPlaying)
         playerCam.LookAt = null;
         _enemyInform.GetComponent<Enemy_test>().isDeath = true; // 적 죽이기.
         _enemyInform.isGroggy = false;
+        CybogModel.layer = 3; // player 레이어로.
         Player_Model.SetActive(false); // 플레이어 모델 다시 비활성화
         Debug.Log("is Playing: " + isPlaying);
 

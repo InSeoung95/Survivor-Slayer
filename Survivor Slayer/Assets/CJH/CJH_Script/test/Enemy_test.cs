@@ -341,7 +341,7 @@ public class Enemy_test : MonoBehaviour
         else
             _anim.SetBool("RunGroggy", true);
 
-        _anim.speed = 0f; // 이게 일시정지인가?
+        //_anim.speed = 0f; // 이게 일시정지인가?
         Debug.Log("그로기 상태 On");
         foreach(var body in Bodys)
         {
@@ -356,7 +356,7 @@ public class Enemy_test : MonoBehaviour
         else
             _anim.SetBool("RunGroggy", false);//그로기 애니메이션 해제.
 
-        _anim.speed = 1f; // 다시 애니메이션 시작.
+        //_anim.speed = 1f; // 다시 애니메이션 시작.
         killAniData.isGroggy = false;
         for(int i=0;i<Bodys.Length;++i)
         {

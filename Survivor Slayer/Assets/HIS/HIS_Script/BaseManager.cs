@@ -92,7 +92,7 @@ public class BaseManager : MonoBehaviour
 
         if(PlayerOcuupy>=2) // 플레이어가 거점 2개 이상 점령 시
         {
-            Debug.Log("스테이지 1 클리어!!");
+            //Debug.Log("스테이지 1 클리어!!");
             //Clear.SetActive(true);
             ActivateDoor.GetComponent<InteractDoor>().Activate = true;// 상호작용 가능하게 활성화.
             LeftDoor.layer = 11;//SeeTrough 레이어로 변경.

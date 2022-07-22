@@ -58,16 +58,21 @@ public class Enemy_Dest : MonoBehaviour
                     // 부위별 피격데미지가 부위별 최대체력 이상 이면 실행되어 파괴된 부위이름을 받아 파괴된것 체크하고 activeFalse
 
                     //StartCoroutine(Groggy());
-                    killAnidata.isGroggy = true;
+                    
                     //enemy_Test.testMove = false;
                     switch (Body._BodyName)
                     {
                         case Enemy_Body.BodyName.Arm :
-                            isArm = true;
+                            {
+                                isArm = true;
+                                killAnidata.isGroggy = true;// 적 킬애니 데이터에 Groggy상태라는 것을 true로.
+                            }
+                            
                             break;
                         case Enemy_Body.BodyName.Leg :
                             {
                                 isLeg = true;
+                                killAnidata.isGroggy = true;
                                 killAnidata.isCrawl = true;// 적 킬애니 데이터에 누운 상태라는 것을 true로 알려줌.
                             }
                             break;

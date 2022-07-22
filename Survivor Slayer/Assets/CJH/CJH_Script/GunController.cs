@@ -33,6 +33,7 @@ public class GunController : MonoBehaviour
     private FlashLight flashLight;
     private Crosshair crosshair;
     private KillAni_Ctrl aniCtrl; // 확정킬 제어 변수
+    private PlayerController playerController;
 
 
     private void Start()
@@ -43,6 +44,7 @@ public class GunController : MonoBehaviour
         crosshair = FindObjectOfType<Crosshair>();
         aniCtrl = GetComponent<KillAni_Ctrl>();
         _ObjectManager = FindObjectOfType<ObjectManager>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
@@ -148,13 +150,26 @@ public class GunController : MonoBehaviour
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         //인성 수정: // 레이 케스트에 랜덤값을 줘서 탄이 퍼지도록
-        // 레이 케스트 랜덤값 안쓰는게 좋을듯.
-        
-        Physics.Raycast(thecam.transform.position, thecam.transform.forward+
+        // 플레이어가 달리면서 총 쏘면 에임이 심하게 튀고, 제자리에서 총 쏘면 정확도 향상.
+
+        if(playerController.isMoving)
+        {
+            Physics.Raycast(thecam.transform.position, thecam.transform.forward +
+            new Vector3(Random.Range(-crosshair.GetAccuracy()-currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        , Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy, crosshair.GetAccuracy() + currentGun.accuracy)
+                        , 0)
+            , out hitinfo);
+        }
+        else
+        {
+            Physics.Raycast(thecam.transform.position, thecam.transform.forward +
             new Vector3(/*Random.Range(-crosshair.GetAccuracy()-currentGun.accuracy,*/ crosshair.GetAccuracy() + currentGun.accuracy
                         , /*Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy,*/ crosshair.GetAccuracy() + currentGun.accuracy
-                        ,0)
-            ,out hitinfo);
+                        , 0)
+            , out hitinfo);
+        }
+
+        
         Debug.DrawRay(thecam.transform.position, thecam.transform.forward * hitinfo.distance, Color.red);
         
         bulletPos.LookAt(hitinfo.point);

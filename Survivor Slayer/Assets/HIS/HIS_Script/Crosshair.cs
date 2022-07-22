@@ -6,7 +6,8 @@ public class Crosshair : MonoBehaviour
 {
     [SerializeField]
     private GameObject Crosshair_HUD;
-    public float Gun_Accuracy;// 총 정확도.
+    public float Run_GunAccuracy=0.05f;// 달릴 때 적용할 총 명중도.
+    private float Gun_Accuracy;// 총 정확도.
     private Animator anim;
 
     // Start is called before the first frame update
@@ -26,9 +27,9 @@ public class Crosshair : MonoBehaviour
     public float GetAccuracy()
     {
         if (anim.GetBool("isMove"))
-            Gun_Accuracy = 0.05f;
+            Gun_Accuracy = Run_GunAccuracy;
         else
-            Gun_Accuracy = 0.02f;
+            Gun_Accuracy = 0f;
 
         return Gun_Accuracy;
     }
