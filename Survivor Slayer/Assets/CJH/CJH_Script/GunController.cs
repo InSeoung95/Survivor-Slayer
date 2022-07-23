@@ -13,7 +13,7 @@ public class GunController : MonoBehaviour
 
     public float currentFireRate;      //연사속도
     public int PlasmaFireRate;         // 플라즈마 폭탄 발사 가능횟수
-    private float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
+    public float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
     public float PlasmaPressTime;
     //public Slider PlasmaUI;
     //public GameObject PlasmaUI;
@@ -34,6 +34,7 @@ public class GunController : MonoBehaviour
     private Crosshair crosshair;
     private KillAni_Ctrl aniCtrl; // 확정킬 제어 변수
     private PlayerController playerController;
+    public Slider PlasmaUI;
 
 
     private void Start()
@@ -58,30 +59,22 @@ public class GunController : MonoBehaviour
 
     private void TryBombFire()
     {
-        if (Input.GetButton("Fire2") && currentFireRate <= 0 && currentGun.upgradeRate[(int)UpgradeType.GunGage] > 0 &&
+        if (Input.GetButton("Fire2") && currentFireRate <= 0 /*&& currentGun.upgradeRate[(int)UpgradeType.GunGage] > 0*/ &&
             PlasmaFireRate > 0 && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
         {
             PlasmaPressTime += Time.deltaTime;
             //PlasmaUI.value = PlasmaPressTime;
-            Debug.Log("플라즈마 포 발사");
-            FirePlasmaBomb();
         }
 
         if (Input.GetButtonUp("Fire2"))
         {
             if (PlasmaPressTime > PlasmaPressMaxTime)
             {
+                Debug.Log("플라즈마 포 발사");
+                FirePlasmaBomb();
                 PlasmaPressTime = 0;
                 PlasmaFireRate--;
-                //PlasmaUI.value = PlasmaPressTime;
-
-                //인성 수정
-                if(PlasmaFireRate>0)
-                {
-                    Debug.Log("플라즈마 포 발사");
-                    FirePlasmaBomb();
-                }
-               
+                PlasmaUI.value -= 20;
             }
         }
     }
@@ -150,8 +143,8 @@ public class GunController : MonoBehaviour
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         //인성 수정: // 레이 케스트에 랜덤값을 줘서 탄이 퍼지도록
-        // 플레이어가 달리면서 총 쏘면 에임이 심하게 튀고, 제자리에서 총 쏘면 정확도 향상.
 
+        // 플레이어가 달리면서 총 쏘면 에임이 심하게 튀고, 제자리에서 총 쏘면 정확.
         if(playerController.isMoving)
         {
             Physics.Raycast(thecam.transform.position, thecam.transform.forward +

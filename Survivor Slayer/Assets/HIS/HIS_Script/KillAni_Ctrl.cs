@@ -23,11 +23,14 @@ public class KillAni_Ctrl : MonoBehaviour
     public CinemachineVirtualCamera playerCam; // 컨트롤 할 플레이어 가상 카메라
 
     public GameObject Player_Model; // 플레이어 캐릭터. 평소에 비활성화. 확정킬 재생 때 활성화.
-    public Transform LeftArmIK;
+    public Transform LeftArmIK; 
     public Transform RightArmIK;
 
     public Transform GunLeftHandle;
     public Transform GunRightHandle;
+
+    public Transform LeftLegIK;
+    public Transform RightLegIK;
 
     public TimelineAsset[] KillAniTimelines=new TimelineAsset[6]; // 재생할 확정킬 애니메이션들.
 
@@ -151,11 +154,20 @@ if (other.tag=="KillAni"&&!isPlaying)
 
 
         //어느 타입 애니메이션 재생할지
-        aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
+        if(enemyInform.isCrawl)
+         {
+            aniType = KillAniType.Lie_Back;
+         }
+        else
+         { 
+            aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
+         }
+                    
+        Debug.Log("AniType: "+aniType);
         //aniType = GetAniType(other,enemyInform); // 콜라이더 체크로 킬애니 타입 구하기.
         PlayKillAni(aniType, enemyInform); // 받아온 애니 타입에 맞는 킬애니 재생
         
-        playableDirector.Play();
+        //playableDirector.Play();
 
     }
 
@@ -179,10 +191,7 @@ if (other.tag=="KillAni"&&!isPlaying)
         }
         else
             aniType = KillAniType.Stand_Front;
-         
-
-
-        Debug.Log("AniType: "+aniType);
+ 
         return aniType;
     }
     
@@ -231,7 +240,8 @@ if (other.tag=="KillAni"&&!isPlaying)
                     //LeftArmIK.position = _enemyInform.targetInforms[0].LeftArmTarget.position;
                     Debug.Log("LeftArmIK: " + LeftArmIK);
                     //RightArmIK.position = _enemyInform.targetInforms[0].RifhtArmTarget.position;
-                    KillAniGroup[0].Play();
+                    //KillAniGroup[0].Play();
+                    _enemyInform.KillAniGroup[0].Play();
                     break;
                 }
             case KillAniType.Stand_Back:
@@ -262,10 +272,11 @@ if (other.tag=="KillAni"&&!isPlaying)
                     //_enemyInform.targetInforms[1].ExtraPoint
 
                     //playableDirector.Play(KillAniTimelines[1]);
-                    KillAniGroup[1].Play();
+                    //KillAniGroup[1].Play();
+                    _enemyInform.KillAniGroup[1].Play();
                     Debug.Log("대가리 돌리기");
                     //_enemyInform.GetComponentInChildren<Animator>().SetTrigger("HeadRolling");
-                    _enemyInform.GetComponentInChildren<PlayableDirector>().Play();
+                    _enemyInform.GetComponentInChildren<PlayableDirector>().Play(); // 머리 돌리는 타임 라인.
                     break;
                 }
             case KillAniType.Stnad_Side:
@@ -275,11 +286,15 @@ if (other.tag=="KillAni"&&!isPlaying)
 
             case KillAniType.Lie_Front:
                 {
-
                     break;
                 }
             case KillAniType.Lie_Back:
                 {
+                    CybogModel.layer = 0; // default 레이어로.
+
+                    playerCam.LookAt = _enemyInform.targetInforms[2].CameraLookAt;
+                    RightLegIK.position = _enemyInform.targetInforms[2].RightLegTarget.position;
+                    KillAniGroup[2].Play();
                     break;
                 }
             case KillAniType.Lie_Side:

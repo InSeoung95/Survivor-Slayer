@@ -342,7 +342,7 @@ public class Enemy_test : MonoBehaviour
             _anim.SetBool("RunGroggy", true);
 
         //_anim.speed = 0f; // 이게 일시정지인가?
-        Debug.Log("그로기 상태 On");
+        //Debug.Log("그로기 상태 On");
         foreach(var body in Bodys)
         {
             body.material = GroggyEffect;

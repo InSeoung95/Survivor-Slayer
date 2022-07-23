@@ -22,7 +22,7 @@ public class BulletPlasmaBomb : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log("플라즈마 발사");
-        Center.Play();
+        
         StartCoroutine(TimeOverDestroyBullet());
     }
 

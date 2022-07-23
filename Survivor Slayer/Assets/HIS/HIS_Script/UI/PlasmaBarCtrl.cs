@@ -18,11 +18,14 @@ public class PlasmaBarCtrl : MonoBehaviour
 
         Fill.color = Gradient.Evaluate(PlasmaUI.normalizedValue);
 
-        if(PlasmaUI.value==PlasmaUI.maxValue) // 현재 맥스 Value값에 달하면  
+        if(PlasmaUI.value==20) // 현재 슬라이드 밸류가 값이 20이 나올 때  
         {
-            if(gun.PlasmaBombCount[0]>gunController.PlasmaFireRate)
+            //Debug.Log("gun.upgradeRate: "+gun.upgradeRate[2]);
+            if(gun.PlasmaBombCount[gun.upgradeRate[2]]>gunController.PlasmaFireRate)
             {
+                
                 gunController.PlasmaFireRate++;
+                Debug.Log("플라즈마 포 충전: " + gunController.PlasmaFireRate);
             }
             
         }

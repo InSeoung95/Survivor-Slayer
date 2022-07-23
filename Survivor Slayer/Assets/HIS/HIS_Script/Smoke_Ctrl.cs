@@ -41,15 +41,17 @@ public class Smoke_Ctrl : MonoBehaviour
         
         OnSmoke = true;
         SmokeEffect.Play();// 이펙트 재생
-        SmokeCollier.enabled = true;// 콜라이더 활성화.
         audioSource.Play();
+        yield return new WaitForSeconds(0.5f);//실제 이펙트가 퍼지는 시간.
+        SmokeCollier.enabled = true;// 콜라이더 활성화.
         yield return new WaitForSeconds(FlickerTime);
         
         //스모크 멈춤
         
         SmokeEffect.Stop();// 이펙트 멈춤
-        SmokeCollier.enabled = false; // 콜라이더 비활성화
         audioSource.Stop();
+        yield return new WaitForSeconds(0.5f);
+        SmokeCollier.enabled = false; // 콜라이더 비활성화
         yield return new WaitForSeconds(FlickerTime);
         OnSmoke = false;
     }

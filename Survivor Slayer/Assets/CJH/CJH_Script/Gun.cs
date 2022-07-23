@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class Gun : MonoBehaviour
     
     //인성 추가
     public Animator gunAnim;
+    public Slider PlasmaUI;
 
     void Start()
     {
@@ -64,6 +66,7 @@ public class Gun : MonoBehaviour
             if (upgradeRate[2] < 3)
             {
                 upgradeRate[2]++;
+                PlasmaUI.maxValue += 20; // 플라즈마 UI 게이지 상승.
                 var GunMesh = _GunPart[2].gameObject.GetComponent<MeshRenderer>();
                 GunMesh.materials = _GunPartMaterials;
                 Debug.Log("총업그레이드 3");
