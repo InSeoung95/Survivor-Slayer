@@ -20,7 +20,7 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField] private Transform[] ChildTransform;        // 자식들이 공격패턴후에 원래 위치로 이동할 좌표
     [SerializeField] private Transform[] ChildAttackTransform;  // 공격패턴할 위치할당
-    [SerializeField] private Turret[] _turrets;
+    public Turret[] _turrets;
     
     private float BodySpinSpeed;
     private float child1SpinSpeed;
@@ -32,13 +32,16 @@ public class BossEnemy : MonoBehaviour
     private float child2SpinSpeedMax = SPINSPEED;
     private float child3SpinSpeedMax = SPINSPEED;
 
-    [SerializeField]private bool SpinBody;
-    [SerializeField]private bool SpinChild1;
-    [SerializeField]private bool SpinChild2;
-    [SerializeField]private bool SpinChild3;
+    public bool SpinBody;
+    private bool SpinChild1;
+    private bool SpinChild2;
+    private bool SpinChild3;
 
     public bool test1;
     public bool test2;
+
+    public float Health = 500f;
+    private int count = 0;
 
     private void Start()
     {
@@ -67,6 +70,47 @@ public class BossEnemy : MonoBehaviour
             CallBackChild(1);
             CallBackChild(2);
             test2 = false;
+        }
+
+        if (_BossChild1.Back)
+        {
+            CallBackChild(0);
+            _BossChild1.Back = false;
+            count++;
+        }
+        if (_BossChild2.Back)
+        {
+            CallBackChild(1);
+            _BossChild2.Back = false;
+            count++;
+        }
+        if (_BossChild3.Back)
+        {
+            CallBackChild(2);
+            _BossChild3.BossGroundOff();
+            _BossChild3.Back = false;
+            
+            count++;
+        }
+
+        if (count > 2)
+        {
+            count = 0;
+            _BossChild1.AttackRun = true;
+            _BossChild2.AttackRun = true;
+            _BossChild3.AttackRun = true;
+        }
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            var BulletDamage = collision.gameObject.GetComponent<Bullet>()
+                .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
+            Health -= BulletDamage;
+            
+            collision.gameObject.SetActive(false);
         }
     }
 
@@ -129,16 +173,19 @@ public class BossEnemy : MonoBehaviour
         {
             case 0 :
                 _BossChild1.transform.position = ChildAttackTransform[childNum].transform.position;
+                _BossChild1.AttackRun = true;
                 SpinChild1 = true;
                 child1SpinSpeed = 0;
                 break;
             case 1 :
                 _BossChild2.transform.position = ChildAttackTransform[childNum].transform.position;
+                _BossChild2.AttackRun = true;
                 SpinChild2 = true;
                 child2SpinSpeed = 0;
                 break;
             case 2 :
                 _BossChild3.transform.position = ChildAttackTransform[childNum].transform.position;
+                _BossChild3.AttackRun = true;
                 SpinChild3 = true;
                 child3SpinSpeed = 0;
                 break;
@@ -151,17 +198,17 @@ public class BossEnemy : MonoBehaviour
         {
             case 0 :
                 _BossChild1.transform.position = ChildTransform[childNum].transform.position;
-                SpinChild1 = false;
+                _BossChild1.AttackRun = false;
                 child1SpinSpeed = 0;
                 break;
             case 1 :
                 _BossChild2.transform.position = ChildTransform[childNum].transform.position;
-                SpinChild2 =  false;
+                _BossChild2.AttackRun = false;
                 child2SpinSpeed = 0;
                 break;
             case 2 :
                 _BossChild3.transform.position = ChildTransform[childNum].transform.position;
-                SpinChild3 =  false;
+                _BossChild3.AttackRun = false;
                 child3SpinSpeed = 0;
                 break;
         }
@@ -182,4 +229,5 @@ public class BossEnemy : MonoBehaviour
             turret.BossType = false;
         }
     }
+    
 }

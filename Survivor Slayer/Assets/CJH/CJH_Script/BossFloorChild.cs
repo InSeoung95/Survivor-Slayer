@@ -7,9 +7,11 @@ public class BossFloorChild : MonoBehaviour
 {
     public MeshRenderer _Renderer;
     public bool FloorTrigger;
-    private float effectTime = 10f;
+    private bool _inPlayer;
+    private bool AttackTrigger;
+    private float effectTime = 1f;
     private float Timer;
-    private Player_Info _info;
+    private PlayerInfo _info;
 
     private void Start()
     {
@@ -18,21 +20,39 @@ public class BossFloorChild : MonoBehaviour
 
     private void Update()
     {
-        if (FloorTrigger)
+        if (_inPlayer && FloorTrigger)
         {
             Timer += Time.deltaTime;
+            if (Timer > effectTime)
+            {
+                AttackTrigger = true;
+                Timer = 0;
+            }
         }
     }
 
-    private void OnCollisionStay(Collision collisionInfo)
+    private void OnTriggerEnter(Collider other)
     {
-        if (FloorTrigger)
+        if (other.CompareTag("Player"))
         {
-            if (collisionInfo.gameObject.CompareTag("Player"))
+            _info = other.gameObject.GetComponent<PlayerInfo>();
+            _inPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _inPlayer = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (AttackTrigger)
+        {
+            if (other.gameObject.CompareTag("Player"))
             {
-                Timer = 0;
-                _info = collisionInfo.gameObject.GetComponent<Player_Info>();
-                _info.currenthealth -= 10f;
+                _info.currenthealth -= 2f;
+                AttackTrigger = false;
             }
         }
     }
