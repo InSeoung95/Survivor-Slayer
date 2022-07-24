@@ -33,6 +33,7 @@ public class GunController : MonoBehaviour
     private KillAni_Ctrl aniCtrl; // 확정킬 제어 변수
     private PlayerController playerController;
     public Slider PlasmaUI;
+    public GameObject Electric; // 플라즈마 포 충전시간동안 보여줄 이펙트ㄴ
 
 
     private void Start()
@@ -60,6 +61,8 @@ public class GunController : MonoBehaviour
             PlasmaUI.value >= (PlasmaUI.maxValue / currentGun.PlasmaBombCount[currentGun.upgradeRate[2]]) && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
         {
             PlasmaPressTime += Time.deltaTime;
+            Debug.Log("플라즈마 포 충전 중");
+            Electric.SetActive(true);
             if (!PlasmaSound)
             {
                 PlaySE(currentGun.chargeSound);
@@ -73,6 +76,7 @@ public class GunController : MonoBehaviour
             if (PlasmaPressTime > PlasmaPressMaxTime)
             {
                 Debug.Log("플라즈마 포 발사");
+                Electric.SetActive(false);
                 PlaySE(currentGun.PlasmaShot);
                 FirePlasmaBomb();
                 PlasmaSound = false;

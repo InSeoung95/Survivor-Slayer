@@ -20,7 +20,7 @@ public class PlasmaBarCtrl : MonoBehaviour
 
         if(PlasmaUI.value==20) // 현재 슬라이드 밸류가 값이 20이 나올 때  
         {
-            Debug.Log("gun.upgradeRate: "+gun.upgradeRate[2]);
+            //Debug.Log("gun.upgradeRate: "+gun.upgradeRate[2]);
 
         }
     }

@@ -5,28 +5,29 @@ using TMPro;
 
 public class RamainTime_Ctrl : MonoBehaviour
 {
-    public TextMeshPro remainTxt;
-    public int LimitTime;// 스테이지 2 제한시간. 초 단위로 입력.
+    public TextMeshProUGUI remainTxt;
+    public float LimitTime;// 스테이지 2 제한시간. 초 단위로 입력.
 
     float second;//초
     int minute; // 분
 
+    private void Update()
+    {
+        CheckTime();
+    }
+
     public void CheckTime()
     {
-        second = Time.deltaTime;
+        LimitTime -= Time.deltaTime;
 
-        LimitTime -= (int)Time.deltaTime;
+        minute = (int)(LimitTime / 60);
 
-        minute = (LimitTime / 60);
-        //second=(LimitTime)
-        
-        remainTxt.text = string.Format("{0:D2},{1:D2}", minute, (int)second);
+        second = (LimitTime % 60);
+        remainTxt.text = "0"+minute + " : " + (int)second;
 
-        remainTxt.text = minute + " : " + (int)second;
-
-        if((int)second>59)
-        {
-            minute++;
-        }
+        if (LimitTime < 120&&LimitTime>60)
+            remainTxt.color = Color.yellow;
+        else if (LimitTime < 60)
+            remainTxt.color = Color.red;
     }
 }
