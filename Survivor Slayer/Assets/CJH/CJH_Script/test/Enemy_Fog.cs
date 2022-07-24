@@ -148,40 +148,15 @@ public class Enemy_Fog : MonoBehaviour
         foreach (RaycastHit hitObj in rayHits)
         {
             hitObj.transform.GetComponent<PlayerInfo>().HitBomb(FogBombDamage);
+            hitObj.transform.GetComponent<PlayerInfo>().StartCoroutine("ScreenPollution");
         }
         Debug.Log("포그 좀비 효과");
 
-        StartCoroutine(ScreenPollution());
+        Destroy(gameObject);
         
        
     }
-    IEnumerator ScreenPollution()
-    {
-        ScreenEffect.SetFloat("_Screen_Intencity", 0.5f);
-        /*
-        float currentTime = 0f;
-        float percent = 0;
-        //float screenIntencity = 0f;
-        float currentIntencity = 0.7f;
-
-        while (percent < 1)
-        {
-            currentTime += Time.deltaTime;
-            percent = currentTime / ScreenEffctTime;
-
-            currentIntencity = Mathf.Lerp(0, 0.7f, percent);
-
-            ScreenEffect.SetFloat("_Screen_Intencity", currentIntencity);
-            yield return null;
-        }
-         */
-        yield return new WaitForSeconds(ScreenEffctTime);
-        
-        ScreenEffect.SetFloat("_Screen_Intencity", 0);
-
-        Destroy(gameObject);
-
-    }
+   
     private void FogTimeUpdate()
     {
         FogTimer += Time.deltaTime;
@@ -201,6 +176,7 @@ public class Enemy_Fog : MonoBehaviour
             FogBombTimer += Time.deltaTime;
             if (FogBombTimer >= FogBombTime)
             {
+                FogBombTrigger = false;
                 FogBomb();
             }
         }
@@ -210,12 +186,17 @@ public class Enemy_Fog : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            
             ContactPoint contactPoint = collision.contacts[0];
             hitEffect.transform.position = contactPoint.point;
             hitEffect.transform.rotation = Quaternion.LookRotation(contactPoint.normal);
             hitEffect.Play();
 
+            var damage = collision.gameObject.GetComponent<Bullet>()
+                .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
+            _enemyHealth -= 15f * damage;
+            
+            collision.gameObject.SetActive(false);
+            
         }
     }
 

@@ -21,9 +21,10 @@ public class PlayerInfo : MonoBehaviour
     public Text HPText;
     //인성 수정
     public bool onDamaged = false; // 플레이어가 데미지 받는지
-
-  
-    //
+    
+    public Material ScreenEffect; // 화면에 효과를 줄 머테리얼
+    public float ScreenEffctTime; // 화면 효과 지속 시간.
+    
     [SerializeField] private GameObject _gameObject;
     public GameObject GameObject => _gameObject;
 
@@ -47,5 +48,12 @@ public class PlayerInfo : MonoBehaviour
     public void OnDamage(float damage)
     {
         currenthealth -= damage;
+    }
+    
+    IEnumerator ScreenPollution()
+    {
+        ScreenEffect.SetFloat("_Screen_Intencity", 0.5f);
+        yield return new WaitForSeconds(ScreenEffctTime);
+        ScreenEffect.SetFloat("_Screen_Intencity", 0);
     }
 }

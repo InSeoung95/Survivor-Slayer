@@ -25,16 +25,10 @@ public class BulletPlasmaBomb : MonoBehaviour
         
         StartCoroutine(TimeOverDestroyBullet());
     }
-
-    private void OnDisable()
-    {
-        gameObject.transform.position = Vector3.zero;
-        StopCoroutine(TimeOverDestroyBullet());
-    }
     private IEnumerator TimeOverDestroyBullet()
     {
         yield return new WaitForSeconds(bulletTimer);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

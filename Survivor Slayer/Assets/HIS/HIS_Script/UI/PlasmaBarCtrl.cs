@@ -20,14 +20,8 @@ public class PlasmaBarCtrl : MonoBehaviour
 
         if(PlasmaUI.value==20) // 현재 슬라이드 밸류가 값이 20이 나올 때  
         {
-            //Debug.Log("gun.upgradeRate: "+gun.upgradeRate[2]);
-            if(gun.PlasmaBombCount[gun.upgradeRate[2]]>gunController.PlasmaFireRate)
-            {
-                
-                gunController.PlasmaFireRate++;
-                Debug.Log("플라즈마 포 충전: " + gunController.PlasmaFireRate);
-            }
-            
+            Debug.Log("gun.upgradeRate: "+gun.upgradeRate[2]);
+
         }
     }
     public void SetMaxGage(int value)// 플라즈마UI의 Max 게이지.

@@ -10,19 +10,13 @@ public enum UpgradeType
 }
 public class UpgradeBoxItem : MonoBehaviour
 {
-    private Gun _gun;
-    private UpgradeType _upgrade;
-
-    private void Start()
-    {
-        _upgrade = (UpgradeType)Random.Range(0, 2);
-    }
+    [SerializeField]private UpgradeType _upgrade;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _gun = collision.gameObject.GetComponentInChildren<Gun>();
+            var _gun = collision.gameObject.GetComponentInChildren<Gun>();
             _gun.GunUpgrade(_upgrade);
             Destroy(this.gameObject);
         }

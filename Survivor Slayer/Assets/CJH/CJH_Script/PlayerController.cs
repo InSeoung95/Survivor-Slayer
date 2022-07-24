@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
         if (!isBorder&&!aniCtrl.CheckIsPlaying()&&!UIManager.instance.OnInteract) // 조건 추가. 확정킬 재생 중일때 and 상호 작용 중 이동 X
         {
             _myRigid.MovePosition(_myRigid.position + _velocity * Time.deltaTime);
-            
         }
         
     }

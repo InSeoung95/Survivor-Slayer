@@ -54,7 +54,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ITEMTIME: 30
-  UpgradeBox: {fileID: 6479843641185061148}
+  UpgradeBox:
+  - {fileID: 100002, guid: 45d961d1c4d3e2a48be24400c77c0dc0, type: 3}
+  - {fileID: 100002, guid: 6ac51e6f4fe60eb4cb99f6bc47c94e5d, type: 3}
+  - {fileID: 100002, guid: d277109055abae1489f9cf59ae6025c2, type: 3}
 --- !u!195 &6479843642232184772
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -152,7 +155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 45d961d1c4d3e2a48be24400c77c0dc0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 45d961d1c4d3e2a48be24400c77c0dc0, type: 3}
       propertyPath: m_RootOrder
@@ -176,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 45d961d1c4d3e2a48be24400c77c0dc0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.07
+      value: 3.558
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 45d961d1c4d3e2a48be24400c77c0dc0, type: 3}
       propertyPath: m_LocalPosition.z

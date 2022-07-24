@@ -73595,8 +73595,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156880043826615304}
-  m_LocalRotation: {x: -0, y: -0, z: 3.6059277e-14, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7900014, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 3.607097e-14, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7900013, z: 0}
   m_LocalScale: {x: 1, y: 0.66666657, z: 1}
   m_Children:
   - {fileID: 156880045156063560}
@@ -73992,6 +73992,7 @@ MonoBehaviour:
   lookSensitivity: 2
   cameraRotationLimit: 45
   _mycamera: {fileID: 156880043826615310}
+  isMoving: 0
 --- !u!114 &156880044165630227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74008,11 +74009,12 @@ MonoBehaviour:
   bulletPos: {fileID: 156880045075091576}
   _ObjectManager: {fileID: 0}
   currentFireRate: 0
-  PlasmaFireRate: 1
+  PlasmaPressMaxTime: 3
   PlasmaPressTime: 0
   isReload: 0
   originPos: {x: 0.7, y: -0.4, z: 0.9}
   thecam: {fileID: 156880043826615310}
+  PlasmaUI: {fileID: 0}
 --- !u!114 &156880044165630224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74036,6 +74038,8 @@ MonoBehaviour:
   HPSlider: {fileID: 0}
   HPText: {fileID: 0}
   onDamaged: 0
+  ScreenEffect: {fileID: 0}
+  ScreenEffctTime: 0
   _gameObject: {fileID: 0}
 --- !u!114 &156880044165630225
 MonoBehaviour:
@@ -74237,6 +74241,8 @@ MonoBehaviour:
   RightArmIK: {fileID: 0}
   GunLeftHandle: {fileID: 807415706}
   GunRightHandle: {fileID: 1466511464}
+  LeftLegIK: {fileID: 0}
+  RightLegIK: {fileID: 0}
   KillAniTimelines:
   - {fileID: 11400000, guid: 1c9b79bf8d64ca541b06dd539ede0a11, type: 2}
   - {fileID: 11400000, guid: da6a96f6d47384a4baf17440dd86ed21, type: 2}
@@ -74244,6 +74250,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  CybogModel: {fileID: 0}
 --- !u!114 &1543844983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74351,6 +74358,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 198912575910815017}
   fireSound: {fileID: 8300000, guid: 4c5fa58447b54d54eae583a2fa47293a, type: 3}
   reloadSound: {fileID: 8300000, guid: 5e6978bc9ffc9074e8e933ed1b054670, type: 3}
+  chargeSound: {fileID: 8300000, guid: ba0ac92ace10e664bb1895d47322d54e, type: 3}
+  PlasmaShot: {fileID: 8300000, guid: 54a18fb8949761c43b9d51445b434a79, type: 3}
   PlasmaBomb: {fileID: 4923141191350850831, guid: c1be2ffe0c0362a4c8a80e6bd1da74dd, type: 3}
   _GunPart:
   - {fileID: 8478095673403322912}
@@ -74358,7 +74367,10 @@ MonoBehaviour:
   - {fileID: 6886167215686014296}
   _GunPartMaterials:
   - {fileID: 2100000, guid: 8700c2df82c98d54fbe4b1ea5a4c72dc, type: 2}
+  - {fileID: 2100000, guid: 96bb7ad33c9bc4e4bbfd99459f1904f4, type: 2}
+  - {fileID: 2100000, guid: 29295f35004f9034cb5b91ce17a5eb4a, type: 2}
   gunAnim: {fileID: 2900962653019351714}
+  PlasmaUI: {fileID: 0}
 --- !u!95 &2900962653019351714
 Animator:
   serializedVersion: 3

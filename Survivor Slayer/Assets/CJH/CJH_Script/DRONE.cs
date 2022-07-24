@@ -12,8 +12,9 @@ public class DRONE : MonoBehaviour
     private Vector3 target;
     private float itemTimer;
     [SerializeField] private float ITEMTIME = 60f;
+    private int _enum = 0;
 
-    public GameObject UpgradeBox;
+    public GameObject[] UpgradeBox;
 
     private void Start()
     {
@@ -30,8 +31,10 @@ public class DRONE : MonoBehaviour
             InterateWaypointIndex();
             if (itemTimer > ITEMTIME)
             {
-                var box = Instantiate(UpgradeBox, gameObject.transform.position + Vector3.up * 3, Quaternion.identity);
-                box.gameObject.SetActive(true);
+                var box = Instantiate(UpgradeBox[_enum], gameObject.transform.position + Vector3.up * 3, Quaternion.identity);
+                _enum++;
+                if (_enum > 2)
+                    _enum = 0;
                 itemTimer = 0;
             }
         }
