@@ -27,8 +27,7 @@ public class TriggerInteract : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Interact_Object = GameObject.Find("HUD Canvas").transform.Find(" Keypad UI").gameObject;
-            Interact_UI = GameObject.Find("HUD Canvas").transform.Find("Interact Txt").gameObject;
+            
             Interact_UI.SetActive(true);
             ActiveInteract = true;
         }

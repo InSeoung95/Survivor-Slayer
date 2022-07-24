@@ -12,11 +12,31 @@ public class InteractDoor : MonoBehaviour
     public AudioClip DoorOpen;
     public AudioClip DoorClose;
 
+    public MeshRenderer FrontLight;
+    public MeshRenderer BackLight;
+
+    public Material OnActivate;
+    public Material NotActivate;
+
     // Start is called before the first frame update
     void Start()
     {
         DoorAnim = GetComponent<Animator>();
         ad = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if(Activate)
+        {
+            FrontLight.material = OnActivate;
+            BackLight.material = OnActivate;
+        }
+        else
+        {
+            FrontLight.material = NotActivate;
+            BackLight.material = NotActivate;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

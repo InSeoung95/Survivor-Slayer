@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossEnemy : MonoBehaviour
 {
@@ -40,8 +41,11 @@ public class BossEnemy : MonoBehaviour
     public bool test1;
     public bool test2;
 
-    public float Health = 500f;
+    public float Health = 500f;// 보스 체력.
     private int count = 0;
+
+    //인성 추가
+    public Slider FinalBossHP_Bar;
 
     private void Start()
     {
@@ -49,6 +53,8 @@ public class BossEnemy : MonoBehaviour
         UpMaxPos = Pos + new Vector3(0, 2, 0);
         DownMaxPos = Pos + new Vector3(0, -2, 0);
         vec = true;
+        FinalBossHP_Bar.value = Health;
+        FinalBossHP_Bar.gameObject.SetActive(false); // 처음엔 보스 체력바 끄기.
     }
 
     private void Update()
@@ -93,8 +99,9 @@ public class BossEnemy : MonoBehaviour
             count++;
         }
 
-        if (count > 2)
+        if (count > 2) // Final Boss 등장
         {
+            FinalBossHP_Bar.gameObject.SetActive(true);
             count = 0;
             _BossChild1.AttackRun = true;
             _BossChild2.AttackRun = true;
@@ -109,8 +116,12 @@ public class BossEnemy : MonoBehaviour
             var BulletDamage = collision.gameObject.GetComponent<Bullet>()
                 .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
             Health -= BulletDamage;
-            
+
             collision.gameObject.SetActive(false);
+
+            //보스 체력 UI
+            FinalBossHP_Bar.maxValue = Health;
+            FinalBossHP_Bar.value = Health;
         }
     }
 

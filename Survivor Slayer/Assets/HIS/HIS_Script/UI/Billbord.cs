@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Billbord : MonoBehaviour
 {
-    public Transform MainCamera;
+    [SerializeField]
+    private Transform MainCamera;
+
+    private void Start()
+    {
+        MainCamera = FindObjectOfType<Camera>().transform;
+    }
 
     private void LateUpdate()
     {

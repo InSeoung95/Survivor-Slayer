@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4771204721593092668}
   - component: {fileID: 4771204721593092669}
   - component: {fileID: 4771204721593092666}
+  - component: {fileID: 1621359700}
+  - component: {fileID: 1621359701}
   m_Layer: 11
   m_Name: Clue
   m_TagString: Untagged
@@ -90,8 +92,36 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4771204721593092664}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 6, y: 4, z: 6}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1621359700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4771204721593092664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8081133ffd3f7d243861ed8b1544c872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  answer: 
+  ClueUI_Txt: {fileID: 0}
+--- !u!114 &1621359701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4771204721593092664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a622495d7dfff43ae10f4dc623e37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interact_Object: {fileID: 0}
+  Interact_UI: {fileID: 0}

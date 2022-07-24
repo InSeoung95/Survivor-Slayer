@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossChild : MonoBehaviour
 {
@@ -33,6 +34,17 @@ public class BossChild : MonoBehaviour
     public bool Back;
     private bool HealthOut;
 
+    //체력 UI
+    [Header("체력 UI")]
+    public Slider HP_Ui;
+    public Image Fill;
+    public Gradient gradient;
+
+    private void Start()
+    {
+        HP_Ui.maxValue = Health;
+        HP_Ui.value = Health;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -41,7 +53,16 @@ public class BossChild : MonoBehaviour
             var BulletDamage = collision.gameObject.GetComponent<Bullet>()
                 .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
             Health -= BulletDamage;
-            
+
+            if (Health > 0)
+            {
+                HP_Ui.value = Health;
+                Fill.color = gradient.Evaluate(HP_Ui.normalizedValue);
+            }
+            else
+                HP_Ui.value = 0;
+
+
             collision.gameObject.SetActive(false);
         }
     }

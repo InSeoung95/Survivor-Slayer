@@ -47,7 +47,7 @@ public class FlickerLight : MonoBehaviour
             light.enabled = !light.enabled;
             Timer = Random.Range(min_time, max_time);
             if(AudioUse)
-                audioSource.PlayOneShot(FlickerSound);
+                //audioSource.PlayOneShot(FlickerSound);
 
             isMaterialOn = !isMaterialOn;
 

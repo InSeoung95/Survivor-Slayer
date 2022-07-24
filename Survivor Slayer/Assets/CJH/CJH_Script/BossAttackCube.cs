@@ -45,6 +45,8 @@ public class BossAttackCube : MonoBehaviour
         _player.onDamaged = true;
         _player.HitBomb(10);
         Timer = 0;
+
+        UIManager.instance.PlayerAttacked();
     }
 
     private void ToMove()

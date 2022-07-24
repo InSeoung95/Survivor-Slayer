@@ -40,12 +40,13 @@ public class BaseManager : MonoBehaviour
     public GameObject[] fog_group;
     private ParticleSystem[] fog_effect;
 
-    //빌드 위한 임시 코딩. 추후 삭제 및 수정
+    //빌드 위한 임시 변수들
     public int PlayerOcuupy; //플레이어가 점령한 거점 개수.
     public GameObject Clear; // 클리어 활성화
     public GameObject ActivateDoor; // 활성화시킬 문.
     public GameObject LeftDoor;
     public GameObject RightDoor;
+    public bool StageClear;//스테이지 1 클리어 불값.
 
     private void Awake()
     {
@@ -90,7 +91,7 @@ public class BaseManager : MonoBehaviour
             Debug.Log("Base LV Down: " + Current_BaseLevel);
         }
 
-        if(PlayerOcuupy>=2) // 플레이어가 거점 2개 이상 점령 시
+        if(PlayerOcuupy>=2||StageClear) // 플레이어가 거점 2개 이상 점령 시
         {
             //Debug.Log("스테이지 1 클리어!!");
             //Clear.SetActive(true);

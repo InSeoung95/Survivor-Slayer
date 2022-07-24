@@ -11,25 +11,28 @@ public class Elevator_Ctrl : MonoBehaviour
 
     public ParticleSystem[] explosions;// 엘리베이터로 탈출 시 재생될 이펙트들
     public float BombDelay;// 폭발 이펙트 딜레이 시간
+    public bool end=false;
 
     // Start is called before the first frame update
     void Start()
     {
         eleAnim = GetComponent<Animator>();
         door = GetComponentInChildren<InteractDoor>();
-        Player = GameObject.Find("Player");
+        Player = FindObjectOfType<PlayerController>().gameObject;
     }
 
     private void Update()
     {
-        if(eleAnim.GetBool("Move"))
+        if(eleAnim.GetBool("Move")&&!end)
         {
             Player.transform.position = new Vector3(Player.transform.position.x, gameObject.transform.position.y, Player.transform.position.z);
 
-            StartCoroutine(Explosion());
+            StartCoroutine(MultiExplosion());
         }
+        if (end)
+            door.Activate = true;
     }
-    IEnumerator Explosion() // 연쇄 폭발 코루틴
+    IEnumerator MultiExplosion() // 연쇄 폭발 코루틴
     {
         yield return new WaitForSeconds(2f);
 
@@ -38,6 +41,7 @@ public class Elevator_Ctrl : MonoBehaviour
             explosion.Play();
 
             yield return new WaitForSeconds(BombDelay);
+            explosion.Stop();
         }
     }
 

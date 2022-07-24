@@ -53,6 +53,8 @@ public class BossFloorChild : MonoBehaviour
             {
                 _info.currenthealth -= 2f;
                 AttackTrigger = false;
+
+                UIManager.instance.PlayerAttacked();
             }
         }
     }

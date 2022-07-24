@@ -20,11 +20,14 @@ public class Keypad_Ctrl : MonoBehaviour
     public KeypadClue clue2;
     public KeypadClue clue3;
 
+    public string UI_ClickSound;
+    public string CorrectSoound;
+    public string WrongSound;
 
     private void Start()
     {
         Answer = clue1.answer + clue2.answer + clue3.answer;
-        KeypadUI = GameObject.Find(" Keypad UI");
+        //KeypadUI = GameObject.Find(" Keypad UI");
     }
 
     private void OnEnable() // 활성화 시 변수들 초기화
@@ -50,6 +53,7 @@ public class Keypad_Ctrl : MonoBehaviour
             {
                 InputedNum[i] = number;
                 NumDisplayTxt.text += number.ToString();
+                SoundManager.instance.PlayEffectSound(UI_ClickSound);
                 return;
             }
         }
@@ -64,8 +68,10 @@ public class Keypad_Ctrl : MonoBehaviour
             {
                 InputedNum[i] = -1;
                 NumDisplayTxt.text = "";
-                for(int j=0;j<i;++j)
+                SoundManager.instance.PlayEffectSound(UI_ClickSound);
+                for (int j=0;j<i;++j)
                 {
+
                     NumDisplayTxt.text += InputedNum[j].ToString();
                 }
                 return;
@@ -75,7 +81,9 @@ public class Keypad_Ctrl : MonoBehaviour
     
     public void Enter() // 키패드 입력 숫자 확인.
     {
-        foreach(int num in InputedNum)
+        SoundManager.instance.PlayEffectSound(UI_ClickSound);
+
+        foreach (int num in InputedNum)
         {
             CompareNum += num;
         }
@@ -87,6 +95,7 @@ public class Keypad_Ctrl : MonoBehaviour
             Correct = true;
             Debug.Log("정답임다");
             //정답 UI 사운드
+            SoundManager.instance.PlayEffectSound(CorrectSoound);
             //InteractDoor.GetComponent<Animator>().SetBool("Open", true);
             Door.Activate = true;
             Exit();
@@ -94,6 +103,7 @@ public class Keypad_Ctrl : MonoBehaviour
         else
         {
             Debug.Log("틀렷슴다");
+            SoundManager.instance.PlayEffectSound(WrongSound);
             CompareNum = ""; // 초기화
             //오답 UI 사운드
         }
@@ -102,6 +112,8 @@ public class Keypad_Ctrl : MonoBehaviour
 
     public void Exit()
     {
+        SoundManager.instance.PlayEffectSound(UI_ClickSound);
+
         KeypadUI.SetActive(false);
         Cursor.visible = false;
         UIManager.instance.OnInteract = false;
