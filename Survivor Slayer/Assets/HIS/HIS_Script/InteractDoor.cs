@@ -5,6 +5,9 @@ using UnityEngine;
 public class InteractDoor : MonoBehaviour
 {
     public bool Activate; // 상호작용 가능 여부.
+    private bool _Indoor;
+    private bool _OpenTrigger;
+    private bool _DoorOpenTrigger;
 
     private Animator DoorAnim;
 
@@ -37,25 +40,46 @@ public class InteractDoor : MonoBehaviour
             FrontLight.material = NotActivate;
             BackLight.material = NotActivate;
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag=="Player"&&Activate)
+        if (_Indoor && Activate && _OpenTrigger)
         {
             DoorAnim.SetBool("Open", true);
             ad.clip = DoorOpen;
             ad.Play();
+            _OpenTrigger = false;
+        }
+
+        if (!_Indoor && Activate && _OpenTrigger)
+        {
+            DoorAnim.SetBool("Open", false);
+            ad.clip = DoorClose;
+            ad.Play();
+            _OpenTrigger = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            _Indoor = true;
+            _OpenTrigger = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.CompareTag("Player"))
         {
-            DoorAnim.SetBool("Open", false);
-            ad.clip = DoorClose;
-            ad.Play();
+            _Indoor = false;
+            _OpenTrigger = true;
         }
+    }
+
+    IEnumerator DelayOpen()
+    {
+        yield return new WaitForSeconds(3);
+        if(!_Indoor)
+            _OpenTrigger = true;
     }
 }

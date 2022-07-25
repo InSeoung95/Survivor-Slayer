@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public int bulletTimer = 5;
     public int UpgradeRate;
 
-    public float[] Damage = { 10, 15, 20 };
+    public float[] Damage = { 1.0f, 1.5f, 2.0f };           // 총알 데미지 배율
     private float[] Size = { 0.5f, 1.5f, 2.5f };
 
     public GameObject BulletMark;

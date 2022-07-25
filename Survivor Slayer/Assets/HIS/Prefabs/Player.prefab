@@ -73595,7 +73595,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156880043826615304}
-  m_LocalRotation: {x: -0, y: -0, z: 3.607097e-14, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 3.6072684e-14, w: 1}
   m_LocalPosition: {x: 0, y: 1.7900013, z: 0}
   m_LocalScale: {x: 1, y: 0.66666657, z: 1}
   m_Children:
@@ -74009,12 +74009,13 @@ MonoBehaviour:
   bulletPos: {fileID: 156880045075091576}
   _ObjectManager: {fileID: 0}
   currentFireRate: 0
-  PlasmaPressMaxTime: 3
+  PlasmaPressMaxTime: 1
   PlasmaPressTime: 0
   isReload: 0
   originPos: {x: 0.7, y: -0.4, z: 0.9}
   thecam: {fileID: 156880043826615310}
   PlasmaUI: {fileID: 0}
+  Electric: {fileID: 0}
 --- !u!114 &156880044165630224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74369,6 +74370,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8700c2df82c98d54fbe4b1ea5a4c72dc, type: 2}
   - {fileID: 2100000, guid: 96bb7ad33c9bc4e4bbfd99459f1904f4, type: 2}
   - {fileID: 2100000, guid: 29295f35004f9034cb5b91ce17a5eb4a, type: 2}
+  _GunChangeMat: []
+  _gunMat: {fileID: 0}
   gunAnim: {fileID: 2900962653019351714}
   PlasmaUI: {fileID: 0}
 --- !u!95 &2900962653019351714

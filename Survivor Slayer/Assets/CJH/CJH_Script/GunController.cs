@@ -12,7 +12,7 @@ public class GunController : MonoBehaviour
     public ObjectManager _ObjectManager;
 
     public float currentFireRate;      //연사속도
-    public float PlasmaPressMaxTime = 3f;  // 플라즈마 폭탄 계속 누를시간
+    public float PlasmaPressMaxTime = 1f;  // 플라즈마 폭탄 계속 누를시간
     public float PlasmaPressTime;
     private bool PlasmaSound;
 
@@ -84,6 +84,13 @@ public class GunController : MonoBehaviour
                 PlasmaUI.value -= (PlasmaUI.maxValue / currentGun.PlasmaBombCount[currentGun.upgradeRate[2]]);
                 PlasmaMatChange();
             }
+            else
+            {
+                PlasmaPressTime = 0;
+                PlasmaSound = false;
+                Electric.SetActive(false);
+            }
+            
         }
     }
 

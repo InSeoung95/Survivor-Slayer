@@ -42,14 +42,16 @@ public class BossEnemy : MonoBehaviour
     public bool test2;
 
     public float Health = 500f;// 보스 체력.
+    public bool attacked;
     private int count = 0;
 
     //인성 추가
     public Slider FinalBossHP_Bar;
+    public GameObject _3rdCanvas;
 
     private void Start()
     {
-        Pos = transform.position;
+        Pos = transform.parent.gameObject.transform.position;
         UpMaxPos = Pos + new Vector3(0, 2, 0);
         DownMaxPos = Pos + new Vector3(0, -2, 0);
         vec = true;
@@ -101,6 +103,7 @@ public class BossEnemy : MonoBehaviour
 
         if (count > 2) // Final Boss 등장
         {
+            _3rdCanvas.gameObject.SetActive(true);
             FinalBossHP_Bar.gameObject.SetActive(true);
             count = 0;
             _BossChild1.AttackRun = true;
@@ -111,11 +114,11 @@ public class BossEnemy : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             var BulletDamage = collision.gameObject.GetComponent<Bullet>()
                 .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
-            Health -= BulletDamage;
+            Health -= BulletDamage * 10f;
 
             collision.gameObject.SetActive(false);
 
@@ -129,16 +132,18 @@ public class BossEnemy : MonoBehaviour
     {
         if (vec)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 1.5f);
+            transform.parent.gameObject.transform.position = 
+                Vector3.SmoothDamp(transform.parent.gameObject.transform.position, UpMaxPos,ref velo, 1.5f);
         }
         else
         {
-            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 1.5f);
+            transform.parent.gameObject.transform.position =
+                Vector3.SmoothDamp(transform.parent.gameObject.transform.position, DownMaxPos,ref velo, 1.5f);
         }
 
-        if (transform.position.y >= UpMaxPos.y -1)
+        if (transform.parent.gameObject.transform.position.y >= UpMaxPos.y -1)
             vec = false;
-        else if (transform.position.y <= DownMaxPos.y +1)
+        else if (transform.parent.gameObject.transform.position.y <= DownMaxPos.y +1)
             vec = true;
     }
 
@@ -183,18 +188,21 @@ public class BossEnemy : MonoBehaviour
         switch (childNum)
         {
             case 0 :
+                _BossChild1.HP_Ui.gameObject.SetActive(true);
                 _BossChild1.transform.position = ChildAttackTransform[childNum].transform.position;
                 _BossChild1.AttackRun = true;
                 SpinChild1 = true;
                 child1SpinSpeed = 0;
                 break;
             case 1 :
+                _BossChild2.HP_Ui.gameObject.SetActive(true);
                 _BossChild2.transform.position = ChildAttackTransform[childNum].transform.position;
                 _BossChild2.AttackRun = true;
                 SpinChild2 = true;
                 child2SpinSpeed = 0;
                 break;
             case 2 :
+                _BossChild3.HP_Ui.gameObject.SetActive(true);
                 _BossChild3.transform.position = ChildAttackTransform[childNum].transform.position;
                 _BossChild3.AttackRun = true;
                 SpinChild3 = true;
@@ -208,16 +216,19 @@ public class BossEnemy : MonoBehaviour
         switch (childNum)
         {
             case 0 :
+                _BossChild1.HP_Ui.gameObject.SetActive(false);
                 _BossChild1.transform.position = ChildTransform[childNum].transform.position;
                 _BossChild1.AttackRun = false;
                 child1SpinSpeed = 0;
                 break;
             case 1 :
+                _BossChild2.HP_Ui.gameObject.SetActive(false);
                 _BossChild2.transform.position = ChildTransform[childNum].transform.position;
                 _BossChild2.AttackRun = false;
                 child2SpinSpeed = 0;
                 break;
             case 2 :
+                _BossChild3.HP_Ui.gameObject.SetActive(false);
                 _BossChild3.transform.position = ChildTransform[childNum].transform.position;
                 _BossChild3.AttackRun = false;
                 child3SpinSpeed = 0;

@@ -44,15 +44,17 @@ public class BossChild : MonoBehaviour
     {
         HP_Ui.maxValue = Health;
         HP_Ui.value = Health;
+        HP_Ui.gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet") && HP_Ui.gameObject.activeSelf)
         {
             var BulletDamage = collision.gameObject.GetComponent<Bullet>()
                 .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
-            Health -= BulletDamage;
+            Debug.Log(BulletDamage);
+            Health -= BulletDamage * 10;
 
             if (Health > 0)
             {
@@ -61,8 +63,7 @@ public class BossChild : MonoBehaviour
             }
             else
                 HP_Ui.value = 0;
-
-
+            
             collision.gameObject.SetActive(false);
         }
     }

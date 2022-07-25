@@ -9,6 +9,9 @@ public class Elevator_Ctrl : MonoBehaviour
     [SerializeField]
     private GameObject Player;
 
+    [SerializeField] private GameObject _2rdHUD;
+    private bool once;
+
     public ParticleSystem[] explosions;// 엘리베이터로 탈출 시 재생될 이펙트들
     public float BombDelay;// 폭발 이펙트 딜레이 시간
     public bool end=false;
@@ -29,8 +32,13 @@ public class Elevator_Ctrl : MonoBehaviour
 
             StartCoroutine(MultiExplosion());
         }
-        if (end)
+
+        if (end && !once)
+        {
+            once = true;
             door.Activate = true;
+            _2rdHUD.gameObject.SetActive(false);
+        }
     }
     IEnumerator MultiExplosion() // 연쇄 폭발 코루틴
     {
