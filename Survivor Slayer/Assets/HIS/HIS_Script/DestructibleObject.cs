@@ -10,9 +10,12 @@ public class DestructibleObject : MonoBehaviour
     public GameObject Origin; // 멀쩡한 모델링
     public GameObject Broken; // 파괴된 모델링
 
+    [SerializeField]
     private bool OnDestroy=false;
     
     public MoveObject moveObject;
+
+    public int count;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,7 @@ public class DestructibleObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(OnDestroy)
+        if(OnDestroy&&count<1)
         {
             StartCoroutine(GoDestroy());
         }
@@ -59,6 +62,7 @@ public class DestructibleObject : MonoBehaviour
 
         }
          */
+        count++;
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }

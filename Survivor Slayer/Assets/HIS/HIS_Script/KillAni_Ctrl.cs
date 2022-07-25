@@ -254,9 +254,11 @@ if (other.tag=="KillAni"&&!isPlaying)
 
                     //LeftArmIK.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].LeftArmIKTarget;
                     //RightArmIK.GetComponent<UpdateRigTarget>().target= _enemyInform.targetInforms[1].RifhtArmTarget;
-                    LeftArmIK.position = _enemyInform.targetInforms[1].LeftArmTarget.position;
+                    //LeftArmIK.position = _enemyInform.targetInforms[1].LeftArmTarget.position;
                     Debug.Log("LeftArmIK: " + LeftArmIK);
-                    RightArmIK.position = _enemyInform.targetInforms[1].RifhtArmTarget.position;
+                    //RightArmIK.position = _enemyInform.targetInforms[1].RifhtArmTarget.position;
+                    LeftArmIK.gameObject.GetComponent<UpdateRigTarget>().target = _enemyInform.targetInforms[1].LeftArmTarget;
+                    RightArmIK.gameObject.GetComponent<UpdateRigTarget>().target = _enemyInform.targetInforms[1].RifhtArmTarget;
 
 
                     // 적 머리가 플레이어를 바라보도록.
