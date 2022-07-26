@@ -138,4 +138,47 @@ public class ObjectManager : MonoBehaviour
 
       return null;
    }
+
+   public void NextSceneClear()
+   {
+       for (int index = 0; index < Enemy_Zombie.Length; index++)
+       {
+           Enemy_Zombie[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Enemy_FogZombie.Length; index++)
+       {
+           Enemy_FogZombie[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Enemy_Turret.Length; index++)
+       {
+           Enemy_Turret[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Bullet.Length; index++)
+       {
+           Bullet[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Item_HealPack.Length; index++)
+       {
+           Item_HealPack[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Item_Ammo.Length; index++)
+       {
+           Item_Ammo[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Item_PowerGage.Length; index++)
+       {
+           Item_PowerGage[index].SetActive(false);
+       }
+
+       for (int index = 0; index < Item_Psycho.Length; index++)
+       {
+           Item_Psycho[index].SetActive(false);
+       }
+   }
 }

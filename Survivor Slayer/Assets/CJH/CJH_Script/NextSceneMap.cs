@@ -22,6 +22,7 @@ public class NextSceneMap : MonoBehaviour
         {
             _player = other.gameObject;
             _objectManager.stage = 2;
+            _objectManager.NextSceneClear();
             _Image.gameObject.SetActive(true);
             _audio.Play();
             StartCoroutine(FadeIn());

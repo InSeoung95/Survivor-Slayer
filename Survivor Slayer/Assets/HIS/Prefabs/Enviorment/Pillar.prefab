@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8722261579156368722}
   - component: {fileID: 8722261579156368723}
+  - component: {fileID: 2005604985773830699}
   m_Layer: 0
   m_Name: Pillar
   m_TagString: Untagged
@@ -45,12 +46,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e796a7f63e609ee44ba8453300a94c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 30
   Origin: {fileID: 8722261580493329556}
   Broken: {fileID: 9036200050937795382}
   OnDestroy: 0
   moveObject: {fileID: 0}
   count: 0
+--- !u!65 &2005604985773830699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722261579156368721}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0982285, y: 6.4913316, z: 1.1030045}
+  m_Center: {x: -0.5445976, y: 2.7456658, z: -0.0023460388}
 --- !u!1 &8722261580493329556
 GameObject:
   m_ObjectHideFlags: 0

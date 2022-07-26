@@ -10,8 +10,7 @@ public class DestructibleObject : MonoBehaviour
     public GameObject Origin; // 멀쩡한 모델링
     public GameObject Broken; // 파괴된 모델링
 
-    [SerializeField]
-    private bool OnDestroy=false;
+    [SerializeField] private bool OnDestroy;
     
     public MoveObject moveObject;
 
@@ -36,7 +35,7 @@ public class DestructibleObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag=="Bullet")
+        if(collision.gameObject.CompareTag("Bullet"))
         {
             Health -= 10f;
             Debug.Log("파괴중");
