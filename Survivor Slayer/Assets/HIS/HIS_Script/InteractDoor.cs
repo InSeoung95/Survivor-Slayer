@@ -34,11 +34,15 @@ public class InteractDoor : MonoBehaviour
         {
             FrontLight.material = OnActivate;
             BackLight.material = OnActivate;
+            FrontLight.GetComponentInChildren<Light>().color = Color.green;
+            BackLight.GetComponentInChildren<Light>().color = Color.green;
         }
         else
         {
             FrontLight.material = NotActivate;
             BackLight.material = NotActivate;
+            FrontLight.GetComponentInChildren<Light>().color = Color.red;
+            BackLight.GetComponentInChildren<Light>().color = Color.red;
         }
 
         if (_Indoor && Activate && _OpenTrigger)

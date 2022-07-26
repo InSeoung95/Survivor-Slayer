@@ -28,7 +28,7 @@ public class GunController : MonoBehaviour
 
     //인성 추가
     private Animator playerAnim;
-    private FlashLight flashLight;
+    public FlashLight flashLight;
     private Crosshair crosshair;
     private KillAni_Ctrl aniCtrl; // 확정킬 제어 변수
     private PlayerController playerController;
@@ -40,13 +40,13 @@ public class GunController : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         playerAnim = GetComponent<Animator>();
-        flashLight = GetComponentInChildren<FlashLight>();
+        
         crosshair = FindObjectOfType<Crosshair>();
         aniCtrl = GetComponent<KillAni_Ctrl>();
         _ObjectManager = FindObjectOfType<ObjectManager>();
         playerController = GetComponent<PlayerController>();
     }
-
+    
     void Update()
     {
         GunFireRateCalc();
@@ -118,7 +118,7 @@ public class GunController : MonoBehaviour
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && currentFireRate <= 0 && !isReload&&!UIManager.instance.OnInteract&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 상호작용 시 발사X 조건 추가
+        if (Input.GetButton("Fire1") && currentFireRate <= 0 && !isReload&&!UIManager.instance.OnInteract&& !aniCtrl.CheckIsPlaying()&&currentGun.gameObject.activeSelf) // 인성 수정. 상호작용 시 발사X 조건 추가
         {
             if (currentGun.currentBulletCount > 0)
                 Fire();

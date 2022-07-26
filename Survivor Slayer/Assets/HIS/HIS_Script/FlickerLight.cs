@@ -14,6 +14,7 @@ public class FlickerLight : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip FlickerSound;
 
+    [SerializeField]
     private bool isMaterialOn=true;
     public int materailNum=0; // 변경할 메쉬 렌더러 머테리얼의 배열 숫자
     private Material[] materials;
@@ -47,7 +48,9 @@ public class FlickerLight : MonoBehaviour
             light.enabled = !light.enabled;
             Timer = Random.Range(min_time, max_time);
             if(AudioUse)
+            {
                 //audioSource.PlayOneShot(FlickerSound);
+            }
 
             isMaterialOn = !isMaterialOn;
 

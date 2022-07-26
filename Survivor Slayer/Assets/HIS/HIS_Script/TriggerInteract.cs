@@ -6,8 +6,10 @@ using UnityEngine;
 public class TriggerInteract : MonoBehaviour
 {
     public GameObject Interact_Object; //활성화할 오브젝트
-    public GameObject Interact_UI; // 표시할 상호작용 UI
+    public GameObject Interact_txt; // 표시할 상호작용 UI
     private bool ActiveInteract;
+    public bool GetObject;
+    public bool isUse;// 사용할 오브젝트인지.
 
     //private bool isReach; // 거리가 닿는
 
@@ -18,8 +20,9 @@ public class TriggerInteract : MonoBehaviour
         if(ActiveInteract&&Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("상호작용 오브젝트 활성화");
+            GetObject = true;
             Interact_Object.SetActive(true);
-            Interact_UI.SetActive(false);
+            Interact_txt.SetActive(false);
         }
     }
 
@@ -28,7 +31,7 @@ public class TriggerInteract : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             
-            Interact_UI.SetActive(true);
+            Interact_txt.SetActive(true);
             ActiveInteract = true;
         }
     }
@@ -37,10 +40,12 @@ public class TriggerInteract : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Interact_UI.SetActive(false);
+            Interact_txt.SetActive(false);
+            
             ActiveInteract = false;
 
-            if(Interact_Object.activeSelf)
+
+            if(Interact_Object.activeSelf&&!isUse) // 사용할 물건이 아닐 때.
             {
                 Interact_Object.SetActive(false);
             }

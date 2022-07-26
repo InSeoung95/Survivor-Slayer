@@ -65,7 +65,13 @@ public class PlayerController : MonoBehaviour
         else
             isMoving = false;
         //인성 추가
-        crosshair.MoveOnCrosshair(isMoving);
+         crosshair.MoveOnCrosshair(isMoving);
+        /*
+        if(crosshair.gameObject.activeSelf==true)
+        {
+        }
+         */
+       
 
         Vector3 _moveHorizontal = transform.right * _moveDirX;
         Vector3 _moveVertical = transform.forward * _moveDirZ;

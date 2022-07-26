@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SubtitleManager : MonoBehaviour
 {
     public static SubtitleManager instance;
+    public string Robot_sound;
    
     private void Awake()
     {
@@ -31,6 +32,13 @@ public class SubtitleManager : MonoBehaviour
         subtitles = new Queue<string>();
         subtitleUI.SetActive(false);
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayNextSentence();
+        }
+    }
 
     public void StartSubtitle(Subtitle subtitle)
     {
@@ -42,6 +50,7 @@ public class SubtitleManager : MonoBehaviour
         foreach(string sentence in subtitle.sentences)
         {
             subtitles.Enqueue(sentence);
+            SoundManager.instance.PlayEffectSound(Robot_sound);
         }
 
         PlayNextSentence();

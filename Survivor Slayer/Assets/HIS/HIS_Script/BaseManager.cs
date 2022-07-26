@@ -149,21 +149,21 @@ public class BaseManager : MonoBehaviour
         {
             case 0:
                 {
-                    vignette.intensity.value = 0.7f;
+                    vignette.intensity.value = 0.5f;
                     gRp.intensity = 0.5f;
                     break;
                 }
                 
             case 1:
                 {
-                    vignette.intensity.value = 0.5f;
+                    vignette.intensity.value = 0.3f;
                     gRp.intensity = 0.7f;
                     break;
                 }
                
             case 2:
                 {
-                    vignette.intensity.value = 0.3f;
+                    vignette.intensity.value = 0f;
                     gRp.intensity = 1f;
                     break;
                 }
