@@ -21,6 +21,7 @@ public class BossZombie : MonoBehaviour
     public GameObject Target;           // 좀비가 공격할 목표
     private PlayerInfo _player;         // 좀비가 가져올 플레이어 정보
     private NavMeshAgent _nav;
+    [SerializeField] private NavAround _navAround;
 
     public bool testMove;
     public bool chasePlayer;
@@ -43,6 +44,8 @@ public class BossZombie : MonoBehaviour
     public SkinnedMeshRenderer _renderer;
     [SerializeField] private Material[] BurserkMaterial;
     private Material[] DefaultMaterial; // 기본 적용된 머테리얼.
+
+    [SerializeField] private ParticleSystem JumpEffect;
     
     private void Start()
     {
@@ -57,6 +60,8 @@ public class BossZombie : MonoBehaviour
         audioSource.clip = ZombieHowling;
         audioSource.Play();
         audioSource.loop = true;
+
+        StartCoroutine(FirstJump());
     }
 
     private void Update()
@@ -83,6 +88,17 @@ public class BossZombie : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && attackDelay < 0)
+        {
+            if (_player == null)
+                _player = other.gameObject.GetComponent<PlayerInfo>();
+
+            StartCoroutine(Attack());
+            attackDelay = ENEMY_ATTACK_DELAY;
+        }
+    }
 
     private void onDamage(float Damage)
     {
@@ -94,9 +110,15 @@ public class BossZombie : MonoBehaviour
         }
     }
     
-
     private void Move()
     {
+        if (_navAround)
+        {
+            testMove = false;
+            _anim.SetBool("isRun", testMove);
+        }
+        
+        
         if (testMove)
         {
             Vector3 dir = Target.transform.position - transform.position;
@@ -144,19 +166,6 @@ public class BossZombie : MonoBehaviour
             StartCoroutine("Death");
         }
     }
-    
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && attackDelay < 0)
-        {
-            if (_player == null)
-                _player = other.gameObject.GetComponent<PlayerInfo>();
-
-            StartCoroutine(Attack());
-            attackDelay = ENEMY_ATTACK_DELAY;
-        }
-    }
 
     IEnumerator Attack()
     {
@@ -198,5 +207,21 @@ public class BossZombie : MonoBehaviour
         Target = null;
         
         gameObject.SetActive(false);
+    }
+
+    IEnumerator FirstJump()
+    {
+        _anim.SetBool("isZumpFirst",true);
+        _nav.velocity = Vector3.forward * 15f;
+        audioSource.PlayOneShot(deadSound);         // 맞는 효과음 찾아서 넣기
+        
+        yield return new WaitForSeconds(1.5f);
+        JumpEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.7f);
+        
+        JumpEffect.gameObject.SetActive(false);
+        _anim.SetBool("isZumpFirst",false);
+        _nav.velocity = Vector3.zero;
+        
     }
 }

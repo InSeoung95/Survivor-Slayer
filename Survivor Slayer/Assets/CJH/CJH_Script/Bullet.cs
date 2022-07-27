@@ -15,13 +15,13 @@ public class Bullet : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             ShowEffect(collision,true);
             gameObject.transform.position = Vector3.zero;
             gameObject.SetActive(false);
         }
-        else if (collision.gameObject.tag == "Wall")
+        else if (collision.gameObject.CompareTag("Wall"))
         {
             ShowEffect(collision,false);
             gameObject.transform.position = Vector3.zero;

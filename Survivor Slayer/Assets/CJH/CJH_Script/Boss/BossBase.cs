@@ -24,7 +24,7 @@ public class BossBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        if (other.gameObject.CompareTag("Player") && !(state == State.Player_Occupation))
         {
             SoundManager.instance.PlayEffectSound(occupying_sound, true); //점령 중 사운드 루프 재생
             
@@ -35,7 +35,7 @@ public class BossBase : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        if (other.gameObject.CompareTag("Player") && state != State.Player_Occupation)
         {
             baseTimer += Time.deltaTime;
             UIManager.instance.BaseOccupationUI(baseTimer);
@@ -43,7 +43,7 @@ public class BossBase : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        if (other.gameObject.CompareTag("Player") && state != State.Player_Occupation)
         {
             SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지.
             StartCoroutine(BaseOccu_UI_Off());
@@ -73,9 +73,13 @@ public class BossBase : MonoBehaviour
             field.SetActive(false);
 
             _BossChild.SpinBody = true;
-            _BossChild.ChangeTarget(true);
+            _BossChild.ChangeTarget(false);
+
+            if (_BossChild._attackType == BossChild.ChildAttackType.MakeGround)
+            {
+                _BossChild.Ground.ChangePoisonToHeal();
+            }
             
-            //energy_effect.Play();
             SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지
             SoundManager.instance.PlayEffectSound(occupied_sound); // 점령 완료 사운드 출력
         }

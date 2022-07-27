@@ -10,6 +10,7 @@ public class BossBullet : MonoBehaviour
     [SerializeField] private float BulletSpd;
     [SerializeField] private float Size;
     private PlayerInfo _player;
+    public bool _type;                  // true - 플레이어를 공격 / false - 보스를 공격
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class BossBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if(other.gameObject.CompareTag("Player"))
+        else if(other.gameObject.CompareTag("Player") && _type)
         {
             _player = other.gameObject.GetComponent<PlayerInfo>();
             _player.onDamaged = true;

@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 public class BossFloor : MonoBehaviour
 {
     private Player_Info _onPlayerInfo;
-    [SerializeField] private Material[] _OnFloor;
+    [SerializeField] private Material[] _OnPoison;
+    [SerializeField] private Material[] _OnHeal;
     [SerializeField] private Material[] _DisFloor;
     [SerializeField] private BossFloorChild[] _floor;
     public bool _Trigger;                             
@@ -30,14 +31,21 @@ public class BossFloor : MonoBehaviour
         if (_Trigger && Timer>TimerMax)
         {
             Timer = 0;
+
+            int count = Random.Range(5, 10);
             
             for (int i = 0; i < _floor.Length; i++)
             {
                 int changeFloorNum = Random.Range(0, 1+1);
-                if (changeFloorNum == 1)
+                if (changeFloorNum == 1 && count > 0)
                 {
                     _floor[i].FloorTrigger = true;
-                    _floor[i].ChangeMaterials(_OnFloor);
+                    if(_floor[i].floorType)
+                        _floor[i].ChangeMaterials(_OnHeal);
+                    else
+                        _floor[i].ChangeMaterials(_OnPoison);
+
+                    count--;
                 }
                 else
                 {
@@ -55,6 +63,14 @@ public class BossFloor : MonoBehaviour
         {
             _floor[i].FloorTrigger = false;
             _floor[i].ChangeMaterials(_DisFloor);
+        }
+    }
+
+    public void ChangePoisonToHeal()
+    {
+        for (int i = 0; i < _floor.Length; i++)
+        {
+            _floor[i].floorType= true;
         }
     }
 }

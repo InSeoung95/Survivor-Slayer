@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class BossPattern : MonoBehaviour
 {
-    public float TIME_CYCLE = 10f;
-    
-    public BossEnemy _Boss;
+    public BossZombie _boss;
     public BossChild[] _BossChild;
+    public BossFloor _floor;
     private GameObject _playerObj;
     private bool PatternStart;
     private float Timer;
@@ -19,12 +18,14 @@ public class BossPattern : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _Boss.SpinBody = true;
             PatternStart = true;
+            _floor._Trigger = true;
             _playerObj = other.gameObject;
+            _boss.Target = _playerObj;
             foreach (var child in _BossChild)
             {
                 child._player = _playerObj;
+                child.ChangeTarget(true);
             }
         }
     }
@@ -34,24 +35,11 @@ public class BossPattern : MonoBehaviour
         if (PatternStart)
         {
             Timer += Time.deltaTime;
-
             if (Timer > TimeCycle)
             {
-                Timer = 0;
-                TimeCycle += TIME_CYCLE;
-                _Boss.CallAttack(bossPattern);
-                bossPattern++;
-
-                if (bossPattern > 2)
-                {
-                    foreach (var turret in  _Boss._turrets)
-                    {
-                        turret.BossType = true;
-                    }
-                    
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
         }
     }
+
 }

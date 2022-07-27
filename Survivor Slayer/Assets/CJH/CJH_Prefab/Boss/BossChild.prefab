@@ -129,7 +129,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6956014407625118567}
-  - {fileID: 6932254773423866422}
   - {fileID: 1780814962433345058}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -341,7 +340,7 @@ MonoBehaviour:
   CubePrefabs: {fileID: 8846017769566634555, guid: 7f4150c8ffd046d419027f86b900e48b, type: 3}
   BulletPrefabs: {fileID: 4562180098601834562, guid: 0652913b2c5f3e14cb7e740b03443bf3, type: 3}
   BulletPoint:
-  - {fileID: 6932254773423866422}
+  - {fileID: 0}
   CubeSpawnPoint:
   - {fileID: 0}
   - {fileID: 0}
@@ -6938,36 +6937,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2783257790301885224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6932254773423866422}
-  m_Layer: 0
-  m_Name: Bullet Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6932254773423866422
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2783257790301885224}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 347063933828290158}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3262950814331715732
 GameObject:
   m_ObjectHideFlags: 0
@@ -10577,7 +10546,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 347063933828290158}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6036596897873297214
 GameObject:

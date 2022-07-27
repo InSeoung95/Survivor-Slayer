@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7430817689030297874}
   m_Layer: 0
   m_Name: BossBullet
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +79,7 @@ MonoBehaviour:
   BULLET_DAMAGE: 10
   BulletSpd: 0.1
   Size: 5
+  _type: 1
 --- !u!1001 &7281409818725085238
 PrefabInstance:
   m_ObjectHideFlags: 0

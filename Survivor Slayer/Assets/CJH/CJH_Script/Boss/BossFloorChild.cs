@@ -8,6 +8,7 @@ public class BossFloorChild : MonoBehaviour
     public MeshRenderer _Renderer;
     public bool FloorTrigger;
     private bool _inPlayer;
+    public bool floorType;     // true = Heal, false - Poison
     private bool AttackTrigger;
     private float effectTime = 1f;
     private float Timer;
@@ -51,10 +52,19 @@ public class BossFloorChild : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                _info.currenthealth -= 2f;
-                AttackTrigger = false;
+                if (floorType)
+                {
+                    if (_info.currenthealth < 99)
+                        _info.currenthealth += 2f;
+                }
+                else
+                {
+                    _info.currenthealth -= 2f;
+                    UIManager.instance.PlayerAttacked();
+                }
 
-                UIManager.instance.PlayerAttacked();
+                AttackTrigger = false;
+                
             }
         }
     }

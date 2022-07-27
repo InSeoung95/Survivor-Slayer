@@ -25,19 +25,16 @@ public class BossChild : MonoBehaviour
     private float BodySpinSpeed;
     private float BodySpinSpeedMax = SPINSPEED;
 
-    [SerializeField] private ChildAttackType _attackType;
+    public ChildAttackType _attackType;
     public bool AttackRun;
     public bool Attack;
     private GameObject _target;
     public GameObject _player;
     public GameObject _BossZombie;                          // 어택타입 변경시 플레이어->보스로 목적지 변경
     [SerializeField] private GameObject _playerTarget;
-    [SerializeField] private BossAttackCube CubePrefabs;    // 보스용 공격큐브
-    [SerializeField] private GameObject BulletPrefabs;      // 보스용 총알 프리팹
+    [SerializeField] private GameObject BulletPrefabs;      // 보스전 플레이어 공격 총알 프리팹
+    [SerializeField] private GameObject PlayerBullet;       // 점령시  좀비 공격할 총알 프리팹
     public Transform[] BulletPoint;                         // 보스용 총알 생성될 위치
-    public Transform[] CubeSpawnPoint;                      // 공격 큐브 생성위치
-    public Transform[] CubeTargetPoint;                     // 공격 큐브 움직일 위치
-    private bool cubeAttack;                                // 홀짝으로 공격할 패턴 2분화
     public BossFloor Ground;                             // 장판효과
 
     private float Timer;
@@ -60,25 +57,11 @@ public class BossChild : MonoBehaviour
         {
             Timer = 0;
             Attack = true;
-            
             if (Attack)
             {
                 if (_attackType == ChildAttackType.MakeBullet)
                 {
                     AttackBullet();
-                    Attack = false;
-                }
-
-                if (_attackType == ChildAttackType.MakeCube)
-                {
-                    AttackCube(cubeAttack);
-                    Attack = false;
-                    cubeAttack = !cubeAttack;
-                }
-
-                if (_attackType == ChildAttackType.MakeGround)
-                {
-                    BossGroundOn();
                     Attack = false;
                 }
             }
@@ -92,29 +75,19 @@ public class BossChild : MonoBehaviour
         
         foreach (var Bullet in BulletPoint)
         {
-            var Obj = Instantiate(BulletPrefabs, Bullet.position, Bullet.rotation);
-            Obj.GetComponent<BossBullet>().BulletPoint = target.gameObject.transform;
-        }
-    }
-
-    private void AttackCube(bool pattern)
-    {
-        for (int i = 0; i < CubeSpawnPoint.Length; i++)
-        {
-            if (pattern && i % 2 == 0)
+            if (!SpinBody)
             {
-                var obj = Instantiate(CubePrefabs, CubeSpawnPoint[i].position, CubeSpawnPoint[i].rotation);
-                obj._toMove = CubeTargetPoint[i];
-                Destroy(obj.gameObject,15f);
+                var Obj = Instantiate(BulletPrefabs, Bullet.position, Bullet.rotation);
+                Obj.GetComponent<BossBullet>().BulletPoint = target.gameObject.transform;
             }
-            else if(!pattern && i % 2 != 0)
+            else
             {
-                var obj = Instantiate(CubePrefabs, CubeSpawnPoint[i].position, CubeSpawnPoint[i].rotation);
-                obj._toMove = CubeTargetPoint[i];
-                Destroy(obj.gameObject,15f);
+                var Obj = Instantiate(PlayerBullet, Bullet.position, Bullet.rotation);
+                Obj.GetComponent<BossBullet>().BulletPoint = target.gameObject.transform;
             }
         }
     }
+    
 
     private void BossGroundOn()
     {
