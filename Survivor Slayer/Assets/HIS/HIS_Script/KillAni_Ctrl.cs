@@ -7,12 +7,16 @@ using Cinemachine;
 
 public class KillAni_Ctrl : MonoBehaviour
 {
-    private bool isPlaying=false; // 애니메이션이 재생 중인지.
+    public bool isPlaying=false; // 애니메이션이 재생 중인지.
     public bool isEnemyFront;// 적이 정면을 보고 있는지. rotation.y값이 -90~90일때.
     [SerializeField]
-    private Transform mainCamera; //메인 카메라 좌표.
+    private Transform mainCamera; //컨트롤 할 메인 카메라 좌표.
+    [SerializeField] private Transform Default_MainCam_Transform;// 저장할 카메라 좌표의 디폴트 트랜트폼 값.
+    public Transform gun;
+    private Transform Default_Gun_Transform;// 저장할 총 좌표 디폴트 트랜스폼 값.
     private ParticleSystem bloodEf;
 
+    private Rigidbody playerRigid;
     private PlayableDirector playableDirector;
 
     public PlayableDirector[] KillAniGroup;
@@ -49,6 +53,12 @@ public class KillAni_Ctrl : MonoBehaviour
     {
         playableDirector = GetComponent<PlayableDirector>();
         CybogModel.layer = 3; // player 레이어로.
+
+        //gun = FindObjectOfType<Gun>();
+        Default_MainCam_Transform = mainCamera;
+        Default_Gun_Transform = gun.transform;
+
+        playerRigid = GetComponent<Rigidbody>();
     }
 
     
@@ -148,20 +158,33 @@ if (other.tag=="KillAni"&&!isPlaying)
 
         //누워있을 때는 적 z축을 y로.
 
+        //각도 구하기 하나 더
+        enemyInform.GetAngle();
+      
         Debug.Log("anlge: " + angle);
-        //누워있을 때는 적 z축을 y로.
-
-
 
         //어느 타입 애니메이션 재생할지
         if(enemyInform.isCrawl)
          {
             aniType = KillAniType.Lie_Back;
          }
+        /*
+        else if(enemyInform.GetAngle())
+                {
+                    aniType = KillAniType.Stand_Front;
+                }
+
+        else
+                {
+                    aniType = KillAniType.Stand_Back;
+                }
+         */
+        
         else
          { 
             aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
          }
+         
                     
         Debug.Log("AniType: "+aniType);
         //aniType = GetAniType(other,enemyInform); // 콜라이더 체크로 킬애니 타입 구하기.
@@ -223,6 +246,10 @@ if (other.tag=="KillAni"&&!isPlaying)
      */
     public void PlayKillAni(KillAniType _aniType, KillAniEnemyData _enemyInform) // 확정킬 애니 재생함수
     {
+        //Default_MainCam_Transform = mainCamera;
+
+        playerRigid.isKinematic = true; // 물리 영향 받지 않게.
+
         switch (_aniType)
         {
             case KillAniType.Stand_Front:
@@ -274,8 +301,9 @@ if (other.tag=="KillAni"&&!isPlaying)
                     //_enemyInform.targetInforms[1].ExtraPoint
 
                     //playableDirector.Play(KillAniTimelines[1]);
-                    //KillAniGroup[1].Play();
-                    _enemyInform.KillAniGroup[1].Play();
+                    KillAniGroup[1].Play();
+                    //_enemyInform.KillAniGroup[1].Play();
+                    
                     Debug.Log("대가리 돌리기");
                     //_enemyInform.GetComponentInChildren<Animator>().SetTrigger("HeadRolling");
                     _enemyInform.GetComponentInChildren<PlayableDirector>().Play(); // 머리 돌리는 타임 라인.
@@ -308,13 +336,18 @@ if (other.tag=="KillAni"&&!isPlaying)
         StartCoroutine(playingTime(_enemyInform));
         
     }
-    IEnumerator playingTime(KillAniEnemyData _enemyInform)
+    IEnumerator playingTime(KillAniEnemyData _enemyInform) // 확정킬 재생 이후에 각종 설정들 초기화 시켜주는 함수
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         isPlaying = false; // 확정킬 애니 재생 중 false;
+        //플레이어 설정
         LeftArmIK.position = new Vector3(0, 0, 0);
         RightArmIK.position = new Vector3(0, 0, 0);
         playerCam.LookAt = null;
+        mainCamera = Default_MainCam_Transform;// 메인 카메라 트랜스폼 초기화.
+        gun = Default_Gun_Transform;// 총 위치도 원래대로 초기화
+        playerRigid.isKinematic = false; // 다시 물리 영향 받도록.
+        //적 설정
         _enemyInform.GetComponent<Enemy_test>().isDeath = true; // 적 죽이기.
         _enemyInform.isGroggy = false;
         CybogModel.layer = 3; // player 레이어로.

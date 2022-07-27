@@ -49,6 +49,7 @@ public class Enemy_test : MonoBehaviour
     public KillAniEnemyData killAniData;// 킬 애니 데이터
     private Enemy_Body _Body;
     private Material[] DefaultMaterial; // 기본 적용된 머테리얼.
+    private KillAni_Ctrl playerKilAni;
     
 
     private void Start()
@@ -82,7 +83,7 @@ public class Enemy_test : MonoBehaviour
         {
             DefaultMaterial[i] = Bodys[i].material;
         }
-        
+        playerKilAni = FindObjectOfType<KillAni_Ctrl>();
     }
 
     private void Update()
@@ -151,7 +152,7 @@ public class Enemy_test : MonoBehaviour
                 if (_enemyDest.isLeg)
                 {
                     _anim.SetBool("isCrawl", true);
-                    MoveSpeed *= 0.1f;
+                    MoveSpeed *= 0.7f; // 인성 수정 초기값 : 0.1f
                     //인성 추가
                     //killAniData.isCrawl = true;
 
@@ -179,8 +180,8 @@ public class Enemy_test : MonoBehaviour
     {
         if (_enemyDest.isBurserk)
         {
-            MoveSpeed *= 1.5f;
-            _anim.speed += 0.5f;
+            MoveSpeed *= 2.5f; // 인성 수정 초기값: 1.5f
+            _anim.speed += 1.5f; // 수정 초기값: 0.5f
             audioSource.PlayOneShot(BurserkSound);
             
             _enemyDest.isBurserk = false;
@@ -241,7 +242,7 @@ public class Enemy_test : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && attackDelay < 0)
+        if (other.gameObject.tag == "Player" && attackDelay < 0&&!playerKilAni.isPlaying) // 확정킬 애니 재생 중일 땐 데미지 X
         {
             if (_player == null)
                 _player = other.gameObject.GetComponent<PlayerInfo>();

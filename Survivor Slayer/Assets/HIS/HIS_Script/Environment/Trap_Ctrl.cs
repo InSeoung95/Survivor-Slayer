@@ -11,7 +11,11 @@ public class Trap_Ctrl : MonoBehaviour
     Destructible_Obj obj;
     [SerializeField]
     private bool isDeath;
-    public Animator PropellerAnim;
+    
+    private PlayerInfo playerHealth;
+    public int trapDamage; // 트랩의 데미지.
+    public float DamageDelay; // 트랩이 플레이어에게 데미지를 주는 시간 간격.
+    [SerializeField] private bool isDamage;
 
   
 
@@ -21,6 +25,7 @@ public class Trap_Ctrl : MonoBehaviour
         recordTime = 0;
         obj = GetComponentInChildren<Destructible_Obj>();
         //PropellerAnim.GetComponentInChildren<Animator>();
+        playerHealth = FindObjectOfType<PlayerInfo>();
     }
 
     // Update is called once per frame
@@ -48,13 +53,24 @@ public class Trap_Ctrl : MonoBehaviour
                 transform.Translate(Vector3.left * Speed * Time.deltaTime);
             }
         }
-        else
-            PropellerAnim.speed = 0f;
 
     }
-
-    void CheckDeath()
+    private void OnTriggerStay(Collider other)
     {
+        if (other.tag == "Player" && !isDamage)
+        {
+            StartCoroutine(OnDamage());
+        }
+    }
 
+    IEnumerator OnDamage()
+    {
+        isDamage = true;
+        playerHealth.currenthealth -= trapDamage;
+        UIManager.instance.PlayerAttacked();
+        yield return new WaitForSeconds(DamageDelay);
+        isDamage = false;
     }
 }
+
+

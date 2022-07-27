@@ -43,6 +43,8 @@ public class Keypad_Ctrl : MonoBehaviour
         UIManager.instance.OnInteract = true;
         Debug.Log("키패드 켜짐");
     }
+
+
    
 
     public void NumOnClick(int number) // 키패드 숫자 눌릴 때

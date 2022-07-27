@@ -13,7 +13,7 @@ public class TriggerInteract : MonoBehaviour
 
     //private bool isReach; // 거리가 닿는
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -23,6 +23,7 @@ public class TriggerInteract : MonoBehaviour
             GetObject = true;
             Interact_Object.SetActive(true);
             Interact_txt.SetActive(false);
+         
         }
     }
 
@@ -43,9 +44,9 @@ public class TriggerInteract : MonoBehaviour
             Interact_txt.SetActive(false);
             
             ActiveInteract = false;
+          
 
-
-            if(Interact_Object.activeSelf&&!isUse) // 사용할 물건이 아닐 때.
+            if (Interact_Object.activeSelf&&!isUse) // 사용할 물건이 아닐 때.
             {
                 Interact_Object.SetActive(false);
             }

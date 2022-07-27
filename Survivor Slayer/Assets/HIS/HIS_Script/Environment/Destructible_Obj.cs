@@ -12,10 +12,12 @@ public class Destructible_Obj : MonoBehaviour
     public GameObject Explosion;// 폭발 효과 프리팹.
     public bool isDeath=false;// 죽으면 true;
     int count = 0;
+    public GameObject trap;
     //UI 관련
     public Slider HP_Bar;
     public Image Fill;
     public Gradient gradient;
+    private Animator anim;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class Destructible_Obj : MonoBehaviour
         gun = FindObjectOfType<Gun>();
         HP_Bar.maxValue = Health;
         HP_Bar.value = Health;
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -37,6 +40,8 @@ public class Destructible_Obj : MonoBehaviour
     {
         if(_other.gameObject.tag=="Bullet"&&currentHealth>0)
         {
+            _other.gameObject.SetActive(false);
+
             currentHealth -= 10f;
 
             HP_Bar.value = currentHealth;
@@ -50,7 +55,8 @@ public class Destructible_Obj : MonoBehaviour
         isDeath = true;
         Instantiate(Explosion, transform);
 
-        Destroy(gameObject, 5f);//5초 뒤 소멸;
+        anim.speed = 0f;
+        Destroy(trap, 5f);//5초 뒤 소멸;
     }
     public bool CheckDeath()
     {

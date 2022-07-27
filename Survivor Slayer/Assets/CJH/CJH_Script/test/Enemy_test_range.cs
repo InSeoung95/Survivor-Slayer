@@ -10,7 +10,7 @@ public class Enemy_test_range : MonoBehaviour
     private Base _base;                           // 좀비가 인식한 거점의 상태확인
 
     [SerializeField]
-    private float Enemy_Range = 40;
+    private float Enemy_Range = 30;
 
     void Start()
     {

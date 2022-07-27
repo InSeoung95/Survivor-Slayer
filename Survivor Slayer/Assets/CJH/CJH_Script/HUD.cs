@@ -30,7 +30,7 @@ public class HUD : MonoBehaviour
     void Update()
     {
         UIManager.instance.CheckBullet();
-        UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+        //UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
 
         if(Input.GetKeyDown(KeyCode.P))
         {

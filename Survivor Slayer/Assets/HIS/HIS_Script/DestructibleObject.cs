@@ -37,6 +37,8 @@ public class DestructibleObject : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Bullet"))
         {
+            collision.gameObject.SetActive(false);
+
             Health -= 10f;
             Debug.Log("파괴중");
 
