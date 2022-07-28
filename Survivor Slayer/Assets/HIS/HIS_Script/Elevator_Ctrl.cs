@@ -16,6 +16,8 @@ public class Elevator_Ctrl : MonoBehaviour
     public float BombDelay;// 폭발 이펙트 딜레이 시간
     public bool end=false;
 
+    private CameraShake _camera;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -31,19 +33,21 @@ public class Elevator_Ctrl : MonoBehaviour
             Player.transform.position = new Vector3(Player.transform.position.x, gameObject.transform.position.y, Player.transform.position.z);
 
             StartCoroutine(MultiExplosion());
+            StartCoroutine(_camera.Shake(1f, 4f, 2f));
         }
 
         if (end && !once)
         {
             once = true;
             door.Activate = true;
+            
             _2rdHUD.gameObject.SetActive(false);
         }
     }
     IEnumerator MultiExplosion() // 연쇄 폭발 코루틴
     {
         yield return new WaitForSeconds(2f);
-
+        once = false;
         foreach(var explosion in explosions)
         {
             explosion.Play();
@@ -55,10 +59,10 @@ public class Elevator_Ctrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.CompareTag("Player"))
         {
             door.Activate = false;
-
+            _camera = other.gameObject.GetComponentInChildren<CameraShake>();
             eleAnim.SetBool("Move", true);
         }
     }

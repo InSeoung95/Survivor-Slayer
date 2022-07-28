@@ -4373,9 +4373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7608919d54c80947bfb939f916d02d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bodyMaxHealth: 100
+  _bodyMaxHealth: 500
   _bodyHitPoint: 0
-  _bodyDamage: 50
+  _bodyDamage: 100
   onDamaged: 0
   _BodyName: 0
   BulletDamage: 0

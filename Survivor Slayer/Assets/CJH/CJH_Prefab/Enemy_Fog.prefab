@@ -86,7 +86,7 @@ MonoBehaviour:
   testMove: 0
   chasePlayer: 0
   isDeath: 0
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 6041010453139242464}
   deadSound: {fileID: 8300000, guid: 22fd11196ba73014e8b330dfdcc38546, type: 3}
   ScreenEffect: {fileID: 2100000, guid: 74202d2119d725641b4fb4505f1bd5db, type: 2}
   ScreenEffctTime: 1
@@ -965,6 +965,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
+--- !u!2083052967 &6041010453139242464 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 290092556, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}
+  m_PrefabInstance: {fileID: 6041010452849445868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8854132897941152812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2969501585864044480, guid: 12ca0354f33bd9049aa2300ff1561f70, type: 3}

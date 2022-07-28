@@ -184,7 +184,7 @@ public class Enemy_Fog : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             ContactPoint contactPoint = collision.contacts[0];
             hitEffect.transform.position = contactPoint.point;
@@ -196,13 +196,12 @@ public class Enemy_Fog : MonoBehaviour
             _enemyHealth -= 15f * damage;
             
             collision.gameObject.SetActive(false);
-            
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             FogTrigger = true;
             FogBombTrigger = true;
@@ -211,7 +210,7 @@ public class Enemy_Fog : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             FogTrigger = false;
             FogBombTrigger = false;

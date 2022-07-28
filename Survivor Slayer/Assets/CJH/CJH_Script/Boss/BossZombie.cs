@@ -194,6 +194,7 @@ public class BossZombie : MonoBehaviour
     public void HitBomb()
     {
         _EnemyHealth -= 50;
+        FinalBossHP_Bar.value = _EnemyHealth;
     }
 
     IEnumerator Burserk()
