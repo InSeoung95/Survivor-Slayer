@@ -9,6 +9,8 @@ public class BossPattern : MonoBehaviour
     public BossChild[] _BossChild;
     public BossFloor _floor;
     private GameObject _playerObj;
+    private CameraShake _camera;
+    
     private bool PatternStart;
     private float Timer;
     private float TimeCycle = 10f;
@@ -19,14 +21,17 @@ public class BossPattern : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PatternStart = true;
-            _floor._Trigger = true;
             _playerObj = other.gameObject;
+            _camera = other.gameObject.GetComponentInChildren<CameraShake>();
             _boss.Target = _playerObj;
             foreach (var child in _BossChild)
             {
                 child._player = _playerObj;
                 child.ChangeTarget(true);
+                child.AttackRun = true;
             }
+
+            StartCoroutine(_camera.Shake(1f,2f,1.5f));
         }
     }
 

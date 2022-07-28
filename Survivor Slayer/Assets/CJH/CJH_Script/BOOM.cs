@@ -12,7 +12,7 @@ public class BOOM : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _camera = collision.gameObject.GetComponentInChildren<CameraShake>();
-            StartCoroutine(_camera.Shake(2f,10f));
+            StartCoroutine(_camera.Shake(2f,10f,1f));
         }
     }
 }

@@ -10,8 +10,10 @@ public class CameraShake : MonoBehaviour
         originPos = transform.localPosition;
     }
  
-    public IEnumerator Shake(float _amount,float _duration)
+    public IEnumerator Shake(float _amount,float _duration, float lateTime)
     {
+        yield return new WaitForSeconds(lateTime);
+        
         float timer=0;
         while(timer <= _duration)
         {

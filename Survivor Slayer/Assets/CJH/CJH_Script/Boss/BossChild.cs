@@ -64,6 +64,13 @@ public class BossChild : MonoBehaviour
                     AttackBullet();
                     Attack = false;
                 }
+                
+                if (_attackType == ChildAttackType.MakeGround)
+                {
+                    BossGroundOn();
+                    Attack = false;
+                    AttackRun = false;
+                }
             }
         }
     }

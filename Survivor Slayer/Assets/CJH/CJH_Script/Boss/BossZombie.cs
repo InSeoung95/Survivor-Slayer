@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 public class BossZombie : MonoBehaviour
 {
@@ -11,12 +13,15 @@ public class BossZombie : MonoBehaviour
     private const float ENEMY_MOVESPEED = 5f;     //좀비의 이동속도  1.6f = default
     private const float ENEMY_ZOMBIE_DAMAGE = 10f;  //일반좀비 공격력
     private const float ENEMY_ATTACK_DELAY = 5.0f;    //좀비의 공격속도
+    private const float ENEMY_ATTACK_ANITIME = 1.8f;     // 좀비 공격 애니메이션 타임
     public float _EnemyHealth = ENEMY_HEALTH;
     public float MoveSpeed = ENEMY_MOVESPEED;
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
     private Rigidbody _rigid;
     private BoxCollider _boxCollider;   // 좀비의 공격범위
+    private bool AttackIn;
+    private bool isAttacked;
     private float _boxColliderSize;
     public GameObject Target;           // 좀비가 공격할 목표
     private PlayerInfo _player;         // 좀비가 가져올 플레이어 정보
@@ -33,6 +38,8 @@ public class BossZombie : MonoBehaviour
     public ParticleSystem hitEffectBlood; 
     public AudioClip BurserkSound;  // 광폭화 사운드
     public AudioClip deadSound;     // 좀비 사망 사운드.
+    public AudioClip FirstJumpSound;    // 보스좀비 첫점프시 howling
+    public AudioClip[] ZombieAttackSound;       // 보스좀비 공격소리
 
     private AudioSource audioSource;
     [SerializeField] private AudioClip ZombieHowling;     // 좀비가 울어댈 소리
@@ -45,7 +52,8 @@ public class BossZombie : MonoBehaviour
     [SerializeField] private Material[] BurserkMaterial;
     private Material[] DefaultMaterial; // 기본 적용된 머테리얼.
 
-    [SerializeField] private ParticleSystem JumpEffect;
+    [SerializeField] private ParticleSystem[] JumpEffect;           // 점프시 충격파 이펙트
+    private bool isJumpping;
     
     private void Start()
     {
@@ -57,9 +65,9 @@ public class BossZombie : MonoBehaviour
         _nav = GetComponent<NavMeshAgent>();         
         _anim = GetComponentInChildren<Animator>();
         
-        audioSource.clip = ZombieHowling;
-        audioSource.Play();
-        audioSource.loop = true;
+        // audioSource.clip = ZombieHowling;
+        // audioSource.Play();
+        // audioSource.loop = true;
 
         StartCoroutine(FirstJump());
     }
@@ -95,8 +103,33 @@ public class BossZombie : MonoBehaviour
             if (_player == null)
                 _player = other.gameObject.GetComponent<PlayerInfo>();
 
-            StartCoroutine(Attack());
+            var attackType = Random.Range(0, 1 + 1);
+
+            if (attackType == 0)
+            {
+                StartCoroutine(Attack());
+            }
+            else
+            {
+                StartCoroutine(JumpAttack());
+            }
             attackDelay = ENEMY_ATTACK_DELAY;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            AttackIn = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            AttackIn = false;
         }
     }
 
@@ -112,12 +145,8 @@ public class BossZombie : MonoBehaviour
     
     private void Move()
     {
-        if (_navAround)
-        {
-            testMove = false;
-            _anim.SetBool("isRun", testMove);
-        }
-        
+        if(isJumpping)
+            PlayerIn();
         
         if (testMove)
         {
@@ -127,8 +156,31 @@ public class BossZombie : MonoBehaviour
             _nav.SetDestination(Target.transform.position);
             
             _anim.SetBool("isRun", testMove);
+            _anim.SetBool("isIdle",!testMove);
             Quaternion to = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
+        }
+    }
+
+    private void PlayerIn()
+    {
+        if (_navAround.InPlayer)
+        {
+            testMove = false;
+            _anim.SetBool("isRun", false);
+            _anim.SetBool("isIdle",true);
+            
+            _nav.isStopped = true;
+            _nav.velocity = Vector3.zero;
+        }
+        else
+        {
+            testMove = true;
+            _anim.SetBool("isRun", true);
+            _anim.SetBool("isIdle",false);
+            
+            if(!isAttacked)
+                _nav.isStopped = false;
         }
     }
 
@@ -172,21 +224,23 @@ public class BossZombie : MonoBehaviour
         testMove = false;
         _nav.isStopped = true;
         _nav.velocity = Vector3.zero;
-        
-        _anim.SetBool("isAttack", true);
-        yield return new WaitForSeconds(ENEMY_ATTACK_DELAY / _anim.speed);
 
-        RaycastHit _hit;
-        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, _boxColliderSize,
-                LayerMask.GetMask("Player")))
+        isAttacked = true;
+        _anim.SetBool("isAttack", true);
+        yield return new WaitForSeconds(ENEMY_ATTACK_ANITIME / _anim.speed);
+        JumpEffect[1].gameObject.SetActive(true);
+        audioSource.PlayOneShot(ZombieAttackSound[0]);
+        
+        if (AttackIn)
         {
             _player.OnDamage(ENEMY_ZOMBIE_DAMAGE);
             _player.onDamaged= true;
             UIManager.instance.PlayerAttacked();
         }
-        
         testMove = true;
         _nav.isStopped = false;
+        isAttacked = false;
+        JumpEffect[1].gameObject.SetActive(false);
         _anim.SetBool("isAttack", false);
        
     }
@@ -212,16 +266,43 @@ public class BossZombie : MonoBehaviour
     IEnumerator FirstJump()
     {
         _anim.SetBool("isZumpFirst",true);
+        audioSource.PlayOneShot(FirstJumpSound);
         _nav.velocity = Vector3.forward * 15f;
-        audioSource.PlayOneShot(deadSound);         // 맞는 효과음 찾아서 넣기
-        
+
         yield return new WaitForSeconds(1.5f);
-        JumpEffect.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.7f);
-        
-        JumpEffect.gameObject.SetActive(false);
+        JumpEffect[0].gameObject.SetActive(true);
         _anim.SetBool("isZumpFirst",false);
         _nav.velocity = Vector3.zero;
+        yield return new WaitForSeconds(3f);
         
+        JumpEffect[0].gameObject.SetActive(false);
+        isJumpping = true;
+    }
+
+    IEnumerator JumpAttack()
+    {
+        testMove = false;
+        _nav.isStopped = true;
+        _nav.velocity = Vector3.zero;
+        _anim.SetBool("isZump",true);
+        isAttacked = true;
+        yield return new WaitForSeconds(2f / _anim.speed);
+        JumpEffect[1].gameObject.SetActive(true);
+        audioSource.PlayOneShot(ZombieAttackSound[1]);
+        yield return new WaitForSeconds(0.7f / _anim.speed);
+        
+        if (AttackIn)
+        {
+            _player.OnDamage(ENEMY_ZOMBIE_DAMAGE);
+            _player.onDamaged= true;
+            UIManager.instance.PlayerAttacked();
+        }
+        
+        testMove = true;
+        _nav.isStopped = false;
+        isAttacked = false;
+        JumpEffect[1].gameObject.SetActive(false);
+        _anim.SetBool("isZump", false);
+
     }
 }
