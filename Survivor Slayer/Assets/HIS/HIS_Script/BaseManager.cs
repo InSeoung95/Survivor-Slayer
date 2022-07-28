@@ -69,7 +69,29 @@ public class BaseManager : MonoBehaviour
             fog_effect[i]= fog_group[i].GetComponentInChildren<ParticleSystem>();
         }
     }
+    /*
+    private void OnEnable()
+    {
 
+        for (int i = 0; i < Dynamic_LightGroup.Length; ++i)
+        {
+            lights.AddRange(Dynamic_LightGroup[i].GetComponentsInChildren<Light>());
+
+        }
+        Directional_Light.SetActive(false); //디렉셔널 라이트 끄기
+
+        if (Gv.profile.TryGet<Vignette>(out vignette))
+        {
+
+        }
+        fog_effect = new ParticleSystem[fog_group.Length];
+
+        for (int i = 0; i < fog_group.Length; ++i)
+        {
+            fog_effect[i] = fog_group[i].GetComponentInChildren<ParticleSystem>();
+        }
+    }
+     */
     // Update is called once per frame
     void FixedUpdate()
     {

@@ -303,11 +303,11 @@ if (other.tag=="KillAni"&&!isPlaying)
 
                     //playableDirector.Play(KillAniTimelines[1]);
                     KillAniGroup[1].Play();
+                    _enemyInform.GetComponentInChildren<PlayableDirector>().Play(); // 머리 돌리는 타임 라인.
                     //_enemyInform.KillAniGroup[1].Play();
                     
                     Debug.Log("대가리 돌리기");
                     //_enemyInform.GetComponentInChildren<Animator>().SetTrigger("HeadRolling");
-                    _enemyInform.GetComponentInChildren<PlayableDirector>().Play(); // 머리 돌리는 타임 라인.
                     break;
                 }
             case KillAniType.Stnad_Side:
