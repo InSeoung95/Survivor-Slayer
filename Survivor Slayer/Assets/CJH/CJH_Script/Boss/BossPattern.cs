@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BossPattern : MonoBehaviour
 {
+    [SerializeField] private GameObject _3rdUI;
+    
     public BossZombie _boss;
     public BossChild[] _BossChild;
     public BossFloor _floor;
@@ -15,6 +17,7 @@ public class BossPattern : MonoBehaviour
     private float Timer;
     private float TimeCycle = 10f;
     private int bossPattern = 0;
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,6 +25,7 @@ public class BossPattern : MonoBehaviour
         {
             PatternStart = true;
             _playerObj = other.gameObject;
+            _3rdUI.gameObject.SetActive(true);
             _camera = other.gameObject.GetComponentInChildren<CameraShake>();
             _boss.Target = _playerObj;
             foreach (var child in _BossChild)
@@ -30,7 +34,8 @@ public class BossPattern : MonoBehaviour
                 child.ChangeTarget(true);
                 child.AttackRun = true;
             }
-
+            
+            StartCoroutine(_boss.FirstJump());
             StartCoroutine(_camera.Shake(1f,2f,1.5f));
         }
     }

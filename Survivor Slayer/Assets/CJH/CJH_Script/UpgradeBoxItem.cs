@@ -14,7 +14,7 @@ public class UpgradeBoxItem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             var _gun = collision.gameObject.GetComponentInChildren<Gun>();
             _gun.GunUpgrade(_upgrade);

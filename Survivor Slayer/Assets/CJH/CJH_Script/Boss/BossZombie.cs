@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
@@ -55,6 +56,9 @@ public class BossZombie : MonoBehaviour
     [SerializeField] private ParticleSystem[] JumpEffect;           // 점프시 충격파 이펙트
     private bool isJumpping;
     
+    public Slider FinalBossHP_Bar;
+    public GameObject _3rdCanvas;
+    
     private void Start()
     {
         _rigid = GetComponent<Rigidbody>();
@@ -65,11 +69,13 @@ public class BossZombie : MonoBehaviour
         _nav = GetComponent<NavMeshAgent>();         
         _anim = GetComponentInChildren<Animator>();
         
+        FinalBossHP_Bar.maxValue = ENEMY_HEALTH;
+        FinalBossHP_Bar.value = _EnemyHealth;
+
         // audioSource.clip = ZombieHowling;
         // audioSource.Play();
         // audioSource.loop = true;
-
-        StartCoroutine(FirstJump());
+        
     }
 
     private void Update()
@@ -93,6 +99,7 @@ public class BossZombie : MonoBehaviour
                 .Damage[collision.gameObject.GetComponent<Bullet>().UpgradeRate];
             onDamage(bulletDamage * 10);
             
+            FinalBossHP_Bar.value = _EnemyHealth;
             collision.gameObject.SetActive(false);
         }
     }
@@ -263,7 +270,7 @@ public class BossZombie : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator FirstJump()
+    public IEnumerator FirstJump()
     {
         _anim.SetBool("isZumpFirst",true);
         audioSource.PlayOneShot(FirstJumpSound);

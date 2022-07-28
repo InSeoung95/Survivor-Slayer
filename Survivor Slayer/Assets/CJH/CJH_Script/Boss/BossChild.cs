@@ -52,8 +52,13 @@ public class BossChild : MonoBehaviour
     {
         UpDown();
         Spin();
-        Timer += Time.deltaTime;
-        if (Timer > AttackDelay && AttackRun)
+
+        if (AttackRun)
+        {
+            Timer += Time.deltaTime;
+        }
+
+        if (Timer > AttackDelay)
         {
             Timer = 0;
             Attack = true;

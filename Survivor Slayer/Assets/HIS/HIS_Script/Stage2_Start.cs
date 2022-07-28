@@ -10,7 +10,7 @@ public class Stage2_Start : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.CompareTag("Player"))
         {
             Stage2_UICanvas.SetActive(true);
             RemainTime.SetActive(true);

@@ -54,7 +54,6 @@ public class Enemy_test : MonoBehaviour
 
     private void Start()
     {
-        
         _enemyDest = GetComponent<Enemy_Dest>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
