@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 8433278648884991373}
   m_Layer: 9
   m_Name: BossZombie
-  m_TagString: Enemy
+  m_TagString: EnemyBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,6 +247,8 @@ MonoBehaviour:
   JumpEffect:
   - {fileID: 5256980010611911713}
   - {fileID: 2258710719530821626}
+  FinalBossHP_Bar: {fileID: 0}
+  _3rdCanvas: {fileID: 0}
 --- !u!82 &1639208430
 AudioSource:
   m_ObjectHideFlags: 0

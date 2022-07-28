@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     public ItemType itemType;
     public int value;
 
-    private const float ITEM_MOVE_MAX = 1f;     // 아이템 상하이동 최대값
+    private const float ITEM_MOVE_MAX = 1.3f;     // 아이템 상하이동 최대값
     private Vector3 UpMaxPos;
     private Vector3 DownMaxPos;
     private Vector3 Pos;
@@ -38,11 +38,11 @@ public class Item : MonoBehaviour
         
         if (vec)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 0.9f);
+            transform.position = Vector3.SmoothDamp(transform.position, UpMaxPos,ref velo, 2f);
         }
         else
         {
-            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 0.9f);
+            transform.position = Vector3.SmoothDamp(transform.position, DownMaxPos,ref velo, 2f);
         }
 
         if (transform.position.y >= UpMaxPos.y -1)

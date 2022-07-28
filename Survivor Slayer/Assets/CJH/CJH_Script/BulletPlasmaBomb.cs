@@ -47,7 +47,12 @@ public class BulletPlasmaBomb : MonoBehaviour
 
         foreach (RaycastHit hitObj in rayHits)
         {
-            hitObj.transform.GetComponent<Enemy_test>().HitBomb();
+            if(hitObj.transform.CompareTag("Enemy"))
+                hitObj.transform.GetComponent<Enemy_test>().HitBomb();
+            else if (hitObj.transform.CompareTag("EnemyFog"))
+                hitObj.transform.GetComponent<Enemy_Fog>().HitBomb();
+            else if (hitObj.transform.CompareTag("EnemyBoss"))
+                hitObj.transform.GetComponent<BossZombie>().HitBomb();
         }
         
         Destroy(gameObject, 2);

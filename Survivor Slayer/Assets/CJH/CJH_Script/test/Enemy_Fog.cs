@@ -152,7 +152,7 @@ public class Enemy_Fog : MonoBehaviour
         }
         Debug.Log("포그 좀비 효과");
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         
        
     }

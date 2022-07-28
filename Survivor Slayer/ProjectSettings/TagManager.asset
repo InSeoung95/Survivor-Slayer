@@ -16,6 +16,8 @@ TagManager:
   - FrontKillAni
   - BackKillAni
   - CrawlKillAni
+  - EnemyFog
+  - EnemyBoss
   layers:
   - Default
   - TransparentFX
