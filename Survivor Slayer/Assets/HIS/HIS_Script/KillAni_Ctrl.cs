@@ -170,20 +170,21 @@ if (other.tag=="KillAni"&&!isPlaying)
          }
         /*
         else if(enemyInform.GetAngle())
-                {
-                    aniType = KillAniType.Stand_Front;
-                }
-
+         {
+            aniType = KillAniType.Stand_Front;
+          }
         else
-                {
-                    aniType = KillAniType.Stand_Back;
-                }
+         {
+            aniType = KillAniType.Stand_Back;
+         }
          */
+         
         
         else
          { 
             aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
          }
+         
          
                     
         Debug.Log("AniType: "+aniType);

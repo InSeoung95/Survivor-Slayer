@@ -23,7 +23,7 @@ public class EnemySpawn : MonoBehaviour
     private float SpawnTimer;
     private int SpawnNumber;        // 라운드당 소환된 적들
 
-    private float sinematicTime = 0f; // 시네마틱 시간 동안 적들 스폰되지 않게 지연시간.
+    private float sinematicTime = 30f; // 시네마틱 시간 동안 적들 스폰되지 않게 지연시간.
     private bool sinematicTriger = false;
    
 

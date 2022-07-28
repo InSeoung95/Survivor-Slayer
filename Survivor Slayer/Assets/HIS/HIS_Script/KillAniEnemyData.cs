@@ -25,12 +25,12 @@ public class KillAniEnemyData : MonoBehaviour
     public float GroggyTime; // 그로기 지속 시간.
     public bool Front;// 좀비가 정면을 보고 있는 상태인지.
     public bool isFront;//플레이어로부터 정면인지.
-    private PlayerInfo player;
+    private GameObject player;
     public PlayableDirector[] KillAniGroup;
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerInfo>();
+        player = FindObjectOfType<PlayerInfo>().gameObject;
     }
     
     public enum KillAniType
@@ -79,7 +79,7 @@ public class KillAniEnemyData : MonoBehaviour
 
     public bool GetAngle()
     {
-        Vector3 dir = player.transform.position - transform.position;
+        Vector3 dir = player.transform.position - this.gameObject.transform.position;
         //dir.y = 0;
 
         Quaternion rot = Quaternion.LookRotation(dir.normalized);
@@ -95,6 +95,7 @@ public class KillAniEnemyData : MonoBehaviour
         {
             isFront = false;
             return false;
+          
         }
 
     }
