@@ -12,6 +12,7 @@ public class GunController : MonoBehaviour
     public ObjectManager _ObjectManager;
 
     public float currentFireRate;      //연사속도
+    public float PLASMASPEED = 5f;
     public float PlasmaPressMaxTime = 1f;  // 플라즈마 폭탄 계속 누를시간
     public float PlasmaPressTime;
     private bool PlasmaSound;
@@ -105,7 +106,7 @@ public class GunController : MonoBehaviour
         var intantBomb = Instantiate(currentGun.PlasmaBomb, bulletPos.position, bulletPos.rotation);
         Rigidbody bulletRigid = intantBomb.GetComponent<Rigidbody>();
         
-        bulletRigid.velocity = bulletPos.forward * 5;
+        bulletRigid.velocity = bulletPos.forward * PLASMASPEED;
     }
     
 
