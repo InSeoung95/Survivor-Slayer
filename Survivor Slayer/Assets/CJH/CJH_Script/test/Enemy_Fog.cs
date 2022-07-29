@@ -23,9 +23,9 @@ public class Enemy_Fog : MonoBehaviour
 
     [SerializeField] private float FogBombDamage = 10f;
     private float FogTimer;
-    public float FogTime = 10f;
+    public float FogTime = 0f; // 인성 수정. 바로 연기 내뿜도록.
     private float FogBombTimer;
-    private float FogBombTime = 10f;
+    private float FogBombTime = 5f; // 5초 정도 있다가 터지도록.
     private bool FogTrigger;
     private bool FogBombTrigger;
 
@@ -166,7 +166,7 @@ public class Enemy_Fog : MonoBehaviour
             if (FogTimer >= FogTime)
             {
                 var fog =Instantiate(Fog, gameObject.transform.position, gameObject.transform.rotation);
-                Destroy(fog, 3f);
+                Destroy(fog, 10f); // 인성 수정 10초 뒤 안개 효과 사라지도록.
                 FogTimer = 0;
             }
         }

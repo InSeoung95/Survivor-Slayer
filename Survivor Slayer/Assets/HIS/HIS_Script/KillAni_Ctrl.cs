@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using Cinemachine;
+using UnityEngine.Animations.Rigging;
 
 public class KillAni_Ctrl : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class KillAni_Ctrl : MonoBehaviour
     public TimelineAsset[] KillAniTimelines=new TimelineAsset[6]; // 재생할 확정킬 애니메이션들.
 
     public GameObject CybogModel;//플레이어 사이보그 모델링. 카메라가 이걸 가릴 것 같을 때 layer를 player로. 신체가 비추는 것이 필요할 땐 layer를 default로.
+
+    public Rig rig1;
+
+    public GameObject Sword;
+
     public enum KillAniType //확정킬 애니메이션 종류
     {
         Stand_Front,
@@ -59,6 +65,8 @@ public class KillAni_Ctrl : MonoBehaviour
         Default_Gun_Transform = gun.transform;
 
         playerRigid = GetComponent<Rigidbody>();
+
+        Sword.SetActive(false);
     }
 
     
@@ -159,7 +167,7 @@ if (other.tag=="KillAni"&&!isPlaying)
         //누워있을 때는 적 z축을 y로.
 
         //각도 구하기 하나 더
-        enemyInform.GetAngle();
+        //enemyInform.GetAngle();
       
         Debug.Log("anlge: " + angle);
 
@@ -168,7 +176,7 @@ if (other.tag=="KillAni"&&!isPlaying)
          {
             aniType = KillAniType.Lie_Back;
          }
-        /*
+        
         else if(enemyInform.GetAngle())
          {
             aniType = KillAniType.Stand_Front;
@@ -177,13 +185,14 @@ if (other.tag=="KillAni"&&!isPlaying)
          {
             aniType = KillAniType.Stand_Back;
          }
-         */
          
-        
+         
+        /*
         else
          { 
             aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
          }
+         */
          
          
                     
@@ -247,7 +256,7 @@ if (other.tag=="KillAni"&&!isPlaying)
      */
     public void PlayKillAni(KillAniType _aniType, KillAniEnemyData _enemyInform) // 확정킬 애니 재생함수
     {
-        //Default_MainCam_Transform = mainCamera;
+        Default_MainCam_Transform = mainCamera; // 킬애니 실행 전 현재 카메라 트랜스폼 정보 저장.
 
         playerRigid.isKinematic = true; // 물리 영향 받지 않게.
 
@@ -269,6 +278,8 @@ if (other.tag=="KillAni"&&!isPlaying)
                     Debug.Log("LeftArmIK: " + LeftArmIK);
                     //RightArmIK.position = _enemyInform.targetInforms[0].RifhtArmTarget.position;
                     //KillAniGroup[0].Play();
+                    LeftArmIK.gameObject.GetComponent<UpdateRigTarget>().target = GunLeftHandle;
+                    RightArmIK.gameObject.GetComponent<UpdateRigTarget>().target = GunRightHandle;
                     _enemyInform.KillAniGroup[0].Play();
                     break;
                 }
@@ -302,6 +313,7 @@ if (other.tag=="KillAni"&&!isPlaying)
                     //_enemyInform.targetInforms[1].ExtraPoint
 
                     //playableDirector.Play(KillAniTimelines[1]);
+
                     KillAniGroup[1].Play();
                     _enemyInform.GetComponentInChildren<PlayableDirector>().Play(); // 머리 돌리는 타임 라인.
                     //_enemyInform.KillAniGroup[1].Play();
@@ -325,6 +337,8 @@ if (other.tag=="KillAni"&&!isPlaying)
 
                     playerCam.LookAt = _enemyInform.targetInforms[2].CameraLookAt;
                     RightLegIK.position = _enemyInform.targetInforms[2].RightLegTarget.position;
+                    LeftArmIK.position = _enemyInform.targetInforms[2].LeftArmTarget.position;
+                    Sword.SetActive(true);
                     KillAniGroup[2].Play();
                     break;
                 }
@@ -344,10 +358,14 @@ if (other.tag=="KillAni"&&!isPlaying)
         //플레이어 설정
         LeftArmIK.position = new Vector3(0, 0, 0);
         RightArmIK.position = new Vector3(0, 0, 0);
+        
         playerCam.LookAt = null;
         mainCamera = Default_MainCam_Transform;// 메인 카메라 트랜스폼 초기화.
         gun = Default_Gun_Transform;// 총 위치도 원래대로 초기화
         playerRigid.isKinematic = false; // 다시 물리 영향 받도록.
+        rig1.weight = 1f;
+        Sword.SetActive(false);
+
         //적 설정
         _enemyInform.GetComponent<Enemy_test>().isDeath = true; // 적 죽이기.
         _enemyInform.isGroggy = false;

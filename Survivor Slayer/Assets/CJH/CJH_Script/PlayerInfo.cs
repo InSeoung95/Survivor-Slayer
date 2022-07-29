@@ -24,6 +24,8 @@ public class PlayerInfo : MonoBehaviour
     
     public Material ScreenEffect; // 화면에 효과를 줄 머테리얼
     public float ScreenEffctTime; // 화면 효과 지속 시간.
+
+    public Camera mainCam; // 플레이어 카메라.
     
     [SerializeField] private GameObject _gameObject;
     public GameObject GameObject => _gameObject;
@@ -52,8 +54,33 @@ public class PlayerInfo : MonoBehaviour
     
     IEnumerator ScreenPollution()
     {
-        ScreenEffect.SetFloat("_Screen_Intencity", 0.5f);
+
+        float currentTime = 0f;
+        float percent = 0;
+        float current_ScreenIntencity;
+
+        /*
+        ScreenEffect.SetFloat("_Scrren_Intencity", 1f);
+
+        yield return new WaitForSeconds(2f); // 2초 동안 최대 효과.
+
+        currentTime = 2;
+         */
+
+        while(percent<1)
+        {
+            currentTime += Time.deltaTime;
+            percent = currentTime / ScreenEffctTime;
+
+            current_ScreenIntencity = Mathf.Lerp(1f, 0, percent);
+            ScreenEffect.SetFloat("_Screen_Intencity", current_ScreenIntencity);
+            yield return null;
+        }
+
+        /*
+        ScreenEffect.SetFloat("_Screen_Intencity", 0.7f);
         yield return new WaitForSeconds(ScreenEffctTime);
         ScreenEffect.SetFloat("_Screen_Intencity", 0);
+         */
     }
 }

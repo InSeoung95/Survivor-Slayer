@@ -62,7 +62,7 @@ public class GunController : MonoBehaviour
             PlasmaUI.value >= (PlasmaUI.maxValue / currentGun.PlasmaBombCount[currentGun.upgradeRate[2]]) && !isReload&&!UIManager.instance.mapActive&& !aniCtrl.CheckIsPlaying()) // 인성 수정. 맵이 켜지지 않을 때 조건 추가
         {
             PlasmaPressTime += Time.deltaTime;
-            Debug.Log("플라즈마 포 충전 중");
+            //Debug.Log("플라즈마 포 충전 중");
             Electric.SetActive(true);
             if (!PlasmaSound)
             {

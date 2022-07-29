@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject go_BulletHUD;
 
-    [SerializeField] private Text[] text_Bullet;
+    [SerializeField] private TextMeshProUGUI[] text_Bullet;
 
     //[SerializeField] private TextMeshPro subtitleTxt; // 자막
 

@@ -28,6 +28,7 @@ public class KillAniEnemyData : MonoBehaviour
     private GameObject player;
     public PlayableDirector[] KillAniGroup;
 
+
     private void Start()
     {
         player = FindObjectOfType<PlayerInfo>().gameObject;
@@ -79,14 +80,16 @@ public class KillAniEnemyData : MonoBehaviour
 
     public bool GetAngle()
     {
-        Vector3 dir = player.transform.position - this.gameObject.transform.position;
-        //dir.y = 0;
+        Vector3 dir = player.transform.position - this.gameObject.transform.localPosition;
+        dir.y = 0;
 
         Quaternion rot = Quaternion.LookRotation(dir.normalized);
-        float angle = rot.eulerAngles.y;
-        Debug.Log("플레이어로부터의 각도: "+rot.eulerAngles.y);
-
-        if (angle < 90 || angle > 270)
+        Debug.Log("로컬 y값: " + this.gameObject.transform.rotation.eulerAngles.y);
+        float angle = Mathf.Abs( rot.eulerAngles.y - this.gameObject.transform.rotation.eulerAngles.y);
+        Debug.Log("플레이어로부터의 각도: "+angle);
+        
+        //if (angle < 90 || angle > 270)
+        if(angle<90)
         {
             isFront = true;
             return true;
