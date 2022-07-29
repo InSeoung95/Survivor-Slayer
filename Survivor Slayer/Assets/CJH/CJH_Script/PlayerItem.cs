@@ -19,7 +19,7 @@ public class PlayerItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Item")
+        if (other.CompareTag("Item"))
         {
            
             Item item = other.GetComponent<Item>();

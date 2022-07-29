@@ -154,8 +154,7 @@ public class GunController : MonoBehaviour
         flashLight.Flash(); // 플래쉬 효과 추가
         crosshair.FireOnCrosshair();// 총 발사 크로스헤어
         currentGun.gunAnim.SetTrigger("isFire");
-
-        // Hit();   //raycast 방식인데 bullet생성이 더 좋은거라 생각 나중에 삭제해서 통합
+        
         Vector3 v = thecam.transform.position - bulletPos.transform.position;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         //인성 수정: // 레이 케스트에 랜덤값을 줘서 탄이 퍼지도록
@@ -172,8 +171,8 @@ public class GunController : MonoBehaviour
         else
         {
             Physics.Raycast(thecam.transform.position, thecam.transform.forward +
-            new Vector3(/*Random.Range(-crosshair.GetAccuracy()-currentGun.accuracy,*/ crosshair.GetAccuracy() + currentGun.accuracy
-                        , /*Random.Range(-crosshair.GetAccuracy() - currentGun.accuracy,*/ crosshair.GetAccuracy() + currentGun.accuracy
+            new Vector3(crosshair.GetAccuracy() + currentGun.accuracy
+                        , crosshair.GetAccuracy() + currentGun.accuracy
                         , 0)
             , out hitinfo);
         }

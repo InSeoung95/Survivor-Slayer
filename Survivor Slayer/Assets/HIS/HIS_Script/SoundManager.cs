@@ -34,13 +34,13 @@ public class SoundManager : MonoBehaviour
     public Sound BGM_Sound;
     public bool DoPlay=true;
 
-    private AudioSource[] Audiosource_Effect=new AudioSource[5];  //5개 정도면 충분할 것 같음.
+    private AudioSource[] Audiosource_Effect = new AudioSource[8];  //8개 정도면 충분할 것 같음.
     [Header("Effect Sound 관리")]
     public Sound[] Effect_Sounds;
 
     [SerializeField]
     //private List<Sound> PlayingList=new List<Sound>(); // 현재 재생 중인 사운드 리스트
-    public Sound[] PlayList=new Sound[5];
+    public Sound[] PlayList = new Sound[5];
     //private Sound[] PlayingES = new Sound[5];
 
     void Start()
@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
         Audiosource_BGM=gameObject.AddComponent<AudioSource>();
         for (int i = 0; i < Audiosource_Effect.Length; i++)
         {
+            Debug.Log(Audiosource_Effect.Length);
             Audiosource_Effect[i]=gameObject.AddComponent<AudioSource>();
         }
        

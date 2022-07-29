@@ -67,7 +67,6 @@ public class Enemy_Fog : MonoBehaviour
     
     private void Move()
     {
-
         if (testMove)
         {
             Vector3 dir = Target.transform.position - transform.position;
@@ -86,20 +85,16 @@ public class Enemy_Fog : MonoBehaviour
     
     private void Die()
     {
-        if ( _enemyHealth <= 0)
+        if ( _enemyHealth <= 0 && !isDeath)
         {
-            _enemyHealth = ENEMY_MAX_HEALTH ;
+            isDeath = true;
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
             testMove = false;
-            isDeath = true;
             UIManager.instance.CurrentEnemyNum--;
-        }
-
-        if (isDeath)
-        {
-            isDeath = false;
+            
             StartCoroutine("Death");
+            
         }
     }
     
@@ -107,11 +102,8 @@ public class Enemy_Fog : MonoBehaviour
     {
         int healDrop = Random.Range(0, 100);    // 힐팩 드랍률10%
         int ammoDrop = Random.Range(0, 100);    // 탄약 드랍률20%
-        //int powerDrop = Random.Range(0, 100);    // 파워게이지 드랍률10%
-        //int psychoDrop = Random.Range(0, 100);    // 초능력게이지 드랍률20%
         var dropPoint = Vector3.up * 1;
-        //var dropPoint = new Vector3(Random.Range(-1, 1),1, 0);
-        
+
         if (healDrop < 100)
         {
             var itemposition = this.gameObject.transform.position + dropPoint;
@@ -122,23 +114,11 @@ public class Enemy_Fog : MonoBehaviour
             var itemposition = this.gameObject.transform.position + dropPoint + Vector3.right;
             _ObjectManager.MakeObj("Item_Ammo", itemposition, Quaternion.identity);
         }
-        /*
-        if (powerDrop < 100)
-        {
-            var itemposition = this.gameObject.transform.position + dropPoint - Vector3.right;
-            _ObjectManager.MakeObj("Item_PowerGage", itemposition, Quaternion.identity);
-        }
-        if (psychoDrop < 0)
-        {
-            var itemposition = this.gameObject.transform.position + dropPoint;
-            _ObjectManager.MakeObj("Item_Psycho", itemposition, Quaternion.identity);
-        }
-         */
     }
     
     public void HitBomb()
     {
-        _enemyHealth -=5;
+        _enemyHealth -= 50;
     }
 
     private void FogBomb()
@@ -152,9 +132,8 @@ public class Enemy_Fog : MonoBehaviour
         }
         Debug.Log("포그 좀비 효과");
 
+        _enemyHealth = ENEMY_MAX_HEALTH ;
         gameObject.SetActive(false);
-        
-       
     }
    
     private void FogTimeUpdate()
@@ -165,7 +144,7 @@ public class Enemy_Fog : MonoBehaviour
         {
             if (FogTimer >= FogTime)
             {
-                var fog =Instantiate(Fog, gameObject.transform.position, gameObject.transform.rotation);
+                var fog = Instantiate(Fog, gameObject.transform.position, gameObject.transform.rotation);
                 Destroy(fog, 10f); // 인성 수정 10초 뒤 안개 효과 사라지도록.
                 FogTimer = 0;
             }
@@ -227,7 +206,8 @@ public class Enemy_Fog : MonoBehaviour
         _anim.SetBool("isDeath", false);
         
         chasePlayer = false;
-        Target = null;
+        _enemyHealth = ENEMY_MAX_HEALTH ;
+        isDeath = false;
         gameObject.SetActive(false);
         
     }

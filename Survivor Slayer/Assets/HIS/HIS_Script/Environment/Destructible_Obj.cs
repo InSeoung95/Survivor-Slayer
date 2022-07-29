@@ -38,7 +38,7 @@ public class Destructible_Obj : MonoBehaviour
 
     private void OnCollisionEnter(Collision _other)
     {
-        if(_other.gameObject.tag=="Bullet"&&currentHealth>0)
+        if(_other.gameObject.CompareTag("Bullet")&&currentHealth>0)
         {
             _other.gameObject.SetActive(false);
 

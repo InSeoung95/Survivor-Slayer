@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a626561de6ee1a146af3688127f4ee04, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a626561de6ee1a146af3688127f4ee04, type: 3}
@@ -602,6 +602,7 @@ MonoBehaviour:
   currentHealth: 0
   Explosion: {fileID: 2308423793151232431, guid: fc280d6ae14c74b4b88bbd3b8e0ed434, type: 3}
   isDeath: 0
+  trap: {fileID: 0}
   HP_Bar: {fileID: 1441388978}
   Fill: {fileID: 2125363315}
   gradient:

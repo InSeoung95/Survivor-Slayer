@@ -69,7 +69,7 @@ public class KillAni_Ctrl : MonoBehaviour
         Sword.SetActive(false);
     }
 
-    
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -120,92 +120,96 @@ public class KillAni_Ctrl : MonoBehaviour
 
 //적의 각도 구해서 킬애니 시스템 
 //조건: 적이 1.부위파괴로인한 그로기 상태인지, 2.플레이어와 적 확정킬 콜라이더에 닿았는지, 3.확정킬 애니메이션 재생 중 아닌지. 4.적이 누워있는 상태인지
-if (other.tag=="KillAni"&&!isPlaying)
-{
-    KillAniEnemyData enemyInform = other.GetComponentInParent<KillAniEnemyData>(); //적으로부터 KillAniEnemyDate 클래스 정보 받아온다.
+        if (other.CompareTag("KillAni") && !isPlaying)
+        {
+            KillAniEnemyData
+                enemyInform = other.GetComponentInParent<KillAniEnemyData>(); //적으로부터 KillAniEnemyDate 클래스 정보 받아온다.
 
-    if(enemyInform.isGroggy) // 적이 현재 그로기 상태인지.
-    {
-        KillAniType aniType;
+            var isdeath = other.GetComponentInParent<Enemy_test>().isDeath;
+            
+            if (enemyInform.isGroggy && !isdeath) // 적이 현재 그로기 상태인지.
+            {
+                KillAniType aniType;
 
-        isPlaying = true; //애니메이션 재생 중으로 변경.
-        Player_Model.SetActive(true); // 플레이어 모델링 활성화.
-        //확정킬 애니 타입 체크
-        float enemyAngle;
-        enemyAngle = enemyInform.transform.eulerAngles.y;
-        Debug.Log("적 각도:"+enemyAngle);
-        if (enemyAngle < 90 && enemyAngle > -90)
-            isEnemyFront = true;
-        else
-            isEnemyFront = false;
+                isPlaying = true; //애니메이션 재생 중으로 변경.
+                Player_Model.SetActive(true); // 플레이어 모델링 활성화.
+                //확정킬 애니 타입 체크
+                float enemyAngle;
+                enemyAngle = enemyInform.transform.eulerAngles.y;
+                Debug.Log("적 각도:" + enemyAngle);
+                if (enemyAngle < 90 && enemyAngle > -90)
+                    isEnemyFront = true;
+                else
+                    isEnemyFront = false;
 
-        bloodEf = enemyInform.bloodEf;
+                bloodEf = enemyInform.bloodEf;
 
-        Vector3 dir = enemyInform.transform.position - transform.position;
-        //Debug.Log("로컬 포지션:"+enemyInform.transform.TransformPoint(enemyInform.transform.position));
-        //Vector3 dir = other.transform.position - transform.position;
-        dir.y = 0f;
+                Vector3 dir = enemyInform.transform.position - transform.position;
+                //Debug.Log("로컬 포지션:"+enemyInform.transform.TransformPoint(enemyInform.transform.position));
+                //Vector3 dir = other.transform.position - transform.position;
+                dir.y = 0f;
 
-        Quaternion rot = Quaternion.LookRotation(dir.normalized);
+                Quaternion rot = Quaternion.LookRotation(dir.normalized);
 
-        //카메라, 플레이어 정면 보도록.
-        mainCamera.rotation = rot;
-        transform.rotation = rot;
-
-
-        //각도 구하기 첫번째 방법.
-
-
-        Transform enemyTransform = enemyInform.transform;
-        float angle = Mathf.Atan2(enemyTransform.position.z - transform.position.z,
-            enemyTransform.position.x - transform.position.x) * Mathf.Rad2Deg; ;
-
-        if (!isEnemyFront)//적이 뒤돌아 있을 때 
-            angle = -angle;
+                //카메라, 플레이어 정면 보도록.
+                mainCamera.rotation = rot;
+                transform.rotation = rot;
 
 
-        //누워있을 때는 적 z축을 y로.
-
-        //각도 구하기 하나 더
-        //enemyInform.GetAngle();
-      
-        Debug.Log("anlge: " + angle);
-
-        //어느 타입 애니메이션 재생할지
-        if(enemyInform.isCrawl)
-         {
-            aniType = KillAniType.Lie_Back;
-         }
-        
-        else if(enemyInform.GetAngle())
-         {
-            aniType = KillAniType.Stand_Front;
-          }
-        else
-         {
-            aniType = KillAniType.Stand_Back;
-         }
-         
-         
-        /*
-        else
-         { 
-            aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
-         }
-         */
-         
-         
-                    
-        Debug.Log("AniType: "+aniType);
-        //aniType = GetAniType(other,enemyInform); // 콜라이더 체크로 킬애니 타입 구하기.
-        PlayKillAni(aniType, enemyInform); // 받아온 애니 타입에 맞는 킬애니 재생
-        
-        //playableDirector.Play();
-
-    }
+                //각도 구하기 첫번째 방법.
 
 
-}
+                Transform enemyTransform = enemyInform.transform;
+                float angle = Mathf.Atan2(enemyTransform.position.z - transform.position.z,
+                    enemyTransform.position.x - transform.position.x) * Mathf.Rad2Deg;
+                ;
+
+                if (!isEnemyFront) //적이 뒤돌아 있을 때 
+                    angle = -angle;
+
+
+                //누워있을 때는 적 z축을 y로.
+
+                //각도 구하기 하나 더
+                //enemyInform.GetAngle();
+
+                Debug.Log("anlge: " + angle);
+
+                //어느 타입 애니메이션 재생할지
+                if (enemyInform.isCrawl)
+                {
+                    aniType = KillAniType.Lie_Back;
+                }
+
+                else if (enemyInform.GetAngle())
+                {
+                    aniType = KillAniType.Stand_Front;
+                }
+                else
+                {
+                    aniType = KillAniType.Stand_Back;
+                }
+
+
+                /*
+                else
+                 { 
+                    aniType = GetAniType(angle); // 재생할 애니 타입 받아오고 // 각도로 킬애니 타입 구하는 것 봉인.
+                 }
+                 */
+
+
+
+                Debug.Log("AniType: " + aniType);
+                //aniType = GetAniType(other,enemyInform); // 콜라이더 체크로 킬애니 타입 구하기.
+                PlayKillAni(aniType, enemyInform); // 받아온 애니 타입에 맞는 킬애니 재생
+
+                //playableDirector.Play();
+
+            }
+
+
+        }
 
     }
 
@@ -367,7 +371,7 @@ if (other.tag=="KillAni"&&!isPlaying)
         Sword.SetActive(false);
 
         //적 설정
-        _enemyInform.GetComponent<Enemy_test>().isDeath = true; // 적 죽이기.
+        _enemyInform.GetComponent<Enemy_Dest>().currentHealth = 0; // 적 죽이기.
         _enemyInform.isGroggy = false;
         CybogModel.layer = 3; // player 레이어로.
         Player_Model.SetActive(false); // 플레이어 모델 다시 비활성화

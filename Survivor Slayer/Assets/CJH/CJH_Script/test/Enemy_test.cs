@@ -17,6 +17,7 @@ public class Enemy_test : MonoBehaviour
     public float attackDelay = ENEMY_ATTACK_DELAY;
 
     private Rigidbody _rigid;
+    private NavAround _navAround;       // 좀비의 주위에 플레이어 검출해서 이동불가
     private BoxCollider _boxCollider;   // 좀비의 공격범위
     private float _boxColliderSize;
     public GameObject Target;           // 좀비가 공격할 목표
@@ -29,6 +30,7 @@ public class Enemy_test : MonoBehaviour
     public bool testMove = false;
     public bool chasePlayer = false;
     public bool isDeath = false;
+    private bool isAttacked;
     private Animator _anim;
     private float animSpeed;                 // 좀비별 애니메이션 스피드
 
@@ -56,6 +58,7 @@ public class Enemy_test : MonoBehaviour
     {
         _enemyDest = GetComponent<Enemy_Dest>();
         _rigid = GetComponent<Rigidbody>();
+        _navAround = GetComponentInChildren<NavAround>();
         _boxCollider = GetComponent<BoxCollider>();
         _boxColliderSize = _boxCollider.size.z + _boxCollider.center.z;     // 좀비 공격범위(위치+크기)
         _ObjectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
@@ -130,12 +133,14 @@ public class Enemy_test : MonoBehaviour
             _nav.speed = MoveSpeed + (animSpeed * 0.2f);
             testMove = true;
         }
+
+        PlayerIn();
         
-        if (testMove)
+        if (testMove && !isDeath)
         {
             
             //인성 추가
-            if(killAniData.isGroggy==true)
+            if(killAniData.isGroggy)
             {
                 OnGroggy();
                 _nav.speed = 0f;
@@ -162,17 +167,38 @@ public class Enemy_test : MonoBehaviour
                 _nav.speed = MoveSpeed + (animSpeed * 0.05f);
                 Quaternion to = Quaternion.LookRotation(dir);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, to, 1);
-
             }
 
 
 
         }
     }
+    
+    private void PlayerIn()
+    {
+        if (_navAround.InPlayer)
+        {
+            testMove = false;
+            _anim.SetBool("isRun", false);
+            _anim.SetBool("isIdle",true);
+            
+            _nav.isStopped = true;
+            _nav.velocity = Vector3.zero;
+        }
+        else if (!_navAround.InPlayer && !isDeath)
+        {
+            testMove = true;
+            _anim.SetBool("isRun", true);
+            _anim.SetBool("isIdle",false);
+            
+            if(!isAttacked)
+                _nav.isStopped = false;
+        }
+    }
 
     public void HitBomb()
     {
-        _enemyDest.currentHealth -=5;
+        _enemyDest.currentHealth -= 500f;
     }
 
     private void Burserk()
@@ -189,19 +215,13 @@ public class Enemy_test : MonoBehaviour
 
     private void Die()
     {
-        if ( _enemyDest.currentHealth <= 0)
+        if ( _enemyDest.currentHealth <= 0 && !isDeath)
         {
-            _enemyDest.currentHealth =  _enemyDest.maxhealth;
+            isDeath = true;
+            testMove = false;
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
-            testMove = false;
-            isDeath = true;
             UIManager.instance.CurrentEnemyNum--;
-        }
-
-        if (isDeath)
-        {
-            isDeath = false;
             StartCoroutine("Death");
         }
     }
@@ -241,7 +261,7 @@ public class Enemy_test : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && attackDelay < 0&&!playerKilAni.isPlaying) // 확정킬 애니 재생 중일 땐 데미지 X
+        if (other.gameObject.CompareTag("Player") && attackDelay < 0&&!playerKilAni.isPlaying) // 확정킬 애니 재생 중일 땐 데미지 X
         {
             if (_player == null)
                 _player = other.gameObject.GetComponent<PlayerInfo>();
@@ -249,7 +269,7 @@ public class Enemy_test : MonoBehaviour
             StartCoroutine(Attack());
             attackDelay = ENEMY_ATTACK_DELAY * 1.5f;
         }
-        else if (other.gameObject.tag == "Base" && attackDelay < 0)
+        else if (other.gameObject.CompareTag("Base") && attackDelay < 0)
         {
             Base testBaseHealth = other.gameObject.GetComponentInParent<Base>();
             if (testBaseHealth.state != Base.State.Enemy_Occupation)
@@ -264,7 +284,7 @@ public class Enemy_test : MonoBehaviour
                 Target = null;
             }
         }
-        else if (other.gameObject.tag == "ObstacleWall" && attackDelay < 0)
+        else if (other.gameObject.CompareTag("ObstacleWall") && attackDelay < 0)
         {
             ObstacleWall testWallHealth = other.gameObject.GetComponent<ObstacleWall>();
             testWallHealth.WallHealth -= ENEMY_ZOMBIE_DAMAGE;
@@ -279,6 +299,7 @@ public class Enemy_test : MonoBehaviour
         testMove = false;
         _nav.isStopped = true;
         _nav.velocity = Vector3.zero;
+        isAttacked = true;
         if (_enemyDest.isArm)
         {
             _anim.SetBool("isHeadbutt", true);
@@ -301,6 +322,7 @@ public class Enemy_test : MonoBehaviour
         
         testMove = true;
         _nav.isStopped = false;
+        isAttacked = false;
         _anim.SetBool("isHeadbutt", false);
         _anim.SetBool("isAttack", false);
        
@@ -309,10 +331,8 @@ public class Enemy_test : MonoBehaviour
     IEnumerator Death()
     {
         _anim.SetBool("isDeath", true);
+        audioSource.clip = deadSound;
         audioSource.PlayOneShot(deadSound);
-        //인성 추가
-        //UIManager.instance.UpPlasmaGage(1); // 한 마리 죽을 때마다 플라즈마 게이지 상승.
-        
         yield return new WaitForSeconds(1.5f / animSpeed);
         foreach(var Body in Bodys) // 소멸효과
         {
@@ -325,6 +345,16 @@ public class Enemy_test : MonoBehaviour
         chasePlayer = false;
         Target = null;
         
+        audioSource.clip = ZombieHowling[howling];
+        audioSource.loop = true;
+        
+        for(int i=0;i<Bodys.Length;++i)
+        {
+            Bodys[i].material = DefaultMaterial[i];
+        }
+        
+        isDeath = false;
+        _enemyDest.currentHealth = _enemyDest.maxhealth;
         gameObject.SetActive(false);
         
     }
@@ -358,6 +388,7 @@ public class Enemy_test : MonoBehaviour
 
         //_anim.speed = 1f; // 다시 애니메이션 시작.
         killAniData.isGroggy = false;
+        
         for(int i=0;i<Bodys.Length;++i)
         {
             Bodys[i].material = DefaultMaterial[i];

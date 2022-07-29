@@ -180,7 +180,7 @@ public class BossZombie : MonoBehaviour
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
         }
-        else
+        else if (!_navAround.InPlayer && !isDeath)
         {
             testMove = true;
             _anim.SetBool("isRun", true);
@@ -193,7 +193,7 @@ public class BossZombie : MonoBehaviour
 
     public void HitBomb()
     {
-        _EnemyHealth -= 50;
+        _EnemyHealth -= 150f;
         FinalBossHP_Bar.value = _EnemyHealth;
     }
 
@@ -213,16 +213,12 @@ public class BossZombie : MonoBehaviour
 
     private void Die()
     {
-        if (_EnemyHealth <= 0)
+        if (_EnemyHealth <= 0 && !isDeath)
         {
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
             testMove = false;
             isDeath = true;
-        }
-        if (isDeath)
-        {
-            isDeath = false;
             StartCoroutine("Death");
         }
     }
@@ -267,7 +263,7 @@ public class BossZombie : MonoBehaviour
         _anim.SetBool("isDeath", false);
         chasePlayer = false;
         Target = null;
-        
+        isDeath = false;
         gameObject.SetActive(false);
     }
 

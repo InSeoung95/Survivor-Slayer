@@ -62,7 +62,7 @@ public class Base : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !(state == State.Player_Occupation))
+        if (other.gameObject.CompareTag("Player") && !(state == State.Player_Occupation))
         {
             SoundManager.instance.StopEffectSound(occupying_sound);//점령 중 사운드 중지.
             StartCoroutine(BaseOccu_UI_Off());
