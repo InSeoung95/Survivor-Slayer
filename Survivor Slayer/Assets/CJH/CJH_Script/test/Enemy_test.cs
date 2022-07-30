@@ -205,8 +205,8 @@ public class Enemy_test : MonoBehaviour
     {
         if (_enemyDest.isBurserk)
         {
-            MoveSpeed *= 2.5f; // 인성 수정 초기값: 1.5f
-            _anim.speed += 1.5f; // 수정 초기값: 0.5f
+            MoveSpeed *= 2.5f;
+            _anim.speed += 1.5f;
             audioSource.PlayOneShot(BurserkSound);
             
             _enemyDest.isBurserk = false;
@@ -221,7 +221,13 @@ public class Enemy_test : MonoBehaviour
             testMove = false;
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
+            
+            MoveSpeed = ENEMY_MOVESPEED;
+            _anim.speed = animSpeed;
+            killAniData.isGroggy = false;
+            
             UIManager.instance.CurrentEnemyNum--;
+            UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
             StartCoroutine("Death");
         }
     }

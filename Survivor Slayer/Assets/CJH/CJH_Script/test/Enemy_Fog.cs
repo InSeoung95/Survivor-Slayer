@@ -20,6 +20,7 @@ public class Enemy_Fog : MonoBehaviour
     private NavMeshAgent _nav;
     public ObjectManager _ObjectManager;
     [SerializeField] private GameObject Fog;
+    [SerializeField] private GameObject FogExplosion;
 
     [SerializeField] private float FogBombDamage = 10f;
     private float FogTimer;
@@ -92,7 +93,7 @@ public class Enemy_Fog : MonoBehaviour
             _nav.velocity = Vector3.zero;
             testMove = false;
             UIManager.instance.CurrentEnemyNum--;
-            
+            UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
             StartCoroutine("Death");
             
         }
@@ -123,6 +124,9 @@ public class Enemy_Fog : MonoBehaviour
 
     private void FogBomb()
     {
+        var explos = Instantiate(FogExplosion, transform.position, transform.rotation);
+        Destroy(explos,1f);
+        
         RaycastHit[] rayHits =
             Physics.SphereCastAll(transform.position, 10f, Vector3.up, 0f, LayerMask.GetMask("Player"));
         foreach (RaycastHit hitObj in rayHits)
@@ -131,7 +135,7 @@ public class Enemy_Fog : MonoBehaviour
             hitObj.transform.GetComponent<PlayerInfo>().StartCoroutine("ScreenPollution");
         }
         Debug.Log("포그 좀비 효과");
-
+        UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
         _enemyHealth = ENEMY_MAX_HEALTH ;
         gameObject.SetActive(false);
     }
@@ -153,7 +157,7 @@ public class Enemy_Fog : MonoBehaviour
         if (FogBombTrigger)
         {
             FogBombTimer += Time.deltaTime;
-            if (FogBombTimer >= FogBombTime)
+            if (FogBombTimer >= FogBombTime && !isDeath)
             {
                 FogBombTrigger = false;
                 FogBomb();

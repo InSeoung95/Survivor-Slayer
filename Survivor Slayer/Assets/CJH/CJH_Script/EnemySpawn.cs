@@ -96,6 +96,7 @@ public class EnemySpawn : MonoBehaviour
                     _stage.tower = 5;
                 }
                 UIManager.instance.CurrentEnemyNum += SpawnPoint.Length;
+                UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
                 break;
             case 2:
                 /*

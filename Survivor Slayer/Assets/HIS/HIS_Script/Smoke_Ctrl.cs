@@ -58,7 +58,7 @@ public class Smoke_Ctrl : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag=="Player"&&!isDamage)
+        if(other.CompareTag("Player")&&!isDamage)
         {
             StartCoroutine( OnDamage());
         }

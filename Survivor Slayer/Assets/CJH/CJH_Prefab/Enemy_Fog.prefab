@@ -81,6 +81,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   _ObjectManager: {fileID: 0}
   Fog: {fileID: 4416702844253118377, guid: e312b81a587d2094398c80ecf8480427, type: 3}
+  FogExplosion: {fileID: 2308423793151232431, guid: 520fc1bb21f2ac148a7ba57b6142b14d, type: 3}
   FogBombDamage: 10
   FogTime: 10
   testMove: 0
