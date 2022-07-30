@@ -14,7 +14,7 @@ public class SubttitleTriger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player"&&!isPlayed)
+        if(other.CompareTag("Player")&&!isPlayed)
         {
             isPlayed = true;
             SubtitleManager.instance.StartSubtitle(subtitle);

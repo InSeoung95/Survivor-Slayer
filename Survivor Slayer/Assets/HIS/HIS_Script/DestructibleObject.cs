@@ -11,10 +11,11 @@ public class DestructibleObject : MonoBehaviour
     public GameObject Broken; // 파괴된 모델링
 
     [SerializeField] private bool OnDestroy;
-    
+    public bool isMove; //움직이는 놈인지
+
     public MoveObject moveObject;
 
-    public int count;
+    public int count; // 한번만 실행되게.
 
     // Start is called before the first frame update
     void Start()
@@ -54,15 +55,12 @@ public class DestructibleObject : MonoBehaviour
         Origin.SetActive(false);
         Broken.SetActive(true);
         //Instantiate(Broken, transform.position, transform.rotation);
-
-        moveObject.brokenCount++;
-        Debug.Log("broken count: " + moveObject.brokenCount);
-        /*
-        foreach(var part in Broken)
+        if(isMove)
         {
-
+            moveObject.brokenCount++;
+            Debug.Log("broken count: " + moveObject.brokenCount);
         }
-         */
+       
         count++;
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);

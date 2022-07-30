@@ -58,6 +58,9 @@ public class BossZombie : MonoBehaviour
     
     public Slider FinalBossHP_Bar;
     public GameObject _3rdCanvas;
+
+    //인성 추가
+    public InteractDoor door;
     
     private void Start()
     {
@@ -219,6 +222,7 @@ public class BossZombie : MonoBehaviour
             _nav.velocity = Vector3.zero;
             testMove = false;
             isDeath = true;
+            door.Activate = true; // 마지막 문 활성화.
             StartCoroutine("Death");
         }
     }

@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour
             if (!Audiosource_BGM.isPlaying)
             {
                 Audiosource_BGM.clip = BGM_Sound.clip;
-                Audiosource_BGM.volume = 0.5f;
+                Audiosource_BGM.volume = 0.2f;
                 Audiosource_BGM.loop = true;
                 Audiosource_BGM.Play();
             }
