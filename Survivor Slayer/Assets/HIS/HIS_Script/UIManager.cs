@@ -43,8 +43,8 @@ public class UIManager : MonoBehaviour
 
     public bool OnInteract = false; // 상호작용.
     public PlasmaBarCtrl PlasmaUI;
-
     public TextMeshProUGUI currentOcuuNum; //현재 점령한 거점 개수 표시.
+    public string PlayerAttackedSound;
 
     private void Awake()
     {
@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
     public void PlayerAttacked()
     {
         StartCoroutine("Flash"); // 0.1초 동안 보이도록.
+        //SoundManager.instance.PlayEffectSound(PlayerAttackedSound);
     }
 
     IEnumerator Flash()
