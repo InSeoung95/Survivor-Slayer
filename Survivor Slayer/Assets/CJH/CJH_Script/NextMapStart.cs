@@ -10,6 +10,7 @@ public class NextMapStart : MonoBehaviour
     public GameObject _baseOccu;            // 할당할 baseOcc
     public Slider _baseSlider;
     public TextMeshProUGUI _baseTxt;
+    private float time;
     
     
     [RuntimeInitializeOnLoadMethod]
@@ -22,9 +23,18 @@ public class NextMapStart : MonoBehaviour
         _UI.BaseOccu_UI = _baseOccu;
         _UI.occu_slider = _baseSlider;
         _UI.occu_txt = _baseTxt;
-        
-        if(_player)
-            Destroy(gameObject,2);
     }
 
+    private void Update()
+    {
+        time += Time.deltaTime;
+        if (time < 1)
+        {
+            var _player = GameObject.Find("Player");
+            _player.transform.position = gameObject.transform.position;
+        }
+
+        if(time>1)
+            Destroy(gameObject,2);
+    }
 }
