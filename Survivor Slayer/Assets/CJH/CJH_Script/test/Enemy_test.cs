@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using Random = UnityEngine.Random;
 using UnityEngine.VFX;
 
@@ -52,6 +53,8 @@ public class Enemy_test : MonoBehaviour
     private Enemy_Body _Body;
     private Material[] DefaultMaterial; // 기본 적용된 머테리얼.
     private KillAni_Ctrl playerKilAni;
+
+    public Rig _Rig;
     
 
     private void Start()
@@ -225,9 +228,14 @@ public class Enemy_test : MonoBehaviour
             MoveSpeed = ENEMY_MOVESPEED;
             _anim.speed = animSpeed;
             killAniData.isGroggy = false;
-            
-            UIManager.instance.CurrentEnemyNum--;
-            UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+            _Rig.weight = 0f;
+
+            if (_ObjectManager.stage == 1)
+            {
+                UIManager.instance.CurrentEnemyNum--;
+                UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+            }
+
             StartCoroutine("Death");
         }
     }
@@ -360,6 +368,7 @@ public class Enemy_test : MonoBehaviour
         }
         
         isDeath = false;
+        _navAround.InPlayer = false;
         _enemyDest.currentHealth = _enemyDest.maxhealth;
         gameObject.SetActive(false);
         

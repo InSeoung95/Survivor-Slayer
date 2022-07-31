@@ -47,7 +47,7 @@ public class Gun : MonoBehaviour
     {
         if (Type == UpgradeType.Damage)
         {
-            if (upgradeRate[0] < 3)
+            if (upgradeRate[0] < 2)
             {
                 upgradeRate[0]++;
                 var GunMesh = _GunPart[0].gameObject.GetComponent<MeshRenderer>();
@@ -59,7 +59,7 @@ public class Gun : MonoBehaviour
 
         if (Type == UpgradeType.Bullet)
         {
-            if (upgradeRate[1] < 3)
+            if (upgradeRate[1] < 2)
             {
                 upgradeRate[1]++;
                 var GunMesh = _GunPart[1].gameObject.GetComponent<MeshRenderer>();
@@ -71,7 +71,7 @@ public class Gun : MonoBehaviour
 
         if (Type == UpgradeType.GunGage)
         {
-            if (upgradeRate[2] < 3)
+            if (upgradeRate[2] < 2)
             {
                 upgradeRate[2]++;
                 PlasmaUI.maxValue += 20; // 플라즈마 UI 게이지 상승.

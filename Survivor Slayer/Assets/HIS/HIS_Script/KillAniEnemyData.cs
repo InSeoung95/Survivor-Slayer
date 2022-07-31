@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,13 +28,12 @@ public class KillAniEnemyData : MonoBehaviour
     public bool isFront;//플레이어로부터 정면인지.
     private GameObject player;
     public PlayableDirector[] KillAniGroup;
-
-
+    
     private void Start()
     {
         player = FindObjectOfType<PlayerInfo>().gameObject;
     }
-    
+
     public enum KillAniType
     {
         Stand_Front,

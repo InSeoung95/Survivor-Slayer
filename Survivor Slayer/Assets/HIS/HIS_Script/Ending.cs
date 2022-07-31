@@ -10,6 +10,9 @@ public class Ending : MonoBehaviour
     private bool isPlayed;
     private PlayerController player;
 
+    [SerializeField] private AudioListener _listener;
+    [SerializeField] private GameObject _Dlight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,8 @@ public class Ending : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             player.gameObject.SetActive(false);
+            _Dlight.gameObject.SetActive(true);
+            _listener.enabled = true;
             ending.Play();
             if(!isPlayed)
             {

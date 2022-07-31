@@ -262,7 +262,7 @@ public class KillAni_Ctrl : MonoBehaviour
     {
         Default_MainCam_Transform.position = mainCamera.position; // 킬애니 실행 전 현재 카메라 트랜스폼 정보 저장.
         Default_MainCam_Transform.rotation = mainCamera.rotation;
-
+        
         playerRigid.isKinematic = true; // 물리 영향 받지 않게.
 
         switch (_aniType)

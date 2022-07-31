@@ -7,7 +7,7 @@ public class Turret : MonoBehaviour
 {
     private bool _onPlayerTrigger;
     private float FireTime;
-    private float missileTime = 5f;                      // 미사일 발사시간
+    public float missileTime = 5f;                      // 미사일 발사시간
     public bool BossType;                               // 보스전만 따로 뺴서 프리팹 만들고 보스전-false, 일반-true로 사용
 
     private float TurretHealth = 50;
@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour
 
             if (FireTime > missileTime)
             {
-                FireTime = 0;
+                FireTime = 0f;
                 FireMissile();
             }
         }

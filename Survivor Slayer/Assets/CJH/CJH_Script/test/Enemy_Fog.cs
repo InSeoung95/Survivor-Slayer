@@ -92,8 +92,11 @@ public class Enemy_Fog : MonoBehaviour
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
             testMove = false;
-            UIManager.instance.CurrentEnemyNum--;
-            UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+            if (_ObjectManager.stage == 1)
+            {
+                UIManager.instance.CurrentEnemyNum--;
+                UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+            }
             StartCoroutine("Death");
             
         }
@@ -135,7 +138,12 @@ public class Enemy_Fog : MonoBehaviour
             hitObj.transform.GetComponent<PlayerInfo>().StartCoroutine("ScreenPollution");
         }
         Debug.Log("포그 좀비 효과");
-        UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+        
+        if (_ObjectManager.stage == 1)
+        {
+            UIManager.instance.CurrentEnemyNum--;
+            UIManager.instance.UpdateLeftEnemy(UIManager.instance.CurrentEnemyNum);
+        }
         _enemyHealth = ENEMY_MAX_HEALTH ;
         gameObject.SetActive(false);
     }

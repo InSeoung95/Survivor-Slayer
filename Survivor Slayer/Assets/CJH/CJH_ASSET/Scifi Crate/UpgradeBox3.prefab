@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _upgrade: 0
+  Upgrade: Upgrade
 --- !u!65 &4992346896218332277
 BoxCollider:
   m_ObjectHideFlags: 0

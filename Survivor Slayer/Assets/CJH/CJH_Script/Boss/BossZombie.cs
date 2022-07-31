@@ -123,7 +123,7 @@ public class BossZombie : MonoBehaviour
             {
                 StartCoroutine(JumpAttack());
             }
-            attackDelay = ENEMY_ATTACK_DELAY;
+            attackDelay = ENEMY_ATTACK_DELAY / _anim.speed;
         }
     }
 
@@ -223,6 +223,7 @@ public class BossZombie : MonoBehaviour
             testMove = false;
             isDeath = true;
             door.Activate = true; // 마지막 문 활성화.
+            FinalBossHP_Bar.gameObject.SetActive(false);
             StartCoroutine("Death");
         }
     }
@@ -257,12 +258,12 @@ public class BossZombie : MonoBehaviour
     {
         _anim.SetBool("isDeath", true);
         audioSource.PlayOneShot(deadSound);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f/ _anim.speed);
         foreach(var Body in Bodys) // 소멸효과
         {
             Body.material = Dissolve;
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f/ _anim.speed);
         
         _anim.SetBool("isDeath", false);
         chasePlayer = false;
@@ -277,11 +278,11 @@ public class BossZombie : MonoBehaviour
         audioSource.PlayOneShot(FirstJumpSound);
         _nav.velocity = Vector3.forward * 15f;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f/ _anim.speed);
         JumpEffect[0].gameObject.SetActive(true);
         _anim.SetBool("isZumpFirst",false);
         _nav.velocity = Vector3.zero;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f/ _anim.speed);
         
         JumpEffect[0].gameObject.SetActive(false);
         isJumpping = true;
