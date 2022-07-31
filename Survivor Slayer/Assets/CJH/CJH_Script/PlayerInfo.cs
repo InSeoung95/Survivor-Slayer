@@ -18,7 +18,9 @@ public class PlayerInfo : MonoBehaviour
     public int revivalCount;// 부활 가능 횟수
         
     public Slider HPSlider;
+    public Image HP_Fill;
     public Text HPText;
+    public Gradient HPgradient;
     //인성 수정
     public bool onDamaged = false; // 플레이어가 데미지 받는지
     
@@ -40,20 +42,23 @@ public class PlayerInfo : MonoBehaviour
     {
         HPSlider.value = currenthealth;
         HPText.text = currenthealth.ToString();
+        HP_Fill.color = HPgradient.Evaluate(HPSlider.normalizedValue);
     }
 
     public void HitBomb(float Bombdamage)
     {
-        currenthealth -= Bombdamage;
-        if (currenthealth < 0) // 플레이어 체력 1 밑으로 안내려 가게.
+        if((currenthealth-=Bombdamage)<0) //플레이어 체력 1 밑으로 안내려가게.
+        {
             currenthealth = 1f;
+        }
     }
 
     public void OnDamage(float damage)
     {
-        currenthealth -= damage;
-        if (currenthealth < 0) // 플레이어 체력 1 밑으로 안내려 가게.
+        if ((currenthealth -= damage) < 0) //플레이어 체력 1 밑으로 안내려가게.
+        {
             currenthealth = 1f;
+        }
     }
     
     IEnumerator ScreenPollution()

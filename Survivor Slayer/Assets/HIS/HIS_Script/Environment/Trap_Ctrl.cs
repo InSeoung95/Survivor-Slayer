@@ -66,7 +66,8 @@ public class Trap_Ctrl : MonoBehaviour
     IEnumerator OnDamage()
     {
         isDamage = true;
-        playerHealth.currenthealth -= trapDamage;
+        //playerHealth.currenthealth -= trapDamage;
+        playerHealth.OnDamage(trapDamage);
         UIManager.instance.PlayerAttacked();
         yield return new WaitForSeconds(DamageDelay);
         isDamage = false;

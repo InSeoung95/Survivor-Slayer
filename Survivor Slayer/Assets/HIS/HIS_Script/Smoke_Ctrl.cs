@@ -68,7 +68,8 @@ public class Smoke_Ctrl : MonoBehaviour
     IEnumerator OnDamage()
     {
         isDamage = true;
-        player.currenthealth -= Damage;
+        //player.currenthealth -= Damage;
+        player.OnDamage(Damage);
         UIManager.instance.PlayerAttacked();
         yield return new WaitForSeconds(DamageDelay);
         isDamage = false;
