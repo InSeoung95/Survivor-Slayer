@@ -45,11 +45,15 @@ public class PlayerInfo : MonoBehaviour
     public void HitBomb(float Bombdamage)
     {
         currenthealth -= Bombdamage;
+        if (currenthealth < 0) // 플레이어 체력 1 밑으로 안내려 가게.
+            currenthealth = 1f;
     }
 
     public void OnDamage(float damage)
     {
         currenthealth -= damage;
+        if (currenthealth < 0) // 플레이어 체력 1 밑으로 안내려 가게.
+            currenthealth = 1f;
     }
     
     IEnumerator ScreenPollution()

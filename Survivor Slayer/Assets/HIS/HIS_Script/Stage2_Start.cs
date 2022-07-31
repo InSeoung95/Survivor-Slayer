@@ -9,13 +9,16 @@ public class Stage2_Start : MonoBehaviour
     public GameObject RemainTime;
     public AudioClip CountDown;
 
+    private bool playOnce;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player")&&!playOnce)
         {
             Stage2_UICanvas.SetActive(true);
             RemainTime.SetActive(true);
             SoundManager.instance.BGM_Sound.clip = CountDown;
+            playOnce = true;
         }
     }
 }

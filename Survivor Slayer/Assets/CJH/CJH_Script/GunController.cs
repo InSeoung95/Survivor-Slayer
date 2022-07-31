@@ -35,6 +35,7 @@ public class GunController : MonoBehaviour
     private PlayerController playerController;
     public Slider PlasmaUI;
     public GameObject Electric; // 플라즈마 포 충전시간동안 보여줄 이펙트ㄴ
+    //public Animator gunAnim;// 총 애니
 
 
     private void Start()
@@ -80,6 +81,7 @@ public class GunController : MonoBehaviour
                 Electric.SetActive(false);
                 PlaySE(currentGun.PlasmaShot);
                 FirePlasmaBomb();
+                currentGun.gunAnim.SetTrigger("FirePlasmaBomb");
                 PlasmaSound = false;
                 PlasmaPressTime = 0;
                 PlasmaUI.value -= (PlasmaUI.maxValue / currentGun.PlasmaBombCount[currentGun.upgradeRate[2]]);
