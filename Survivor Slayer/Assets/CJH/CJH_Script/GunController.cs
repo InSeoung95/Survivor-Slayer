@@ -194,6 +194,14 @@ public class GunController : MonoBehaviour
         // StopAllCoroutines();
         // StartCoroutine(RetroActionCoroutine());
     }
+    /*
+    IEnumerator FireEffect()
+    {
+        currentGun.muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        currentGun.muzzleFlash.SetActive(false);
+    }
+     */
 
     private void TryReload()
     {
