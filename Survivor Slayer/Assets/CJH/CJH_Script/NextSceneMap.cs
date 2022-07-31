@@ -15,6 +15,7 @@ public class NextSceneMap : MonoBehaviour
     [SerializeField] private ObjectManager _objectManager;
 
     [SerializeField] private AudioSource _audio;
+    public GameObject Stage1UI;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,6 +26,7 @@ public class NextSceneMap : MonoBehaviour
             _objectManager.NextSceneClear();
             _Image.gameObject.SetActive(true);
             _audio.Play();
+            Stage1UI.SetActive(false);
             StartCoroutine(FadeIn());
            
         }

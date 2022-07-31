@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     public bool OnInteract = false; // 상호작용.
     public PlasmaBarCtrl PlasmaUI;
 
+    public TextMeshProUGUI currentOcuuNum; //현재 점령한 거점 개수 표시.
+
     private void Awake()
     {
         //occu_slider = BaseOccu_UI.GetComponent<Slider>();
@@ -118,5 +120,10 @@ public class UIManager : MonoBehaviour
     public void UpPlasmaGage(int num)
     {
         PlasmaUI.SetPlasmaGage(num);
+    }
+
+    public void ShowOcuuNum(int OcuuNum)
+    {
+        currentOcuuNum.text = "현재 복구한 에너지 수: " + OcuuNum;
     }
 }

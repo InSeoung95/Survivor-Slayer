@@ -12,7 +12,7 @@ public class Smoke_Ctrl : MonoBehaviour
     private BoxCollider SmokeCollier; // 스모크 이펙트 활성화 시 데미지 줄 콜라이더.
     public int Damage; // 스모크가 플레이어에게 입힐 데미지
     public float DamageDelay; //스모크 데미지 간격.
-    public PlayerInfo player;
+    private PlayerInfo player;
     private bool isDamage;// 현재 데미지 주는 중인지.
     private AudioSource audioSource;
 
@@ -22,6 +22,7 @@ public class Smoke_Ctrl : MonoBehaviour
         SmokeEffect = GetComponent<VisualEffect>();
         SmokeCollier = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
+        player = FindObjectOfType<PlayerInfo>();
     }
 
     // Update is called once per frame

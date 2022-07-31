@@ -99,6 +99,7 @@ public class BaseManager : MonoBehaviour
         LightUpdate();
         PostProcessingUpdate();
         EffectUpdate();
+        UIManager.instance.ShowOcuuNum(Current_BaseLevel);
     }
     private void Update()
     {

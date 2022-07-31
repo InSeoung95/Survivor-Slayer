@@ -260,7 +260,8 @@ public class KillAni_Ctrl : MonoBehaviour
      */
     public void PlayKillAni(KillAniType _aniType, KillAniEnemyData _enemyInform) // 확정킬 애니 재생함수
     {
-        Default_MainCam_Transform = mainCamera; // 킬애니 실행 전 현재 카메라 트랜스폼 정보 저장.
+        Default_MainCam_Transform.position = mainCamera.position; // 킬애니 실행 전 현재 카메라 트랜스폼 정보 저장.
+        Default_MainCam_Transform.rotation = mainCamera.rotation;
 
         playerRigid.isKinematic = true; // 물리 영향 받지 않게.
 
@@ -268,8 +269,10 @@ public class KillAni_Ctrl : MonoBehaviour
         {
             case KillAniType.Stand_Front:
                 {
-                    CybogModel.layer = 3; // player 레이어로.
+                    //Player_Model.layer = 3; // player 레이어로
+                    Player_Model.SetActive(false);
                     playerCam.LookAt = _enemyInform.targetInforms[0].CameraLookAt;
+                    //playerCam.transform.position = playerCam.transform.position + new Vector3(-1, 0, 0);
 
                     //카메라가 돌아가는 것 y,z축 고정해야 된다.
                     //playerCam.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -289,7 +292,7 @@ public class KillAni_Ctrl : MonoBehaviour
                 }
             case KillAniType.Stand_Back:
                 {
-                    CybogModel.layer = 0; // default 레이어로.
+                    Player_Model.layer = 0; // default 레이어로.
                     playerCam.LookAt = _enemyInform.targetInforms[1].CameraLookAt;
 
                     //RightArmIK = _enemyInform.targetInforms[1].RifhtArmTarget;
@@ -337,11 +340,13 @@ public class KillAni_Ctrl : MonoBehaviour
                 }
             case KillAniType.Lie_Back:
                 {
-                    CybogModel.layer = 0; // default 레이어로.
+                    Player_Model.layer = 0; // default 레이어로.
 
                     playerCam.LookAt = _enemyInform.targetInforms[2].CameraLookAt;
-                    RightLegIK.position = _enemyInform.targetInforms[2].RightLegTarget.position;
-                    LeftArmIK.position = _enemyInform.targetInforms[2].LeftArmTarget.position;
+                    //RightLegIK.position = _enemyInform.targetInforms[2].RightLegTarget.position;
+                    RightLegIK.gameObject.GetComponent<UpdateRigTarget>().target = _enemyInform.targetInforms[2].RightLegTarget;
+                    //LeftArmIK.position = _enemyInform.targetInforms[2].LeftArmTarget.position;
+                    LeftArmIK.gameObject.GetComponent<UpdateRigTarget>().target = _enemyInform.targetInforms[2].LeftArmTarget;
                     Sword.SetActive(true);
                     KillAniGroup[2].Play();
                     break;
@@ -357,7 +362,7 @@ public class KillAni_Ctrl : MonoBehaviour
     }
     IEnumerator playingTime(KillAniEnemyData _enemyInform) // 확정킬 재생 이후에 각종 설정들 초기화 시켜주는 함수
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         isPlaying = false; // 확정킬 애니 재생 중 false;
         //플레이어 설정
         LeftArmIK.position = new Vector3(0, 0, 0);
@@ -365,6 +370,8 @@ public class KillAni_Ctrl : MonoBehaviour
         
         playerCam.LookAt = null;
         mainCamera = Default_MainCam_Transform;// 메인 카메라 트랜스폼 초기화.
+        mainCamera.position = Default_MainCam_Transform.position;
+        mainCamera.rotation=Default_MainCam_Transform.rotation;
         gun = Default_Gun_Transform;// 총 위치도 원래대로 초기화
         playerRigid.isKinematic = false; // 다시 물리 영향 받도록.
         rig1.weight = 1f;
@@ -373,7 +380,7 @@ public class KillAni_Ctrl : MonoBehaviour
         //적 설정
         _enemyInform.GetComponent<Enemy_Dest>().currentHealth = 0; // 적 죽이기.
         _enemyInform.isGroggy = false;
-        CybogModel.layer = 3; // player 레이어로.
+        Player_Model.layer = 3; // player 레이어로.
         Player_Model.SetActive(false); // 플레이어 모델 다시 비활성화
         Debug.Log("is Playing: " + isPlaying);
 
