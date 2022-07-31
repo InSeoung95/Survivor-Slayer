@@ -10,7 +10,7 @@ public class BossFloorChild : MonoBehaviour
     private bool _inPlayer;
     public bool floorType;     // true = Heal, false - Poison
     private bool AttackTrigger;
-    private float effectTime = 1f;
+    private float effectTime = 0.2f;
     private float Timer;
     private PlayerInfo _info;
 

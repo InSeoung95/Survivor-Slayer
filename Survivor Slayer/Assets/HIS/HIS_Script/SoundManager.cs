@@ -46,9 +46,9 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         Audiosource_BGM=gameObject.AddComponent<AudioSource>();
+        Audiosource_BGM.volume = 0.2f;
         for (int i = 0; i < Audiosource_Effect.Length; i++)
         {
-            Debug.Log(Audiosource_Effect.Length);
             Audiosource_Effect[i]=gameObject.AddComponent<AudioSource>();
         }
        
@@ -93,7 +93,6 @@ public class SoundManager : MonoBehaviour
             if (!Audiosource_BGM.isPlaying)
             {
                 Audiosource_BGM.clip = BGM_Sound.clip;
-                Audiosource_BGM.volume = 0.2f;
                 Audiosource_BGM.loop = true;
                 Audiosource_BGM.Play();
             }

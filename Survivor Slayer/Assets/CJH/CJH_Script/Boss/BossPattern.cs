@@ -27,6 +27,7 @@ public class BossPattern : MonoBehaviour
         {
             SoundManager.instance.BGM_Sound.clip = BossBGM;
             SoundManager.instance.Audiosource_BGM.Stop();
+            SoundManager.instance.Audiosource_BGM.volume = 0.4f;
             PatternStart = true;
             _playerObj = other.gameObject;
             _3rdUI.gameObject.SetActive(true);
