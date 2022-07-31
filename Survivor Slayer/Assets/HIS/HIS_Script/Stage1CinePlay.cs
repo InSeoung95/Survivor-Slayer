@@ -10,6 +10,7 @@ public class Stage1CinePlay : MonoBehaviour
     [SerializeField]
     bool isPlayed;
 
+    [RuntimeInitializeOnLoadMethod]
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag=="Player"&&!isPlayed)

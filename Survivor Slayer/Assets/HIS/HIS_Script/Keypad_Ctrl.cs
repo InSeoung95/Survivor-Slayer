@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class Keypad_Ctrl : MonoBehaviour
     public string Answer; // 정답
     private int[] InputedNum=new int[6]; // 씬에서 입력받을 숫자 배열. 6자리가 최대
     private string CompareNum; //정답과 비교할 숫자
+    
+    private GameObject _camera;
+    private bool isCam;
+    private Vector3 pos;
+    private Quaternion rot;
 
     public bool Correct; // 정답을 맞출 때 true
 
@@ -38,14 +44,29 @@ public class Keypad_Ctrl : MonoBehaviour
         }
         CompareNum = "";
         NumDisplayTxt.text = "";
-
+        
+        _camera = GameObject.Find("Main Camera");
+        pos = _camera.transform.position;
+        rot = _camera.transform.rotation;
+        isCam = true;
         Cursor.visible = true;
         UIManager.instance.OnInteract = true;
         Debug.Log("키패드 켜짐");
     }
 
+    private void OnDisable()
+    {
+        isCam = false;
+    }
 
-   
+    private void Update()
+    {
+        if (isCam)
+        {
+            _camera.transform.position = pos;
+            _camera.transform.rotation = rot;
+        }
+    }
 
     public void NumOnClick(int number) // 키패드 숫자 눌릴 때
     {

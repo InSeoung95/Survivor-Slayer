@@ -13,7 +13,7 @@ public class Base : MonoBehaviour
         Enemy_Occupation        // 적이 점령한 상태
     }
     private float baseTimer;     //플레이어가 점령할때 필요한 시간타이머
-    private const float BASEHEALTH = 500f;
+    private const float BASEHEALTH = 1000f;
     public float baseHealth = BASEHEALTH;    //적이 거점점령할때 필요한 체력   *테스트용으로 100으로 설정 나중에 수정필요
     //[SerializeField] private State state = State.Idle; //재혁님이 작성하신 코드. 전 다른 클래스에서 사용하게 pulic으로 선언해서 사용 좀 할게요.
     //인성 수정

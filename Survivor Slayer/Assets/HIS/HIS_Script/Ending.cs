@@ -23,7 +23,7 @@ public class Ending : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && isPlayed)
+        if (Input.GetKeyDown(KeyCode.Return) && isPlayed)
         {
             Application.Quit();
         }

@@ -43,10 +43,11 @@ public class SoundManager : MonoBehaviour
     public Sound[] PlayList = new Sound[5];
     //private Sound[] PlayingES = new Sound[5];
 
+    [RuntimeInitializeOnLoadMethod]
     void Start()
     {
         Audiosource_BGM=gameObject.AddComponent<AudioSource>();
-        Audiosource_BGM.volume = 0.2f;
+        Audiosource_BGM.volume = 0.3f;
         for (int i = 0; i < Audiosource_Effect.Length; i++)
         {
             Audiosource_Effect[i]=gameObject.AddComponent<AudioSource>();

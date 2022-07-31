@@ -20,6 +20,7 @@ public class Stage2_Start : MonoBehaviour
             Stage2_UICanvas.SetActive(true);
             RemainTime.SetActive(true);
             SoundManager.instance.BGM_Sound.clip = Stage2Clip;
+            SoundManager.instance.Audiosource_BGM.volume = 0.3f;
             SoundManager.instance.Audiosource_BGM.Stop();
             playOnce = true;
         }
