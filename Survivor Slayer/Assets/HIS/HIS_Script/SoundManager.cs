@@ -29,7 +29,7 @@ public class SoundManager : MonoBehaviour
     }
     
 
-    private AudioSource Audiosource_BGM;
+    public AudioSource Audiosource_BGM;
     [Header("BGM 관리")]
     public Sound BGM_Sound;
     public bool DoPlay=true;

@@ -9,6 +9,8 @@ public class Stage2_Start : MonoBehaviour
     public GameObject RemainTime;
     public AudioClip CountDown;
 
+    public AudioClip Stage2Clip;
+
     private bool playOnce;
 
     private void OnTriggerEnter(Collider other)
@@ -17,7 +19,8 @@ public class Stage2_Start : MonoBehaviour
         {
             Stage2_UICanvas.SetActive(true);
             RemainTime.SetActive(true);
-            SoundManager.instance.BGM_Sound.clip = CountDown;
+            SoundManager.instance.BGM_Sound.clip = Stage2Clip;
+            SoundManager.instance.Audiosource_BGM.Stop();
             playOnce = true;
         }
     }

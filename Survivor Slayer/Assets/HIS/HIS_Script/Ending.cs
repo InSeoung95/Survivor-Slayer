@@ -12,6 +12,7 @@ public class Ending : MonoBehaviour
 
     [SerializeField] private AudioListener _listener;
     [SerializeField] private GameObject _Dlight;
+    [SerializeField] private AudioSource _audioEnding;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +32,12 @@ public class Ending : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            SoundManager.instance.DoPlay = false;
+            SoundManager.instance.Audiosource_BGM.Stop();
             player.gameObject.SetActive(false);
             _Dlight.gameObject.SetActive(true);
             _listener.enabled = true;
+            _audioEnding.Play();
             ending.Play();
             if(!isPlayed)
             {

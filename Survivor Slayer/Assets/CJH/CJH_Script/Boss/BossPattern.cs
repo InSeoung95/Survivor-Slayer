@@ -17,12 +17,16 @@ public class BossPattern : MonoBehaviour
     private float Timer;
     private float TimeCycle = 10f;
     private int bossPattern = 0;
+
+    public AudioClip BossBGM;
     
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            SoundManager.instance.BGM_Sound.clip = BossBGM;
+            SoundManager.instance.Audiosource_BGM.Stop();
             PatternStart = true;
             _playerObj = other.gameObject;
             _3rdUI.gameObject.SetActive(true);
