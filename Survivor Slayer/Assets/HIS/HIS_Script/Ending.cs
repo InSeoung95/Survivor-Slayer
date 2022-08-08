@@ -34,6 +34,7 @@ public class Ending : MonoBehaviour
         {
             SoundManager.instance.DoPlay = false;
             SoundManager.instance.Audiosource_BGM.Stop();
+            UIManager.instance.gameObject.SetActive(false);
             player.gameObject.SetActive(false);
             _Dlight.gameObject.SetActive(true);
             _listener.enabled = true;

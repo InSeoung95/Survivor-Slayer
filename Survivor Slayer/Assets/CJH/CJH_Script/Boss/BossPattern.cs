@@ -6,7 +6,8 @@ using UnityEngine;
 public class BossPattern : MonoBehaviour
 {
     [SerializeField] private GameObject _3rdUI;
-    
+
+    private bool once;
     public BossZombie _boss;
     public BossChild[] _BossChild;
     public BossFloor _floor;
@@ -23,8 +24,9 @@ public class BossPattern : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !once)
         {
+            once = true;
             SoundManager.instance.BGM_Sound.clip = BossBGM;
             SoundManager.instance.Audiosource_BGM.Stop();
             SoundManager.instance.Audiosource_BGM.volume = 0.4f;

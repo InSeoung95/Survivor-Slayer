@@ -202,6 +202,7 @@ public class Enemy_test : MonoBehaviour
     public void HitBomb()
     {
         _enemyDest.currentHealth -= 500f;
+
     }
 
     private void Burserk()
@@ -224,7 +225,7 @@ public class Enemy_test : MonoBehaviour
             testMove = false;
             _nav.isStopped = true;
             _nav.velocity = Vector3.zero;
-            
+
             MoveSpeed = ENEMY_MOVESPEED;
             _anim.speed = animSpeed;
             killAniData.isGroggy = false;

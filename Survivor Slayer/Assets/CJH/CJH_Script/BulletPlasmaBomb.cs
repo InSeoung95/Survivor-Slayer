@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BulletPlasmaBomb : MonoBehaviour
 {
-    private bool once;
     public int bulletTimer = 5;
     [SerializeField] private float BOMB_RANGE = 10;     // 폭탄 폭발범위
 
@@ -34,13 +33,11 @@ public class BulletPlasmaBomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!once)
         StartCoroutine(Explosion());
     }
 
     IEnumerator Explosion()
     {
-        once = true;
         //인성 추가
         Glow.Play();
         Energy.Play();

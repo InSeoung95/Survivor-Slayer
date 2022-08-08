@@ -122,7 +122,7 @@ public class Enemy_Fog : MonoBehaviour
     
     public void HitBomb()
     {
-        _enemyHealth -= 50;
+        _enemyHealth -= 100;
     }
 
     private void FogBomb()

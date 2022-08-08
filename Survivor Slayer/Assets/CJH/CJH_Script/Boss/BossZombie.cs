@@ -32,6 +32,7 @@ public class BossZombie : MonoBehaviour
     public bool testMove;
     public bool chasePlayer;
     private bool isBurserk;
+    private bool isPlasma;
     public bool isDeath;
     private Animator _anim;
 
@@ -198,8 +199,19 @@ public class BossZombie : MonoBehaviour
 
     public void HitBomb()
     {
-        _EnemyHealth -= 150f;
-        FinalBossHP_Bar.value = _EnemyHealth;
+        if (!isPlasma)
+        {
+            _EnemyHealth -= 150f;
+            FinalBossHP_Bar.value = _EnemyHealth;
+            isPlasma = true;
+            StartCoroutine(timewait());
+        }
+    }
+    
+    IEnumerator timewait()
+    {
+        yield return new WaitForSeconds(2f);
+        isPlasma = false;
     }
 
     IEnumerator Burserk()
