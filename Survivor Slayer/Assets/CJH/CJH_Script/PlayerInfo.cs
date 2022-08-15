@@ -41,7 +41,7 @@ public class PlayerInfo : MonoBehaviour
     private void Update()
     {
         HPSlider.value = currenthealth;
-        HPText.text = currenthealth.ToString();
+        //HPText.text = currenthealth.ToString();
         HP_Fill.color = HPgradient.Evaluate(HPSlider.normalizedValue);
     }
 

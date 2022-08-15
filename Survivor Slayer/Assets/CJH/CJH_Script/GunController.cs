@@ -36,6 +36,7 @@ public class GunController : MonoBehaviour
     public Slider PlasmaUI;
     public GameObject Electric; // 플라즈마 포 충전시간동안 보여줄 이펙트ㄴ
     //public Animator gunAnim;// 총 애니
+    public GameObject PlasmaCharged_UI;// 플라즈마 충전 시 보여줄 ui
 
 
     private void Start()
@@ -85,6 +86,10 @@ public class GunController : MonoBehaviour
                 PlasmaSound = false;
                 PlasmaPressTime = 0;
                 PlasmaUI.value -= (PlasmaUI.maxValue / currentGun.PlasmaBombCount[currentGun.upgradeRate[2]]);
+                if(PlasmaUI.value<20)
+                {
+                    PlasmaCharged_UI.SetActive(false);
+                }
                 PlasmaMatChange();
             }
             else
@@ -148,6 +153,8 @@ public class GunController : MonoBehaviour
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate;
         UIManager.instance.UpPlasmaGage(1);// 총알 발사 시 플라즈마 포 게이지 상승.
+        if (PlasmaUI.value==20f||PlasmaUI.value==40||PlasmaUI.value==60)
+            PlasmaCharged_UI.SetActive(true);
         PlasmaMatChange();
 
         // 무기발사시 불꽃,효과음효과

@@ -270,7 +270,8 @@ public class KillAni_Ctrl : MonoBehaviour
             case KillAniType.Stand_Front:
                 {
                     //Player_Model.layer = 3; // player 레이어로
-                    Player_Model.SetActive(false);
+                    //Player_Model.SetActive(false);
+                    CybogModel.layer = 3;
                     playerCam.LookAt = _enemyInform.targetInforms[0].CameraLookAt;
                     //playerCam.transform.position = playerCam.transform.position + new Vector3(-1, 0, 0);
 
@@ -292,7 +293,9 @@ public class KillAni_Ctrl : MonoBehaviour
                 }
             case KillAniType.Stand_Back:
                 {
-                    Player_Model.layer = 0; // default 레이어로.
+                    //Player_Model.SetActive(true);
+                    //Player_Model.layer = 0; // default 레이어로.
+                    CybogModel.layer = 0;
                     playerCam.LookAt = _enemyInform.targetInforms[1].CameraLookAt;
 
                     //RightArmIK = _enemyInform.targetInforms[1].RifhtArmTarget;
@@ -340,8 +343,8 @@ public class KillAni_Ctrl : MonoBehaviour
                 }
             case KillAniType.Lie_Back:
                 {
-                    Player_Model.layer = 0; // default 레이어로.
-
+                    //Player_Model.layer = 0; // default 레이어로.
+                    CybogModel.layer = 0;
                     playerCam.LookAt = _enemyInform.targetInforms[2].CameraLookAt;
                     //RightLegIK.position = _enemyInform.targetInforms[2].RightLegTarget.position;
                     RightLegIK.gameObject.GetComponent<UpdateRigTarget>().target = _enemyInform.targetInforms[2].RightLegTarget;
@@ -364,6 +367,10 @@ public class KillAni_Ctrl : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         isPlaying = false; // 확정킬 애니 재생 중 false;
+
+        //적 설정
+        _enemyInform.GetComponent<Enemy_Dest>().currentHealth = 0; // 적 죽이기.
+        _enemyInform.isGroggy = false;
         //플레이어 설정
         LeftArmIK.position = new Vector3(0, 0, 0);
         RightArmIK.position = new Vector3(0, 0, 0);
@@ -376,11 +383,7 @@ public class KillAni_Ctrl : MonoBehaviour
         playerRigid.isKinematic = false; // 다시 물리 영향 받도록.
         rig1.weight = 1f;
         Sword.SetActive(false);
-
-        //적 설정
-        _enemyInform.GetComponent<Enemy_Dest>().currentHealth = 0; // 적 죽이기.
-        _enemyInform.isGroggy = false;
-        Player_Model.layer = 3; // player 레이어로.
+        CybogModel.layer = 3; // player 레이어로.
         Player_Model.SetActive(false); // 플레이어 모델 다시 비활성화
         Debug.Log("is Playing: " + isPlaying);
 
