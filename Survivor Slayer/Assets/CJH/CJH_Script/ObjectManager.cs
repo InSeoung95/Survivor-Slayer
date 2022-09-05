@@ -143,7 +143,8 @@ public class ObjectManager : MonoBehaviour
    {
        for (int index = 0; index < Enemy_Zombie.Length; index++)
        {
-           Enemy_Zombie[index].SetActive(false);
+           if (Enemy_Zombie[index].activeSelf)
+               Enemy_Zombie[index].GetComponent<Enemy_Dest>().currentHealth = 0;
        }
 
        for (int index = 0; index < Enemy_FogZombie.Length; index++)

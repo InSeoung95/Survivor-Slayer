@@ -207,7 +207,7 @@ public class Enemy_test : MonoBehaviour
 
     private void Burserk()
     {
-        if (_enemyDest.isBurserk)
+        if (_enemyDest.isBurserk && !isDeath)
         {
             MoveSpeed *= 2.5f;
             _anim.speed += 1.5f;
@@ -371,6 +371,7 @@ public class Enemy_test : MonoBehaviour
         isDeath = false;
         _navAround.InPlayer = false;
         _enemyDest.currentHealth = _enemyDest.maxhealth;
+        _anim.SetTrigger("DeadReturnFirst");
         gameObject.SetActive(false);
         
     }
@@ -394,13 +395,9 @@ public class Enemy_test : MonoBehaviour
             body.material = GroggyEffect;
         }
         yield return new WaitForSeconds(_data.GroggyTime);//그로기 시작만큼 멈춤
-
-        if (killAniData.isCrawl)
-        {
-            _anim.SetBool("CrawlGroggy", false);
-        }
-        else
-            _anim.SetBool("RunGroggy", false);//그로기 애니메이션 해제.
+        
+        _anim.SetBool("CrawlGroggy", false);
+        _anim.SetBool("RunGroggy", false);
 
         //_anim.speed = 1f; // 다시 애니메이션 시작.
         killAniData.isGroggy = false;

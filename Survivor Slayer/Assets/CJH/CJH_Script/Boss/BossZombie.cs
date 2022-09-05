@@ -216,8 +216,6 @@ public class BossZombie : MonoBehaviour
 
     IEnumerator Burserk()
     {
-        MoveSpeed *= 1.5f;
-        _anim.speed += 0.5f;
         audioSource.PlayOneShot(BurserkSound);
 
         foreach (var Body in Bodys)
@@ -225,6 +223,18 @@ public class BossZombie : MonoBehaviour
             _renderer = Body.gameObject.GetComponent<SkinnedMeshRenderer>();
             _renderer.materials = BurserkMaterial;
         }
+        if (isAttacked)
+        {
+            yield return new WaitForSeconds(1f);
+            MoveSpeed *= 1.5f;
+            _anim.speed += 0.5f;
+        }
+        else
+        {
+            MoveSpeed *= 1.5f;
+            _anim.speed += 0.5f;
+        }
+        
         yield return null;
     }
 
